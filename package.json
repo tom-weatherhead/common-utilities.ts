@@ -1,0 +1,55 @@
+{
+	"name": "thaw-common-utilities.ts",
+	"description": "Common utility functions translated from TypeScript to JavaScript",
+	"private": false,
+	"version": "0.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tom-weatherhead/common-utilities.ts.git"
+	},
+	"homepage": "https://github.com/tom-weatherhead/common-utilities.ts#readme",
+	"bugs": {
+		"url": "https://github.com/tom-weatherhead/common-utilities.ts/issues"
+	},
+	"main": "lib/main.js",
+	"types": "lib/main.d.ts",
+	"files": [
+		"lib/**/*"
+	],
+	"scripts": {
+		"clean": "rm -rf lib && rm -rf node_modules && rm -f package-lock.json",
+		"buildx": "npm run lint && npm run build && npm test",
+		"rebuild": "npm run clean && npm i && npm run buildx",
+		"test": "jest --config jestconfig.json",
+		"build": "tsc",
+		"format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+		"lint": "tslint -p tsconfig.json",
+		"prepare": "npm run build",
+		"prepublishOnly": "npm test && npm run lint",
+		"preversion": "npm run lint",
+		"version": "npm run format && git add -A src",
+		"postversion": "git push && git push --tags"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@types/jest": "^24.0.21",
+		"codecov": "^3.6.1",
+		"jest": "^24.9.0",
+		"prettier": "^1.18.2",
+		"ts-jest": "^24.1.0",
+		"tslint": "^5.20.0",
+		"tslint-config-prettier": "^1.18.0",
+		"typescript": "^3.6.4"
+	},
+	"engineStrict": true,
+	"engines": {
+		"node": ">= 8"
+	},
+	"keywords": [
+		"JavaScript",
+		"TypeScript",
+		"utilities"
+	],
+	"author": "Tom Weatherhead <null@2hrd4u.org> (https://httpbin.org/status/418)",
+	"license": "MIT"
+}
