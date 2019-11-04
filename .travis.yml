@@ -1,3 +1,6 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=e604200a31cfe7b887541cdd27feb83654de669afeeb3302e2501f79714e4377
 sudo: false
 language: node_js
 node_js:
@@ -17,5 +20,12 @@ before_install:
   - npm update
 install:
   - npm install
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
   - npm test
+after_script:
+  - ./cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
+  - ./cc-test-reporter upload-coverage -i ./coverage/lcov.info -r e604200a31cfe7b887541cdd27feb83654de669afeeb3302e2501f79714e4377
