@@ -8,7 +8,7 @@ export interface IFunctor<T> {
 export class UniversalFunctor<T> implements IFunctor<T> {
 	private value: T;
 
-	constructor (valueIn: T) {
+	constructor(valueIn: T) {
 		this.value = valueIn;
 	}
 

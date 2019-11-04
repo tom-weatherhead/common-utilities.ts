@@ -1,4 +1,4 @@
-import * as functors from '../functors';
+import * as engine from '../lib/main';
 
 test('UniversalFunctor1', () => {
 	// Arrange
@@ -6,7 +6,7 @@ test('UniversalFunctor1', () => {
 
 	// Act
 	const fnMapElement = (n: number) => 2 * n;
-	const actualValue: number[] = new functors.UniversalFunctor<number[]>([2, 3, 5])
+	const actualValue: number[] = new engine.UniversalFunctor<number[]>([2, 3, 5])
 		.map((array: number[]) => array.map(fnMapElement))
 		.getValue();
 
