@@ -8,3 +8,17 @@ Common utility functions translated from TypeScript to JavaScript
 [![Maintainability](https://api.codeclimate.com/v1/badges/2a66d64a08223583a60d/maintainability)](https://codeclimate.com/github/tom-weatherhead/common-utilities.ts/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2a66d64a08223583a60d/test_coverage)](https://codeclimate.com/github/tom-weatherhead/common-utilities.ts/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/tom-weatherhead/common-utilities.ts/badge.svg?targetFile=package.json&package-lock.json)](https://snyk.io/test/github/tom-weatherhead/common-utilities.ts?targetFile=package.json&package-lock.json)
+
+## Installation
+To install the stable version:
+```
+npm install --save thaw-common-utilities.ts
+```
+
+## API Information
+
+### Arrays
+```
+findSuperlativeElement<T>(array: T[], fn: (x: T, y:T) => T): T
+max<T>(array: T[]): T
+min<T>(array: T[]): T

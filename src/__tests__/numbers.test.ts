@@ -1,5 +1,12 @@
-import * as n from '../numbers';
+import * as numbers from '../numbers';
 
-test('My Greeter', () => {
-	expect(n.fnAddition(2, 3)).toBe(5);
+test('fnAddition', () => {
+	// Arrange
+	const expectedValue: number = 5;
+
+	// Act
+	const actualValue: number = numbers.fnAddition(2, 3);
+
+	// Assert
+	expect(actualValue).toEqual(expectedValue);
 });
