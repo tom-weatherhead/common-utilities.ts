@@ -1,15 +1,7 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID=e604200a31cfe7b887541cdd27feb83654de669afeeb3302e2501f79714e4377
 sudo: false
 language: node_js
 node_js:
   - node
-  - 12
-  - 11
-  - 10
-  - 9
-  - 8
 branches:
   only:
     - master
@@ -25,6 +17,6 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - npm run buildx
+  - npm run build-and-test
 after_script:
   - ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT

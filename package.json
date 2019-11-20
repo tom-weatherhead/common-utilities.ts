@@ -17,9 +17,9 @@
 		"lib/**/*"
 	],
 	"scripts": {
+		"all": "npm run clean && npm i && npm run build-and-test",
 		"clean": "rm -rf lib && rm -rf node_modules && rm -f package-lock.json",
-		"buildx": "npm run prettiercheck && npm run lint && npm run build && npm test",
-		"rebuild": "npm run clean && npm i && npm run buildx",
+		"build-and-test": "npm run prettiercheck && npm run lint && npm run build && npm test",
 		"test": "jest --config jestconfig.json",
 		"build": "tsc",
 		"prettiercheck": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -33,14 +33,14 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"@types/jest": "^24.0.21",
+		"@types/jest": "^24.0.23",
 		"codecov": "^3.6.1",
 		"jest": "^24.9.0",
-		"prettier": "^1.18.2",
+		"prettier": "^1.19.1",
 		"ts-jest": "^24.1.0",
-		"tslint": "^5.20.0",
+		"tslint": "^5.20.1",
 		"tslint-config-prettier": "^1.18.0",
-		"typescript": "^3.6.4"
+		"typescript": "^3.7.2"
 	},
 	"engineStrict": true,
 	"engines": {

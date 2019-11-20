@@ -23,3 +23,7 @@ npm install --save thaw-common-utilities.ts
 findSuperlativeElement<T>(array: T[], fn: (x: T, y:T) => T): T
 max<T>(array: T[]): T
 min<T>(array: T[]): T
+```
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
