@@ -1,27 +1,47 @@
 {
 	"name": "thaw-common-utilities.ts",
-	"description": "Common utility functions translated from TypeScript to JavaScript",
-	"private": false,
 	"version": "0.0.1",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/tom-weatherhead/common-utilities.ts.git"
-	},
+	"description": "Common utility functions translated from TypeScript to JavaScript",
+	"keywords": [
+		"JavaScript",
+		"TypeScript",
+		"utilities"
+	],
+	"private": false,
 	"homepage": "https://github.com/tom-weatherhead/common-utilities.ts#readme",
+	"repository": "github:tom-weatherhead/common-utilities.ts",
 	"bugs": {
 		"url": "https://github.com/tom-weatherhead/common-utilities.ts/issues"
 	},
+	"_browser": "",
 	"main": "lib/main.js",
 	"types": "lib/main.d.ts",
 	"files": [
 		"lib/**/*"
 	],
+	"bin": {},
+	"man": [],
+	"directories": {
+		"lib": "",
+		"_bin": "",
+		"man": "",
+		"doc": "",
+		"example": "",
+		"test": ""
+	},
 	"scripts": {
-		"all": "npm run clean && npm i && npm run build-and-test",
-		"clean": "rm -rf lib && rm -rf node_modules && rm -f package-lock.json",
+		"all": "npm run rebuild-offline && npm pack && npm run deploy",
+		"allw": "rmdir /Q /S coverage & rmdir /Q /S lib & npm run lint & npm run build & npm test & npm pack & move /Y thaw-common-utilities.ts-*.tgz C:\\git\\npm-packages\\",
+		"travis": "npm run rebuild-online",
+		"rebuild-offline": "npm run clean-offline && npm run ensure-node-types && npm run build-and-test",
+		"clean-offline": "rm -rf coverage && rm -rf lib",
+		"// rebuild-online": "npm run clean-online && npm i && npm run build-and-test",
+		"// clean-online": "rm -rf coverage && rm -rf lib && rm -rf node_modules && rm -f package-lock.json",
 		"build-and-test": "npm run prettiercheck && npm run lint && npm run build && npm test",
 		"test": "jest --config jestconfig.json",
 		"build": "tsc",
+		"ensure-node-types": "[ -d node_modules/@types/node ] || cp -HR $THAW_LATEST_NODE_TYPES_DIR node_modules/@types",
+		"deploy": "eval mv $npm_package_name-$npm_package_version.tgz $(echo $npm_package_config_deploy_target_dir)/",
 		"prettiercheck": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"lint": "tslint -p tsconfig.json",
@@ -29,28 +49,49 @@
 		"prepublishOnly": "npm test && npm run lint",
 		"preversion": "npm run lint",
 		"version": "npm run format && git add -A src",
-		"postversion": "git push && git push --tags"
+		"postversion": "git push && git push --tags",
+		"loc": "git ls-files -z *.ts | xargs -0 wc -l",
+		"f": "npm run format && npm run all",
+		"start": "npm run all"
 	},
+	"config": {
+		"deploy_target_dir": "$NPM_PKG_DIR"
+	},
+	"publishConfig": {},
 	"dependencies": {},
 	"devDependencies": {
 		"@types/jest": "^24.0.23",
+		"@types/node": "^12.12.5",
 		"codecov": "^3.6.1",
 		"jest": "^24.9.0",
 		"prettier": "^1.19.1",
-		"ts-jest": "^24.1.0",
+		"ts-jest": "^24.2.0",
 		"tslint": "^5.20.1",
 		"tslint-config-prettier": "^1.18.0",
 		"typescript": "^3.7.2"
 	},
-	"engineStrict": true,
+	"peerDependencies": {},
+	"// bundledDependencies": "... is an array of package names",
+	"bundledDependencies": [],
+	"optionalDependencies": {},
 	"engines": {
 		"node": ">= 8"
 	},
-	"keywords": [
-		"JavaScript",
-		"TypeScript",
-		"utilities"
+	"os": [
+		"darwin",
+		"linux",
+		"win32"
 	],
-	"author": "Tom Weatherhead <null@2hrd4u.org> (https://httpbin.org/status/418)",
+	"cpu": [
+		"ia32",
+		"x64"
+	],
+	"contributors": [
+		"Buddy Guy <deadbeef@decafbad.gov>",
+		"Deprecated <deadc0de@obso1337.org>",
+		"Autonomous Weapons Systems Unlimited <killer@robots.com>",
+		"Sgt. Pepper <shoot1st@thinkl8r.mil>"
+	],
+	"author": "Tom Weatherhead <thaw@2hrd4u.org> (https://github.com/tom-weatherhead)",
 	"license": "MIT"
 }

@@ -1,4 +1,6 @@
-// github.com/tom-weatherhead/common-utilities.ts/src/functors.ts
+// github:tom-weatherhead/common-utilities.ts/src/functors.ts
+
+'use strict';
 
 export interface IFunctor<T> {
 	map<U>(f: (x: T) => U): IFunctor<U>;

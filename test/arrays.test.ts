@@ -1,3 +1,7 @@
+// github:tom-weatherhead/common-utilities.ts/test/arrays.test.ts
+
+'use strict';
+
 import * as engine from '../lib/main';
 
 test('max', () => {
@@ -28,4 +32,24 @@ test('maxEmptyArray', () => {
 	// Assert
 	// Jest: toThrow() : See https://jestjs.io/docs/en/expect#tothrowerror
 	expect(() => engine.max([])).toThrow();
+});
+
+test('generateAllSubsets', () => {
+	// Arrange
+	const expectedValue: number[][] = [
+		[],
+		[3],
+		[2],
+		[2, 3],
+		[1],
+		[1, 3],
+		[1, 2],
+		[1, 2, 3]
+	];
+
+	// Act
+	const actualValue: number[][] = engine.generateAllSubsets([1, 2, 3]);
+
+	// Assert
+	expect(actualValue).toStrictEqual(expectedValue);
 });
