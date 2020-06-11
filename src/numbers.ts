@@ -66,7 +66,7 @@ export function generateRange(start: number, end: number): number[] {
 	// return result;
 	// return [...Array(end - start + 1).keys()].map(n => start + n);
 	return generateNonNegativeIntegersLessThan(end - start + 1).map(
-		n => start + n
+		(n) => start + n
 	);
 }
 
@@ -116,7 +116,7 @@ export function zeroExtendNumber(
 }
 
 function removeNonNumbers(arg: any[]): number[] {
-	return arg.map(o => o as number).filter(o => o !== undefined);
+	return arg.map((o) => o as number).filter((o) => o !== undefined);
 }
 
 export function sum(...arg: any[]): number {

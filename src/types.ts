@@ -13,7 +13,7 @@ export function areTypesEqual(obj1: any, obj2: any): boolean {
 }
 
 function factory_fnIsType(typeName: string): (obj: any) => boolean {
-	return arg => getTypeString(arg) === `[object ${typeName}]`;
+	return (arg) => getTypeString(arg) === `[object ${typeName}]`;
 }
 
 // Done: npm i -D @babel/preset-env
@@ -29,13 +29,13 @@ function factory_fnIsType(typeName: string): (obj: any) => boolean {
 // export const isUndefined: (obj: any) => boolean = factory_fnIsType(
 // 	'Undefined'
 // );
-export const isUndefined: (obj: any) => boolean = obj =>
+export const isUndefined: (obj: any) => boolean = (obj) =>
 	typeof obj === 'undefined';
 // I.e. isDefined(arg) === booleanInvertFunction(isUndefined(arg))
 // export const isDefined: (obj: any) => boolean = compositeFunctions([isUndefined, booleanInvertFunction]);
 // export const isDefined: (obj: any) => boolean = obj =>
 // 	!factory_fnIsType('Undefined')(obj);
-export const isDefined: (obj: any) => boolean = obj =>
+export const isDefined: (obj: any) => boolean = (obj) =>
 	typeof obj !== 'undefined';
 
 export const isArray: (obj: any) => boolean = factory_fnIsType('Array');
@@ -48,7 +48,7 @@ export const isFunction: (obj: any) => boolean = factory_fnIsType('Function');
 
 const isNumberType: (obj: any) => boolean = factory_fnIsType('Number');
 // export const isNumber = arg => isNumberType(arg) && arg === arg; // This works too, since NaN !== NaN.
-export const isNumber: (obj: any) => boolean = arg =>
+export const isNumber: (obj: any) => boolean = (arg) =>
 	isNumberType(arg) && !Number.isNaN(arg);
 // && Number.isFinite(arg);
 
@@ -66,10 +66,10 @@ export const isArrayOf: (
 ) => boolean = (arg, fn) => isArray(arg) && arg.every(fn);
 
 // export const isArrayOfNumbers = arg => isArray(arg) && arg.every(isNumber);
-export const isArrayOfNumbers: (obj: any) => boolean = arg =>
+export const isArrayOfNumbers: (obj: any) => boolean = (arg) =>
 	isArrayOf(arg, isNumber);
 
-export const isAggregateEntity: (obj: any) => boolean = arg =>
+export const isAggregateEntity: (obj: any) => boolean = (arg) =>
 	isArray(arg) || isObject(arg);
 
 // Deprecated. Superseded by ifDefinedThenElse<T>()

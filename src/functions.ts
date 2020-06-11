@@ -7,9 +7,9 @@ export const identityFunction = (arg: any) => arg;
 export const booleanInvertFunction = (arg: boolean) => !arg;
 
 // 'Composite' as a verb, not an adjective:
-export function compositeFunctions(fnArray: Array<(x: any) => any>) {
+export function compositeFunctions(fnArray: ((x: any) => any)[]) {
 	return fnArray.reduce(
-		(accumulator, element) => arg => element(accumulator(arg)),
+		(accumulator, element) => (arg) => element(accumulator(arg)),
 		identityFunction
 	);
 }

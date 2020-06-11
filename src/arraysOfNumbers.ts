@@ -29,8 +29,8 @@ export function pointwise(
 		return [];
 	}
 
-	const lengths = serieses.map(series => series.length);
-	const iseries = (j: number) => serieses.map(x => x[j]);
+	const lengths = serieses.map((series) => series.length);
+	const iseries = (j: number) => serieses.map((x) => x[j]);
 
 	return generateNonNegativeIntegersLessThan(Math.min(...lengths)).map(
 		(i: number) => {
@@ -67,7 +67,7 @@ export function normalize(array: number[]): number[] {
 		return createNaNArray(array.length);
 	}
 
-	return array.map(n => (n - minValue) / (maxValue - minValue));
+	return array.map((n) => (n - minValue) / (maxValue - minValue));
 }
 
 export function mean(arg: number[]): number {
@@ -166,7 +166,7 @@ export function generateHierarchyOfLocalMaximaAndMinima(
 ): object[][] {
 	const result = [];
 
-	let currentTier = array.map(element => {
+	let currentTier = array.map((element) => {
 		return {
 			maximum: element,
 			minimum: element
@@ -215,7 +215,7 @@ export function standardDeviation(arg: number[]): number {
 	const square = (n: number) => n * n;
 
 	return Math.sqrt(
-		sum(...arg.map(n => square(n - meanOfArg))) / (arg.length - 1)
+		sum(...arg.map((n) => square(n - meanOfArg))) / (arg.length - 1)
 	);
 }
 
@@ -226,7 +226,7 @@ export function mapToNumStdDeviationsFromMean(a: number[]): number[] {
 	if (Number.isNaN(stdDev) || stdDev === 0) {
 		return createNaNArray(a.length);
 	} else {
-		return a.map(value => (value - m) / stdDev);
+		return a.map((value) => (value - m) / stdDev);
 	}
 }
 

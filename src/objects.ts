@@ -27,8 +27,8 @@ export function copySpecifiedObjectProperties(
 
 	propertyList
 		// .filter(property => isDefined(src[property]))
-		.filter(property => typeof src[property] !== 'undefined')
-		.forEach(property => {
+		.filter((property) => typeof src[property] !== 'undefined')
+		.forEach((property) => {
 			dst[property] = src[property];
 		});
 
@@ -38,8 +38,8 @@ export function copySpecifiedObjectProperties(
 export function combineObjects(...objects: any[]): any {
 	const combinedObject: any = {};
 
-	objects.forEach(object => {
-		Object.keys(object).forEach(key => {
+	objects.forEach((object) => {
+		Object.keys(object).forEach((key) => {
 			combinedObject[key] = object[key];
 		});
 	});
@@ -92,10 +92,10 @@ export function getProperty(
 
 export function deleteUndefinedValuesFromObject(obj: any): any {
 	const keysToDelete = Object.keys(obj).filter(
-		key => typeof obj[key] === 'undefined'
+		(key) => typeof obj[key] === 'undefined'
 	);
 
-	keysToDelete.forEach(key => {
+	keysToDelete.forEach((key) => {
 		delete obj[key];
 	});
 

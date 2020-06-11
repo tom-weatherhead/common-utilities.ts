@@ -52,7 +52,7 @@
 // export default class AVLHashTree<K implements IAVLHashTreeKey<K>, V> {
 export default class AVLHashTree<K, V> {
 	// private root: AVLHashTreeNode<K, V> | null;
-	private internalMap = new Map<number, Array<[K, V]>>();
+	private internalMap = new Map<number, [K, V][]>();
 	private fnGetHashCode: (key: K) => number;
 	private fnKeyEquals: (key1: K, key2: K) => boolean;
 

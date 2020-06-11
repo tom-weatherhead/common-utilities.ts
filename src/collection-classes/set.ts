@@ -119,8 +119,8 @@ export class Set<T> {
 		});
 	}
 
-	public getAllSubsets(): Array<Set<T>> {
-		const result: Array<Set<T>> = [];
+	public getAllSubsets(): Set<T>[] {
+		const result: Set<T>[] = [];
 
 		this.getAllSubsetsHelper(result, [], 0);
 
@@ -132,7 +132,7 @@ export class Set<T> {
 	}
 
 	private getAllSubsetsHelper(
-		arrayOfSubsets: Array<Set<T>>,
+		arrayOfSubsets: Set<T>[],
 		subsetAsArray: T[],
 		index: number
 	): void {

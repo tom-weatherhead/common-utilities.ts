@@ -73,7 +73,7 @@ export function insertNumberIntoArray<T>(
 ): T[] {
 	// array must already be sorted in the proper order.
 
-	let i = array.findIndex(m => !fnComparator(m, n));
+	let i = array.findIndex((m) => !fnComparator(m, n));
 
 	if (i < 0) {
 		i = array.length;
@@ -322,14 +322,14 @@ export function categorizeArrayElementsByFunction<T>(
 	// [...new Set(array)] : Remove duplicate elements
 	// const propertyValues = [...new Set(array.map(element => fn(element)))];
 	const propertyValues = removeDuplicatesFromArray(
-		array.map(element => fn(element))
+		array.map((element) => fn(element))
 	);
 
 	propertyValues.sort();
 
 	return propertyValues.reduce((accumulator, propertyValue) => {
 		accumulator[propertyValue] = array.filter(
-			element => fn(element) === propertyValue
+			(element) => fn(element) === propertyValue
 		);
 
 		return accumulator;
