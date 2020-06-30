@@ -5,7 +5,7 @@
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"declaration": true,
-		"outDir": "./lib",
+		"outDir": "./lib/es2015",
 		"strict": true,
 		"downlevelIteration": true,
 		"esModuleInterop": true

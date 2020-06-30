@@ -2,7 +2,7 @@
 
 'use strict';
 
-import { PriorityQueue } from '../../lib/main';
+import { PriorityQueue } from '../../lib/es2015/main';
 
 test('Priority Queue test', () => {
 	// Arrange

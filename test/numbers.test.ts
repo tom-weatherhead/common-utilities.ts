@@ -2,7 +2,7 @@
 
 'use strict';
 
-import * as engine from '../lib/main';
+import * as engine from '../lib/es2015/main';
 
 test('fnAddition', () => {
 	// Arrange

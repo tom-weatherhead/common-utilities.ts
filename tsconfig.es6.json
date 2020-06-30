@@ -4,7 +4,7 @@
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"declaration": true,
-		"outDir": "./lib",
+		"outDir": "./lib/es6",
 		"strict": true,
 		"downlevelIteration": true,
 		"esModuleInterop": true
