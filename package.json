@@ -13,7 +13,7 @@
 	"bugs": {
 		"url": "https://github.com/tom-weatherhead/common-utilities.ts/issues"
 	},
-	"_browser": "",
+	"// browser": "",
 	"main": "lib/es6/main.js",
 	"types": "lib/es6/main.d.ts",
 	"files": [
@@ -22,12 +22,12 @@
 	"bin": {},
 	"man": [],
 	"directories": {
-		"lib": "",
-		"_bin": "",
+		"lib": "lib",
+		"// bin": "",
 		"man": "",
 		"doc": "",
 		"example": "",
-		"test": ""
+		"test": "test"
 	},
 	"scripts": {
 		"all": "npm run travis && npm pack && npm run deploy",
@@ -45,7 +45,8 @@
 		"deploy": "eval mv $npm_package_name-$npm_package_version.tgz $(echo $npm_package_config_deploy_target_dir)/",
 		"prettiercheck": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-		"lint": "tslint -p tsconfig.es6.json",
+		"lint": "eslint . --ext .ts",
+		"lint-old": "tslint -p tsconfig.es6.json",
 		"prepare": "npm run build",
 		"prepublishOnly": "npm test && npm run lint",
 		"preversion": "npm run lint",
@@ -61,15 +62,18 @@
 	"publishConfig": {},
 	"dependencies": {},
 	"devDependencies": {
-		"@types/jest": "^26.0.0",
-		"@types/node": "^14.0.13",
+		"@types/jest": "^26.0.3",
+		"@types/node": "^14.0.14",
+		"@typescript-eslint/eslint-plugin": "^3.5.0",
+		"@typescript-eslint/parser": "^3.5.0",
 		"codecov": "^3.7.0",
-		"jest": "^26.0.1",
+		"eslint": "^7.3.1",
+		"jest": "^26.1.0",
 		"prettier": "^2.0.5",
-		"ts-jest": "^26.1.0",
+		"ts-jest": "^26.1.1",
 		"tslint": "^6.1.2",
 		"tslint-config-prettier": "^1.18.0",
-		"typescript": "^3.9.5"
+		"typescript": "^3.9.6"
 	},
 	"peerDependencies": {},
 	"// bundledDependencies": "... is an array of package names",
