@@ -2,7 +2,7 @@
 
 'use strict';
 
-import * as engine from '../lib/es2015/main';
+import * as engine from '../lib/main';
 
 test('UniversalFunctor1', () => {
 	// Arrange

@@ -2,7 +2,7 @@
 
 'use strict';
 
-import * as engine from '../lib/es2015/main';
+import * as engine from '../lib/main';
 
 const array1Unsorted = [8, 6, 7, 5, 3, 0, 9];
 

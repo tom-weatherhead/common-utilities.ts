@@ -2,7 +2,7 @@
 
 'use strict';
 
-import { Set } from '../../lib/es2015/main';
+import { Set } from '../../lib/main';
 
 test('Set test 1', () => {
 	// Arrange

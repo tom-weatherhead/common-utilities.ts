@@ -14,8 +14,8 @@
 		"url": "https://github.com/tom-weatherhead/common-utilities.ts/issues"
 	},
 	"// browser": "",
-	"main": "lib/es6/main.js",
-	"types": "lib/es6/main.d.ts",
+	"main": "lib/main.js",
+	"types": "lib/main.d.ts",
 	"files": [
 		"lib/**/*"
 	],
@@ -38,15 +38,15 @@
 		"rebuild-online": "npm run clean-online && npm i && npm run build-and-test",
 		"clean-online": "npm run clean-offline && rm -rf node_modules && rm -f package-lock.json",
 		"build-and-test": "npm run prettiercheck && npm run lint && npm run build && npm test",
-		"test": "jest --config jestconfig.json",
-		"build-es2015": "tsc --build tsconfig.es2015.json",
-		"build-es6": "tsc --build tsconfig.es6.json",
-		"build": "rm -rf lib; npm run build-es2015 && npm run build-es6",
+		"test": "if [ -z \"$BUILD_ESM\" ]; then jest --config jestconfig.json; else echo \"Testing disabled for Angular.\"; fi",
+		"build-es2015cjs": "rm -rf lib; tsc --build tsconfig.es2015cjs.json",
+		"build-es2015mjs": "rm -rf lib; tsc --build tsconfig.es2015mjs.json",
+		"build": "if [ -z \"$BUILD_ESM\" ]; then npm run build-es2015cjs; else npm run build-es2015mjs; fi",
 		"deploy": "eval mv $npm_package_name-$npm_package_version.tgz $(echo $npm_package_config_deploy_target_dir)/",
 		"prettiercheck": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-		"lint": "eslint . --ext .ts",
-		"lint-old": "tslint -p tsconfig.es6.json",
+		"lint": "tslint -p tsconfig.es2015cjs.json",
+		"lint-new": "eslint . --ext .ts",
 		"prepare": "npm run build",
 		"prepublishOnly": "npm test && npm run lint",
 		"preversion": "npm run lint",
@@ -54,6 +54,7 @@
 		"postversion": "git push && git push --tags",
 		"loc": "git ls-files | grep -v package-lock.json | tr -d '\\r' | tr '\\n' '\\0' | xargs -0 wc -l",
 		"f": "npm run format && npm run all",
+		"b1": "if [ -z \"$BUILD_ESM\" ]; then echo \"Non\"; else echo \"Yay\"; fi",
 		"start": "npm run all"
 	},
 	"config": {

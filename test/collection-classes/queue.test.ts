@@ -2,7 +2,7 @@
 
 'use strict';
 
-import { Queue } from '../../lib/es2015/main';
+import { Queue } from '../../lib/main';
 
 test('Queue test', () => {
 	// Arrange
