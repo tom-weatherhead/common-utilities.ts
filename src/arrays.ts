@@ -309,7 +309,7 @@ export function getRandomArrayElement<T>(array: T[]): T | undefined {
 	return array[getRandomNonNegativeInteger(array.length)];
 }
 
-export function propertySum(array: any[], propertyName: any): number {
+export function propertySum(array: any[], propertyName: string): number {
 	return sum(array.map((element: any) => element[propertyName] as number));
 }
 

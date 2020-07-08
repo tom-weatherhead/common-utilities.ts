@@ -6,7 +6,7 @@ import * as engine from '../lib/main';
 
 test('max', () => {
 	// Arrange
-	const expectedValue: number = 9;
+	const expectedValue = 9;
 
 	// Act
 	const actualValue: number = engine.max([8, 6, 9, 5, 3, 0, 7]);
@@ -17,7 +17,7 @@ test('max', () => {
 
 test('min', () => {
 	// Arrange
-	const expectedValue: number = 1;
+	const expectedValue = 1;
 
 	// Act
 	const actualValue: number = engine.min([8, 6, 9, 5, 3, 1, 7]);

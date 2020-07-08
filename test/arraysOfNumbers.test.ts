@@ -43,7 +43,7 @@ test('median Test', () => {
 
 test('dotProduct test 1', () => {
 	// Arrange
-	const expectedValue: number = 233;
+	const expectedValue = 233;
 
 	// Act
 	const actualValue: number = engine.dotProduct(

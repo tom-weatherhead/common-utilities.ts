@@ -13,7 +13,7 @@ export class Iterator<T> extends IteratorBase<T> {
 	}
 
 	private items: T[] = [];
-	private index: number = 0;
+	private index = 0;
 
 	constructor(items: T[]) {
 		super();
