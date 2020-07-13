@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "es2015",
+		"moduleResolution": "node",
+		"declaration": true,
+		"outDir": "./lib",
+		"strict": true,
+		"types": [
+			"node"
+		]
+	},
+	"files": [
+		"src/main.ts"
+	]
+}

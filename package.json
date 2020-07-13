@@ -38,7 +38,7 @@
 		"rebuild-online": "npm run clean-online && npm i && npm run build-and-test",
 		"clean-online": "npm run clean-offline && rm -rf node_modules && rm -f package-lock.json",
 		"build-and-test": "npm run prettiercheck && npm run lint && npm run build && npm test",
-		"test": "if [ -z \"$BUILD_ESM\" ]; then jest; else echo \"Testing disabled for Angular.\"; fi",
+		"test": "jest",
 		"build-es2015cjs": "rm -rf lib; tsc --build tsconfig.es2015cjs.json",
 		"build-es2015mjs": "rm -rf lib; tsc --build tsconfig.es2015mjs.json",
 		"build": "if [ -z \"$BUILD_ESM\" ]; then npm run build-es2015cjs; else npm run build-es2015mjs; fi",
