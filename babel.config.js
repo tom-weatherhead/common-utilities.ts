@@ -9,10 +9,10 @@
 
 'use strict';
 
-// const semver = require('semver');
-// const pkg = require('./package.json');
+const semver = require('semver');
+const pkg = require('./package.json');
 
-// const supportedNodeVersion = semver.minVersion(pkg.engines.node).version;
+const supportedNodeVersion = semver.minVersion(pkg.engines.node).version;
 
 // module.exports = {
 // 	"env": {
@@ -42,7 +42,10 @@ module.exports = {
 		[
 			"@babel/preset-env",
 			{
-				targets: {node: "current"}
+				targets: {
+					// node: "current"
+					node: supportedNodeVersion
+				}
 			}
 		],
 		"@babel/preset-typescript"
