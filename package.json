@@ -7,6 +7,7 @@
 		"TypeScript",
 		"utilities"
 	],
+	"// type": "module",
 	"private": false,
 	"homepage": "https://github.com/tom-weatherhead/common-utilities.ts#readme",
 	"repository": "github:tom-weatherhead/common-utilities.ts",
@@ -31,7 +32,7 @@
 	},
 	"scripts": {
 		"all": "npm run travis && npm pack && npm run deploy",
-		"allw": "rmdir /Q /S coverage & rmdir /Q /S lib & npm run lint & npm run build & npm test & npm pack & move /Y thaw-common-utilities.ts-*.tgz C:\\git\\npm-packages\\",
+		"// allw": "rmdir /Q /S coverage & rmdir /Q /S lib & npm run lint & npm run build & npm test & npm pack & move /Y thaw-common-utilities.ts-*.tgz C:\\git\\npm-packages\\",
 		"travis": "npm run rebuild-online",
 		"rebuild-offline": "npm run clean-offline && npm run build-and-test",
 		"clean-offline": "rm -rf coverage",
@@ -41,9 +42,9 @@
 		"prettiercheck": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"lint": "eslint . --ext .ts",
-		"build-es2015cjs": "rm -rf lib; tsc --build tsconfig.es2015cjs.json",
+		"// build-es2015cjs": "rm -rf lib; tsc --build tsconfig.es2015cjs.json",
 		"build-es2015mjs": "rm -rf lib; tsc --build tsconfig.es2015mjs.json",
-		"build": "if [ -z \"$BUILD_ESM\" ]; then npm run build-es2015cjs; else npm run build-es2015mjs; fi",
+		"build": "npm run build-es2015mjs",
 		"test": "jest",
 		"deploy": "eval mv $npm_package_name-$npm_package_version.tgz $(echo $npm_package_config_deploy_target_dir)/",
 		"prepare": "npm run build",
@@ -73,6 +74,7 @@
 		"eslint": "^7.5.0",
 		"jest": "^26.1.0",
 		"prettier": "^2.0.5",
+		"semver": "^7.3.2",
 		"typescript": "^3.9.7"
 	},
 	"peerDependencies": {},
