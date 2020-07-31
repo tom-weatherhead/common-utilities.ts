@@ -1,5 +1,6 @@
 "use strict";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const engine = require('thaw-common-utilities.ts');
 
 const x = 2;
