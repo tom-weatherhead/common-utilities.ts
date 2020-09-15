@@ -163,7 +163,7 @@ export function crossProduct(...aa: number[][]): number[][] {
 
 export function generateHierarchyOfLocalMaximaAndMinima(
 	array: number[]
-): object[][] {
+): Record<string, unknown>[][] {
 	const result = [];
 
 	let currentTier = array.map((element) => {

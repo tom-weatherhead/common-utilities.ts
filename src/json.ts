@@ -4,7 +4,7 @@
 
 import { isDefined } from './types';
 
-export function safeJsonParse(str: string, dflt: any): any {
+export function safeJsonParse(str: string, dflt: unknown): unknown {
 	try {
 		return JSON.parse(str);
 	} catch (e) {

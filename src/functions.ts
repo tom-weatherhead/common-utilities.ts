@@ -2,12 +2,16 @@
 
 'use strict';
 
-export const identityFunction = (arg: any) => arg;
+export function identityFunction<T>(arg: T): T {
+	return arg;
+}
 
-export const booleanInvertFunction = (arg: boolean) => !arg;
+export const booleanInvertFunction = (arg: boolean): boolean => !arg;
 
 // 'Composite' as a verb, not an adjective:
-export function compositeFunctions(fnArray: ((x: any) => any)[]) {
+export function compositeFunctions(
+	fnArray: ((x: any) => any)[]
+): (x: any) => any {
 	return fnArray.reduce(
 		(accumulator, element) => (arg) => element(accumulator(arg)),
 		identityFunction

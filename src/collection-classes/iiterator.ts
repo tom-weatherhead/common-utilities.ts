@@ -7,5 +7,5 @@ export interface IIterator<T> {
 	next(): T | undefined;
 
 	// filter(pred: (element: T) => boolean): IIterator<T>;
-	forEach(fn: (element: T) => any): void;
+	forEach(fn: (element: T) => unknown): void;
 }

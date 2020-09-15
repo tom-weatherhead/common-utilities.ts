@@ -115,15 +115,15 @@ export function zeroExtendNumber(
 	);
 }
 
-function removeNonNumbers(arg: any[]): number[] {
+function removeNonNumbers(arg: unknown[]): number[] {
 	return arg.map((o) => o as number).filter((o) => o !== undefined);
 }
 
-export function sum(...arg: any[]): number {
+export function sum(...arg: unknown[]): number {
 	return removeNonNumbers(arg).reduce(fnAddition, additiveIdentity);
 }
 
-export function product(...arg: any[]): number {
+export function product(...arg: unknown[]): number {
 	return removeNonNumbers(arg).reduce(
 		fnMultiplication,
 		multiplicativeIdentity
@@ -156,7 +156,10 @@ export function histogram(arg: keyType[]): histogramType {
 // 		return undefined;
 // 	}
 // }
-export function histogramLookup(hist: histogramType, key: keyType) {
+export function histogramLookup(
+	hist: histogramType,
+	key: keyType
+): number | undefined {
 	return hist.get(key);
 }
 
@@ -206,24 +209,24 @@ export function factory_fnRoundToNDigits(n: number): (m: number) => number {
 // 	return Number.isSafeInteger(n); // ThAW 2020-01-06 : Q: Which integers are not 'safe'?
 // }
 
-export function isInteger(n: any): boolean {
+export function isInteger(n: unknown): boolean {
 	return typeof n === 'number' && Number.isSafeInteger(n);
 }
 
-export function isNonNegativeInteger(n: any): boolean {
-	return isInteger(n) && n >= 0;
+export function isNonNegativeInteger(n: unknown): boolean {
+	return isInteger(n) && (n as number) >= 0;
 }
 
-export function isPositiveInteger(n: any): boolean {
-	return isInteger(n) && n > 0;
+export function isPositiveInteger(n: unknown): boolean {
+	return isInteger(n) && (n as number) > 0;
 }
 
-export function isNonNegativeNumber(n: any): boolean {
-	return isNumber(n) && n >= 0;
+export function isNonNegativeNumber(n: unknown): boolean {
+	return isNumber(n) && (n as number) >= 0;
 }
 
-export function isPositiveNumber(n: any): boolean {
-	return isNumber(n) && n > 0;
+export function isPositiveNumber(n: unknown): boolean {
+	return isNumber(n) && (n as number) > 0;
 }
 
 export function integerDivision(n1: number, n2: number): number {

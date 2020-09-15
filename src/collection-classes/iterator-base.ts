@@ -34,7 +34,7 @@ export abstract class IteratorBase<T> implements IIterator<T> {
 		return this.cloneAndConstruct(resultArray);
 	}
 
-	public forEach(fn: (element: T) => any): void {
+	public forEach(fn: (element: T) => unknown): void {
 		while (!this.isDone()) {
 			fn(this.next() as T);
 		}

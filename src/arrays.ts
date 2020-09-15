@@ -309,13 +309,21 @@ export function getRandomArrayElement<T>(array: T[]): T | undefined {
 	return array[getRandomNonNegativeInteger(array.length)];
 }
 
-export function propertySum(array: any[], propertyName: string): number {
-	return sum(array.map((element: any) => element[propertyName] as number));
+export function propertySum(
+	array: Record<string, unknown>[],
+	propertyName: string
+): number {
+	return sum(
+		array.map(
+			(element: Record<string, unknown>) =>
+				element[propertyName] as number
+		)
+	);
 }
 
 // Categorize? Or pigeonhole?
 
-export function categorizeArrayElementsByFunction<T>(
+export function categorizeArrayElementsByFunction<T, U>(
 	array: T[],
 	fn: (element: T) => any
 ): object {
@@ -397,7 +405,10 @@ export function getLastElementOfArray<T>(array: T[]): T | undefined {
 // 	...dimensions: number[]
 // ): Metaarray<T> { ... }
 
-export function createAndFillArray(obj: any, ...dimensions: number[]): any {
+export function createAndFillArray(
+	obj: unknown,
+	...dimensions: number[]
+): unknown {
 	if (!dimensions || !dimensions.length) {
 		return obj;
 	}
@@ -456,4 +467,23 @@ export function padOrTrimArrayAtStart<T>(
 	} else {
 		return new Array(-diff).fill(defaultElement).concat(array);
 	}
+}
+
+export function selectElementsByIndex<T>(
+	array: T[],
+	...selectedIndices: number[]
+): T[] {
+	return selectedIndices
+		.filter((value: number) => value < array.length)
+		.map((selectedIndex: number) => array[selectedIndex]);
+}
+
+export function selectElementsOrDefaultByIndex<T>(
+	array: T[],
+	defaultValue: T,
+	...selectedIndices: number[]
+): T[] {
+	return selectedIndices.map((selectedIndex: number) =>
+		selectedIndex < array.length ? array[selectedIndex] : defaultValue
+	);
 }
