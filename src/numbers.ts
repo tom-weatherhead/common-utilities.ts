@@ -115,12 +115,21 @@ export function zeroExtendNumber(
 	);
 }
 
-function removeNonNumbers(arg: unknown[]): number[] {
-	return arg.map((o) => o as number).filter((o) => o !== undefined);
+export function removeNonNumbers(arg: unknown[]): number[] {
+	// return arg.map((o) => o as number).filter((o) => o !== undefined);
+
+	return arg
+		.filter((o) => typeof o === 'number')
+		.map((o): number => o as number)
+		.filter((n) => !Number.isNaN(n));
 }
 
 export function sum(...arg: unknown[]): number {
 	return removeNonNumbers(arg).reduce(fnAddition, additiveIdentity);
+}
+
+export function arraySum(arg: unknown[]): number {
+	return sum(...arg);
 }
 
 export function product(...arg: unknown[]): number {

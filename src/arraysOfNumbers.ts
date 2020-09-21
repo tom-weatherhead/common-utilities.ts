@@ -33,21 +33,21 @@ export function pointwise(
 	const iseries = (j: number) => serieses.map((x) => x[j]);
 
 	return generateNonNegativeIntegersLessThan(Math.min(...lengths)).map(
-		(i: number) => {
+		(i: number): number => {
 			return operation(...iseries(i));
 		}
 	);
 }
 
 export function rolling(
-	operation: Function,
+	operation: Function, // operation() returns a value of type T
 	series: number[],
 	window: number
 ): number[] {
 	// return series.map((element: number, i: number) =>
 	return generateNonNegativeIntegersLessThan(
 		series.length
-	).map((i: number) =>
+	).map((i: number): number =>
 		operation(series.slice(Math.max(i + 1 - window, 0), i + 1))
 	);
 }

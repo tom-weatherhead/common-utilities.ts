@@ -53,3 +53,38 @@ test('generateAllSubsets', () => {
 	// Assert
 	expect(actualValue).toStrictEqual(expectedValue);
 });
+
+test('transpose2d', () => {
+	// Arrange
+	const input = [
+		['A1', 'A2', 'A3'],
+		['B1', 'B2', 'B3', 'B4'],
+		['C1', 'C2', 'C3']
+	];
+	const expectedResult = [
+		['A1', 'B1', 'C1'],
+		['A2', 'B2', 'C2'],
+		['A3', 'B3', 'C3']
+	];
+
+	// Act
+	const actualResult = engine.transpose2d(input);
+
+	// Assert
+	expect(actualResult).toStrictEqual(expectedResult);
+});
+
+test('cascade 1', () => {
+	// Arrange
+	const fn = (seed: number, n: number) => 2 * seed + n;
+	const inputArray = [1, 2, 3, 4, 5, 6, 7];
+	const seed = 3;
+
+	const expectedResult = [7, 16, 35, 74, 153, 312, 631];
+
+	// Act
+	const actualResult = engine.cascade(fn, seed, inputArray);
+
+	// Assert
+	expect(actualResult).toStrictEqual(expectedResult);
+});

@@ -79,6 +79,18 @@ test('zeroPadNumber Test', () => {
 	expect(actualValue).toEqual(expectedValue);
 });
 
+test('removeNonNumbers Test 1', () => {
+	// Arrange
+	const input = ['ABC', 1, NaN, 2, {}, 3, 4, []];
+	const expectedValue = [1, 2, 3, 4];
+
+	// Act
+	const actualValue = engine.removeNonNumbers(input);
+
+	// Assert
+	expect(actualValue).toStrictEqual(expectedValue);
+});
+
 // test('sum Test 1', () => {
 // 	// Arrange
 // 	const input = ['abc', 'def'];

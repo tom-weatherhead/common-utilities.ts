@@ -487,3 +487,57 @@ export function selectElementsOrDefaultByIndex<T>(
 		selectedIndex < array.length ? array[selectedIndex] : defaultValue
 	);
 }
+
+// transpose2d changes [[A1, A2, A3], [B1, B2, B3], [C1, C2, C3]]
+// to: [[A1, B1, C1], [A2, B2, C2], [A3, B3, C3]]
+
+export function transpose2d<T>(matrix: T[][]): T[][] {
+	const minLength = Math.min(...matrix.map((row) => row.length));
+	const result: T[][] = [];
+
+	for (let i = 0; i < minLength; i++) {
+		const row: T[] = [];
+
+		for (const array of matrix) {
+			row.push(array[i]);
+		}
+
+		result.push(row);
+	}
+
+	return result;
+}
+
+// export function cascade1d1array<T>(
+// 	operation: (s: T, element: T) => T, // Function,
+// 	seedValue: T,
+// 	array: T[]
+// ): T[] {
+// 	return array.reduce((accumulator: T[], element: T) => {
+// 		seedValue = operation(seedValue, element);
+// 		accumulator.push(seedValue);
+
+// 		return accumulator;
+// 	}, []);
+// }
+
+// TODO: Rewrite ema, obv, etc. using this:
+
+export function cascade<T>(
+	operation: Function,
+	seedValue: T,
+	...serieses: T[][]
+): T[] {
+	// return transpose2d(serieses).reduce((accumulator: T[], iseries: T[]) => {
+	// 	seedValue = operation(seedValue, ...iseries);
+	// 	accumulator.push(seedValue);
+
+	// 	return accumulator;
+	// }, []);
+
+	return transpose2d(serieses).map((iseries: T[]) => {
+		seedValue = operation(seedValue, ...iseries);
+
+		return seedValue;
+	});
+}
