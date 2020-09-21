@@ -8,17 +8,39 @@ import { replicateString } from './strings';
 
 import { isNumber } from './types';
 
+export function isSafeNumber(arg: unknown): boolean {
+	return (
+		typeof arg === 'number' && !Number.isNaN(arg) && Number.isFinite(arg)
+	);
+}
+
 export const fnIsGreaterThan = (x: number, y: number): boolean => x > y;
 export const fnIsLessThan = (x: number, y: number): boolean => x < y;
 
 export const fnAddition = (a: number, b: number): number => a + b;
 export const additiveIdentity = 0;
 
+export const fnSubtraction = (a: number, b: number): number => a - b;
+
 export const fnMultiplication = (a: number, b: number): number => a * b;
 export const multiplicativeIdentity = 1;
 
-export const fnSafeDivision = (a: number, b: number, dflt = 0): number =>
-	!b ? dflt : a / b;
+// export const fnSafeDivision = (a: number, b: number, dflt = 0): number =>
+// 	!b ? dflt : a / b;
+
+export function fnSafeDivision(a: number, b: number, dflt = 0): number {
+	// return Number.isNaN(a) || !b ? dflt : a / b;
+
+	let result: number;
+
+	try {
+		result = a / b;
+	} catch (error) {
+		result = NaN; // Not a safe number.
+	}
+
+	return isSafeNumber(result) ? result : dflt;
+}
 
 export function getSign(n: number): number {
 	if (!isNumber(n)) {

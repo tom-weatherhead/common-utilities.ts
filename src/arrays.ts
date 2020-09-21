@@ -528,13 +528,6 @@ export function cascade<T>(
 	seedValue: T,
 	...serieses: T[][]
 ): T[] {
-	// return transpose2d(serieses).reduce((accumulator: T[], iseries: T[]) => {
-	// 	seedValue = operation(seedValue, ...iseries);
-	// 	accumulator.push(seedValue);
-
-	// 	return accumulator;
-	// }, []);
-
 	return transpose2d(serieses).map((iseries: T[]) => {
 		seedValue = operation(seedValue, ...iseries);
 
