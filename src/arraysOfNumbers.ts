@@ -49,6 +49,7 @@ export function rolling(
 		series.length
 	).map((i: number): number =>
 		operation(series.slice(Math.max(i + 1 - window, 0), i + 1))
+		// ThAW TODO: !!! Or: operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
 	);
 }
 
