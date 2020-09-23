@@ -2,6 +2,12 @@
 
 'use strict';
 
+// error TS2538: Type 'symbol' cannot be used as an index type.
+// export type ObjectKeyType = number | string | symbol;
+export type ObjectKeyType = number | string;
+export type ObjectType<T> = Record<ObjectKeyType, T>;
+export type DefaultObjectType = ObjectType<unknown>;
+
 export function clone<T>(arg: T): T {
 	// For an in-depth discussion of object copying, see https://scotch.io/bar-talk/copying-objects-in-javascript
 
@@ -13,11 +19,11 @@ export function clone<T>(arg: T): T {
 	// return JSON.parse(JSON.stringify(arg, null, 0)); // TODO: What are the second and third parameters to stringify() ?
 }
 
-export function copySpecifiedObjectProperties(
+export function copySpecifiedObjectProperties<T>(
 	propertyList: string[],
-	src: any,
-	dst: any = {}
-): any {
+	src: ObjectType<T>,
+	dst: ObjectType<T> = {}
+): ObjectType<T> {
 	// propertyList.forEach(property => {
 
 	// 	if (isDefined(src[property])) {
@@ -35,8 +41,10 @@ export function copySpecifiedObjectProperties(
 	return dst;
 }
 
-export function combineObjects(...objects: any[]): any {
-	const combinedObject: any = {};
+export function combineObjects<T>(
+	...objects: ObjectType<T>[]
+): ObjectType<T> {
+	const combinedObject: ObjectType<T> = {};
 
 	objects.forEach((object) => {
 		Object.keys(object).forEach((key) => {
@@ -47,7 +55,9 @@ export function combineObjects(...objects: any[]): any {
 	return combinedObject;
 }
 
-export function getOwnProperties(obj: any = {}): string[] {
+export function getOwnProperties(
+	obj: DefaultObjectType = {}
+): ObjectKeyType[] {
 	/*
 	// Version 1
 	// See https://stackoverflow.com/questions/208016/how-to-list-the-properties-of-a-javascript-object
@@ -69,28 +79,37 @@ export function getOwnProperties(obj: any = {}): string[] {
 
 // E.g. getProperty(obj, 'subObj1.subObj2.arrayMember.length', 'Toast');
 
-export function getProperty(
-	obj: any,
+export function getProperty<T>(
+	obj: DefaultObjectType,
 	propertyPath: string,
-	defaultValue: any
-): any {
+	defaultValue: T
+): T {
 	const arrayOfProperties = propertyPath.split('.');
+	let result: unknown = obj;
 
-	// for (let i = 0; i < arrayOfProperties.length; ++i) {
 	for (const property of arrayOfProperties) {
+		const tempObj = result as DefaultObjectType;
+
 		// if (!isDefined(obj)) {
-		if (typeof obj === 'undefined') {
+		if (typeof tempObj === 'undefined') {
 			return defaultValue;
 		}
 
-		// obj = obj[arrayOfProperties[i]];
-		obj = obj[property];
+		result = tempObj[property];
 	}
 
-	return obj;
+	const castedResult = result as T;
+
+	if (typeof castedResult === 'undefined') {
+		return defaultValue;
+	}
+
+	return castedResult;
 }
 
-export function deleteUndefinedValuesFromObject(obj: any): any {
+export function deleteUndefinedValuesFromObject<T>(
+	obj: ObjectType<T>
+): ObjectType<T> {
 	const keysToDelete = Object.keys(obj).filter(
 		(key) => typeof obj[key] === 'undefined'
 	);
