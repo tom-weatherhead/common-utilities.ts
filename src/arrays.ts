@@ -324,9 +324,16 @@ export function propertySum(
 // Categorize? Or pigeonhole?
 type ObjectKeyType = number | string;
 
+// TODO: Use this:
+// export function categorizeArrayElementsByFunction<T, U>(
+// 	array: T[],
+// 	fn: (element: T) => U // (element: T) => ObjectKeyType
+// ): Record<U, T[]> { ... }
+
+// T must be an ObjectValueType
 export function categorizeArrayElementsByFunction<T>(
 	array: T[],
-	fn: (element: T) => string
+	fn: (element: T) => string // (element: T) => ObjectKeyType
 ): Record<string, unknown> {
 	// [...new Set(array)] : Remove duplicate elements
 	// const propertyValues = [...new Set(array.map(element => fn(element)))];
