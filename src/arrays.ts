@@ -322,6 +322,9 @@ export function propertySum(
 }
 
 // Categorize? Or pigeonhole?
+
+// error TS2538: Type 'symbol' cannot be used as an index type.
+// type ObjectKeyType = number | string | symbol;
 type ObjectKeyType = number | string;
 
 // TODO: Use this:
@@ -331,16 +334,22 @@ type ObjectKeyType = number | string;
 // ): Record<U, T[]> { ... }
 
 // T must be an ObjectValueType
+// export function categorizeArrayElementsByFunction<T>(
+// 	array: T[],
+// 	fn: (element: T) => string // (element: T) => ObjectKeyType
+// ): Record<string, unknown> {
+
 export function categorizeArrayElementsByFunction<T>(
 	array: T[],
-	fn: (element: T) => string // (element: T) => ObjectKeyType
-): Record<string, unknown> {
+	fn: (element: T) => ObjectKeyType // (element: T) => ObjectKeyType
+): Record<ObjectKeyType, T[]> {
 	// [...new Set(array)] : Remove duplicate elements
 	// const propertyValues = [...new Set(array.map(element => fn(element)))];
 	const propertyValues = removeDuplicatesFromArray(
 		array.map((element) => fn(element))
 	);
-	const start: Record<string, unknown> = {};
+	const start: Record<ObjectKeyType, T[]> = {};
+	// Or: const start = new Map<U, T[]>();
 
 	propertyValues.sort();
 
@@ -376,13 +385,15 @@ export function categorizeArrayElementsByFunction<T>(
 // 	);
 // }
 
+type Foo1ElementType = Record<ObjectKeyType, ObjectKeyType>;
+
 export function categorizeArrayElementsByProperty(
-	array: Record<string, string>[],
-	propertyName: string
-): Record<string, unknown> {
+	array: Foo1ElementType[],
+	propertyName: ObjectKeyType
+): Record<ObjectKeyType, Foo1ElementType[]> {
 	return categorizeArrayElementsByFunction(
 		array,
-		(element: Record<string, string>) => element[propertyName]
+		(element: Foo1ElementType) => element[propertyName]
 	);
 }
 
