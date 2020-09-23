@@ -322,16 +322,18 @@ export function propertySum(
 }
 
 // Categorize? Or pigeonhole?
+type ObjectKeyType = number | string;
 
-export function categorizeArrayElementsByFunction<T, U>(
+export function categorizeArrayElementsByFunction<T>(
 	array: T[],
-	fn: (element: T) => any
-): object {
+	fn: (element: T) => string
+): Record<string, unknown> {
 	// [...new Set(array)] : Remove duplicate elements
 	// const propertyValues = [...new Set(array.map(element => fn(element)))];
 	const propertyValues = removeDuplicatesFromArray(
 		array.map((element) => fn(element))
 	);
+	const start: Record<string, unknown> = {};
 
 	propertyValues.sort();
 
@@ -341,7 +343,7 @@ export function categorizeArrayElementsByFunction<T, U>(
 		);
 
 		return accumulator;
-	}, {});
+	}, start);
 }
 
 // export function categorizeArrayElementsByFunction_version2(array, fn) {
@@ -367,13 +369,13 @@ export function categorizeArrayElementsByFunction<T, U>(
 // 	);
 // }
 
-export function categorizeArrayElementsByProperty<T>(
-	array: T[],
-	propertyName: any
-): object {
+export function categorizeArrayElementsByProperty(
+	array: Record<string, string>[],
+	propertyName: string
+): Record<string, unknown> {
 	return categorizeArrayElementsByFunction(
 		array,
-		(element: any) => element[propertyName]
+		(element: Record<string, string>) => element[propertyName]
 	);
 }
 

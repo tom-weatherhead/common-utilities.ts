@@ -19,38 +19,36 @@ export function createNaNArray(length: number): number[] {
 
 // BEGIN : Functional Programming
 
-export function pointwise(
-	// The tslint:disable comment suppresses the given TSLint rule for the following line.
-	/* tslint:disable:ban-types */
-	operation: Function,
-	...serieses: number[][]
-): number[] {
+// The tslint:disable comment suppresses the given TSLint rule for the following line.
+/* tslint:disable:ban-types */
+// operation: Function,
+
+export function pointwise<T, U>(
+	operation: (...series: T[]) => U,
+	...serieses: T[][]
+): U[] {
 	if (serieses.length === 0) {
 		return [];
 	}
 
 	const lengths = serieses.map((series) => series.length);
-	const iseries = (j: number) => serieses.map((x) => x[j]);
+	const iseries = (j: number): T[] => serieses.map((x) => x[j]);
 
 	return generateNonNegativeIntegersLessThan(Math.min(...lengths)).map(
-		(i: number): number => {
-			return operation(...iseries(i));
-		}
+		(i: number): U => operation(...iseries(i))
 	);
 }
 
-export function rolling(
-	operation: Function, // operation() returns a value of type T
-	series: number[],
+export function rolling<T, U>(
+	// operation: Function, // operation() returns a value of type T
+	operation: (...series: T[]) => U,
+	series: T[],
 	window: number
-): number[] {
+): U[] {
 	// return series.map((element: number, i: number) =>
-	return generateNonNegativeIntegersLessThan(
-		series.length
-	).map((i: number): number =>
-		operation(series.slice(Math.max(i + 1 - window, 0), i + 1))
-		// ThAW TODO: !!! Or: operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
-		// Then sweep all code and edit all calls to rolling()
+	return generateNonNegativeIntegersLessThan(series.length).map(
+		(i: number): U =>
+			operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
 	);
 }
 
