@@ -50,6 +50,7 @@ export function rolling(
 	).map((i: number): number =>
 		operation(series.slice(Math.max(i + 1 - window, 0), i + 1))
 		// ThAW TODO: !!! Or: operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
+		// Then sweep all code and edit all calls to rolling()
 	);
 }
 
