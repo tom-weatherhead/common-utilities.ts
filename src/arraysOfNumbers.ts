@@ -6,7 +6,8 @@ import {
 	createArrayFromElement,
 	// findSuperlativeElement,
 	max,
-	min
+	min,
+	transpose2d
 } from './arrays';
 
 import { generateNonNegativeIntegersLessThan, product, sum } from './numbers';
@@ -40,16 +41,27 @@ export function pointwise<T, U>(
 }
 
 export function rolling<T, U>(
-	// operation: Function, // operation() returns a value of type T
 	operation: (...series: T[]) => U,
 	series: T[],
 	window: number
 ): U[] {
-	// return series.map((element: number, i: number) =>
 	return generateNonNegativeIntegersLessThan(series.length).map(
 		(i: number): U =>
 			operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
 	);
+}
+
+export function cascade<T>(
+	// operation: Function,
+	operation: (seedValue: T, ...iseries: T[]) => T,
+	seedValue: T,
+	...serieses: T[][]
+): T[] {
+	return transpose2d(serieses).map((iseries: T[]) => {
+		seedValue = operation(seedValue, ...iseries);
+
+		return seedValue;
+	});
 }
 
 // END : Functional Programming

@@ -65,9 +65,9 @@ export const isRegularExpression: (
 export const isString: (obj: unknown) => boolean = factory_fnIsType('String');
 
 export const isArrayOf: (
-	obj: any,
-	fn: (element: any) => boolean
-) => boolean = (arg, fn) => isArray(arg) && arg.every(fn);
+	obj: unknown,
+	fn: (element: unknown) => boolean
+) => boolean = (arg, fn) => isArray(arg) && (arg as unknown[]).every(fn);
 
 // export const isArrayOfNumbers = arg => isArray(arg) && arg.every(isNumber);
 export const isArrayOfNumbers: (obj: unknown) => boolean = (arg) =>

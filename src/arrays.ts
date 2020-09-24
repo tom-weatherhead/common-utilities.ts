@@ -543,17 +543,3 @@ export function transpose2d<T>(matrix: T[][]): T[][] {
 // 		return accumulator;
 // 	}, []);
 // }
-
-// TODO: Rewrite ema, obv, etc. using this:
-
-export function cascade<T>(
-	operation: Function,
-	seedValue: T,
-	...serieses: T[][]
-): T[] {
-	return transpose2d(serieses).map((iseries: T[]) => {
-		seedValue = operation(seedValue, ...iseries);
-
-		return seedValue;
-	});
-}
