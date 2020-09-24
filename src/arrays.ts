@@ -277,12 +277,15 @@ export function removeDuplicatesFromArray<T>(array: T[]): T[] {
 	); // Yes. From svnpenn.
 }
 
-export function flattenOneLevel(a: any[], b: any[] = []): any[] {
-	return a.reduce((accumulator, element) => {
-		if (isArray(element)) {
-			return accumulator.concat(element);
+export function flattenOneLevel<T>(a: Array<T[] | T>, b: T[] = []): T[] {
+	return a.reduce((accumulator: T[], element: T[] | T) => {
+		const castedElement: T[] = element as T[];
+
+		// if (isArray(element)) {
+		if (typeof castedElement !== 'undefined') {
+			return accumulator.concat(castedElement);
 		} else {
-			accumulator.push(element);
+			accumulator.push(element as T);
 
 			return accumulator;
 		}
