@@ -2,6 +2,10 @@
 
 'use strict';
 
+import { transpose2d } from './arrays';
+
+import { generateNonNegativeIntegersLessThan } from './numbers';
+
 export function identityFunction<T>(arg: T): T {
 	return arg;
 }
@@ -37,4 +41,43 @@ function curryHelper(fn: (...args: any[]) => any, args: any[]): any {
 
 export function curry(fn: (...args: any[]) => any): any {
 	return curryHelper(fn, []);
+}
+
+export function pointwise<T, U>(
+	operation: (...series: T[]) => U,
+	...serieses: T[][]
+): U[] {
+	if (serieses.length === 0) {
+		return [];
+	}
+
+	const lengths = serieses.map((series) => series.length);
+	const iseries = (j: number): T[] => serieses.map((x) => x[j]);
+
+	return generateNonNegativeIntegersLessThan(Math.min(...lengths)).map(
+		(i: number): U => operation(...iseries(i))
+	);
+}
+
+export function rolling<T, U>(
+	operation: (...series: T[]) => U,
+	series: T[],
+	window: number
+): U[] {
+	return generateNonNegativeIntegersLessThan(series.length).map(
+		(i: number): U =>
+			operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
+	);
+}
+
+export function cascade<T>(
+	operation: (seedValue: T, ...iseries: T[]) => T,
+	seedValue: T,
+	...serieses: T[][]
+): T[] {
+	return transpose2d(serieses).map((iseries: T[]) => {
+		seedValue = operation(seedValue, ...iseries);
+
+		return seedValue;
+	});
 }

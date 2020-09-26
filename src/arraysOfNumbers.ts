@@ -10,6 +10,8 @@ import {
 	transpose2d
 } from './arrays';
 
+import { pointwise } from './functions';
+
 import { generateNonNegativeIntegersLessThan, product, sum } from './numbers';
 
 import { clone } from './objects';
@@ -17,54 +19,6 @@ import { clone } from './objects';
 export function createNaNArray(length: number): number[] {
 	return createArrayFromElement(NaN, length);
 }
-
-// BEGIN : Functional Programming
-
-// The tslint:disable comment suppresses the given TSLint rule for the following line.
-/* tslint:disable:ban-types */
-// operation: Function,
-
-export function pointwise<T, U>(
-	operation: (...series: T[]) => U,
-	...serieses: T[][]
-): U[] {
-	if (serieses.length === 0) {
-		return [];
-	}
-
-	const lengths = serieses.map((series) => series.length);
-	const iseries = (j: number): T[] => serieses.map((x) => x[j]);
-
-	return generateNonNegativeIntegersLessThan(Math.min(...lengths)).map(
-		(i: number): U => operation(...iseries(i))
-	);
-}
-
-export function rolling<T, U>(
-	operation: (...series: T[]) => U,
-	series: T[],
-	window: number
-): U[] {
-	return generateNonNegativeIntegersLessThan(series.length).map(
-		(i: number): U =>
-			operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
-	);
-}
-
-export function cascade<T>(
-	// operation: Function,
-	operation: (seedValue: T, ...iseries: T[]) => T,
-	seedValue: T,
-	...serieses: T[][]
-): T[] {
-	return transpose2d(serieses).map((iseries: T[]) => {
-		seedValue = operation(seedValue, ...iseries);
-
-		return seedValue;
-	});
-}
-
-// END : Functional Programming
 
 export function normalize(array: number[]): number[] {
 	if (!array.length) {

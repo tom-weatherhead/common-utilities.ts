@@ -17,18 +17,58 @@ export function isSafeNumber(arg: unknown): boolean {
 export const fnIsGreaterThan = (x: number, y: number): boolean => x > y;
 export const fnIsLessThan = (x: number, y: number): boolean => x < y;
 
-export const fnAddition = (a: number, b: number): number => a + b;
+// **** negate ****
+export const negate = (n: number): number => -n;
+
+// **** add ****
+export const binaryAdd = (a: number, b: number): number => a + b;
+export const fnAddition = binaryAdd;
 export const additiveIdentity = 0;
 
-export const fnSubtraction = (a: number, b: number): number => a - b;
+// export function add(...arg: number[]): number {
+// 	return arg.reduce(binaryAdd, additiveIdentity);
+// }
+export function add(...arg: unknown[]): number {
+	return removeNonNumbers(arg).reduce(binaryAdd, additiveIdentity);
+}
 
-export const fnMultiplication = (a: number, b: number): number => a * b;
+export const sum = add;
+
+// export function arraySum(arg: unknown[]): number {
+// 	return sum(...arg);
+// }
+
+// **** subtract ****
+export const subtract = (a: number, b: number): number => a - b;
+export const fnSubtraction = subtract;
+
+// **** multiply ****
+export const binaryMultiply = (a: number, b: number): number => a * b;
+export const fnMultiplication = binaryMultiply;
 export const multiplicativeIdentity = 1;
+
+// export function multiply(...arg: number[]): number {
+// 	return arg.reduce(
+// 		binaryMultiply,
+// 		multiplicativeIdentity
+// 	);
+// }
+export function multiply(...arg: unknown[]): number {
+	return removeNonNumbers(arg).reduce(
+		binaryMultiply,
+		multiplicativeIdentity
+	);
+}
+
+export const product = multiply;
+
+// **** divide ****
+export const divide = (a: number, b: number): number => a / b;
 
 // export const fnSafeDivision = (a: number, b: number, dflt = 0): number =>
 // 	!b ? dflt : a / b;
 
-export function fnSafeDivision(a: number, b: number, dflt = 0): number {
+export function safeDivide(a: number, b: number, dflt = 0): number {
 	// return Number.isNaN(a) || !b ? dflt : a / b;
 
 	let result: number;
@@ -41,6 +81,8 @@ export function fnSafeDivision(a: number, b: number, dflt = 0): number {
 
 	return isSafeNumber(result) ? result : dflt;
 }
+
+export const fnSafeDivision = safeDivide;
 
 export function getSign(n: number): number {
 	if (!isNumber(n)) {
@@ -144,21 +186,6 @@ export function removeNonNumbers(arg: unknown[]): number[] {
 		.filter((o) => typeof o === 'number')
 		.map((o): number => o as number)
 		.filter((n) => !Number.isNaN(n));
-}
-
-export function sum(...arg: unknown[]): number {
-	return removeNonNumbers(arg).reduce(fnAddition, additiveIdentity);
-}
-
-export function arraySum(arg: unknown[]): number {
-	return sum(...arg);
-}
-
-export function product(...arg: unknown[]): number {
-	return removeNonNumbers(arg).reduce(
-		fnMultiplication,
-		multiplicativeIdentity
-	);
 }
 
 type keyType = number | string;
