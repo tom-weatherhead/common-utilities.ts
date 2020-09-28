@@ -2,17 +2,11 @@
 
 'use strict';
 
-import {
-	createArrayFromElement,
-	// findSuperlativeElement,
-	max,
-	min,
-	transpose2d
-} from './arrays';
+import { createArrayFromElement, max, min } from './arrays';
 
 import { pointwise } from './functions';
 
-import { generateNonNegativeIntegersLessThan, product, sum } from './numbers';
+import { product, sum } from './numbers';
 
 import { clone } from './objects';
 
@@ -172,17 +166,40 @@ export function generateHierarchyOfLocalMaximaAndMinima(
 	return result;
 }
 
+// from core.ts in ta-math :
+
+// export function sd(series: Array<number>) {
+// 	let E = mean(series);
+// 	let E2 = mean(pointwise((x: number) => x * x, series));
+
+// 	return Math.sqrt(E2 - E * E);
+// }
+
 export function standardDeviation(arg: number[]): number {
 	if (arg.length <= 1) {
 		return NaN;
 	}
 
-	const meanOfArg = mean(arg);
+	// const meanOfArg = mean(arg);
 	const square = (n: number) => n * n;
 
-	return Math.sqrt(
-		sum(...arg.map((n) => square(n - meanOfArg))) / (arg.length - 1)
-	);
+	// return Math.sqrt(
+	// 	sum(...arg.map((n) => square(n - meanOfArg))) / (arg.length - 1)
+	// );
+
+	// See https://www.mathsisfun.com/data/standard-deviation-formulas.html :
+
+	// 1) Celcualte the mean
+	// 2) Array of (pointwise) differences
+	// 3) Array of squares of differences
+	// 4) Sum of array of squares of differences
+	// 5) Average of array of squares of differences
+	// 6) Square root of average of array of squares of differences (between each value in the array and the mean of the array)
+
+	const mu = mean(arg);
+	const sumOfSquares = sum(...arg.map((n) => square(n - mu)));
+
+	return Math.sqrt(sumOfSquares / arg.length);
 }
 
 export function mapToNumStdDeviationsFromMean(a: number[]): number[] {
@@ -212,33 +229,37 @@ Given this information, the formula for covariance is:
 Covariance(x, y) = SUM [(xi - xm) * (yi - ym)] / (n - 1)
  */
 
-export function covariance(x: number[], y: number[]): number {
-	// if (!isArrayOfNumbers(x) || !isArrayOfNumbers(y) || x.length !== y.length || x.length <= 1) {
-	if (x.length !== y.length || x.length <= 1) {
-		return NaN;
-	}
+function createCovarianceFunction(
+	k: number
+): (x: number[], y: number[]) => number {
+	return (x: number[], y: number[]): number => {
+		if (x.length !== y.length || x.length <= 1) {
+			return NaN;
+		}
 
-	const meanX = mean(x);
-	const meanY = mean(y);
+		const meanX = mean(x);
+		const meanY = mean(y);
 
-	// Note that if x is a list of numbers, then covariance(x, x) === (standardDeviation(x)) ^ 2
+		// Note that if x is a list of numbers, then covariance(x, x) === (standardDeviation(x)) ^ 2
 
-	return (
-		sum(
-			// ...x.map(
-			// 	(xi: number, i: number): number =>
-			// 		(xi - meanX) * (y[i] - meanY)
-			// )
-			...pointwise(
-				(xi: number, yi: number): number =>
-					(xi - meanX) * (yi - meanY),
-				x,
-				y
-			)
-		) /
-		(x.length - 1)
-	);
+		return (
+			sum(
+				...pointwise(
+					(xi: number, yi: number): number =>
+						(xi - meanX) * (yi - meanY),
+					x,
+					y
+				)
+			) /
+			(x.length - k)
+		);
+	};
 }
+
+// If you are saying "populationCovariance vs. sampleCovariance? WTF???"
+// then see https://www.educba.com/covariance-formula/
+export const populationCovariance = createCovarianceFunction(0);
+export const sampleCovariance = createCovarianceFunction(1);
 
 export function clamp(
 	value: number,
@@ -256,19 +277,33 @@ export function clamp(
 
 // Correlation Coefficient: See https://www.investopedia.com/terms/c/correlationcoefficient.asp
 
+// Also known as the Pearson product-moment correlation coefficient
+
 // CorrelationCoefficient(x, y) = covariance(x, y) / (standardDeviation(x) * standardDeviation(y))
 
-export function correlationCoefficient(x: number[], y: number[]): number {
-	if (x.length !== y.length || x.length <= 1) {
-		return NaN;
-	}
+function createCorrelationCoefficientFunction(
+	k: number
+): (x: number[], y: number[]) => number {
+	return (x: number[], y: number[]): number => {
+		if (x.length !== y.length || x.length <= 1) {
+			return NaN;
+		}
 
-	const numerator = covariance(x, y);
-	const denominator = standardDeviation(x) * standardDeviation(y);
+		// const numerator = covariance(x, y);
+		const numerator = createCovarianceFunction(k)(x, y);
+		const denominator = standardDeviation(x) * standardDeviation(y);
 
-	if (denominator === 0) {
-		return NaN; // numerator ? NaN : 0;
-	}
+		if (denominator === 0) {
+			return NaN; // numerator ? NaN : 0;
+		}
 
-	return clamp(numerator / denominator, -1, 1);
+		return clamp(numerator / denominator, -1, 1);
+	};
 }
+
+export const populationCorrelationCoefficient = createCorrelationCoefficientFunction(
+	0
+);
+export const sampleCorrelationCoefficient = createCorrelationCoefficientFunction(
+	1
+);

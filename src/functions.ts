@@ -81,3 +81,15 @@ export function cascade<T>(
 		return seedValue;
 	});
 }
+
+export function spreadArrayParameter<T, U>(
+	fn: (...array: T[]) => U
+): (array: T[]) => U {
+	return (array: T[]) => fn(...array);
+}
+
+export function unspreadArrayParameter<T, U>(
+	fn: (array: T[]) => U
+): (...array: T[]) => U {
+	return (...array: T[]) => fn(array);
+}

@@ -6,16 +6,27 @@ import { createArrayFromElement } from './arrays';
 
 import { replicateString } from './strings';
 
-import { isNumber } from './types';
+import { isNumber, isSafeNumber } from './types';
 
-export function isSafeNumber(arg: unknown): boolean {
-	return (
-		typeof arg === 'number' && !Number.isNaN(arg) && Number.isFinite(arg)
-	);
-}
+// export function isSafeNumber(arg: unknown): boolean {
+// 	return (
+// 		typeof arg === 'number' && !Number.isNaN(arg) && Number.isFinite(arg)
+// 	);
+// }
 
-export const fnIsGreaterThan = (x: number, y: number): boolean => x > y;
-export const fnIsLessThan = (x: number, y: number): boolean => x < y;
+export const isGreaterThan = (x: number, y: number): boolean =>
+	isNumber(x) && isNumber(y) && x > y;
+export const isLessThan = (x: number, y: number): boolean =>
+	isNumber(x) && isNumber(y) && x < y;
+
+export const fnIsGreaterThan = isGreaterThan;
+export const fnIsLessThan = isLessThan;
+
+export const isNegative = (n: number): boolean => isNumber(n) && n < 0;
+export const isNonNegative = (n: number): boolean => isNumber(n) && n >= 0;
+
+export const isPositive = (n: number): boolean => isNumber(n) && n > 0;
+export const isNonPositive = (n: number): boolean => isNumber(n) && n <= 0;
 
 // **** negate ****
 export const negate = (n: number): number => -n;

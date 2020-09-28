@@ -152,7 +152,7 @@ test('crossProduct test 4', () => {
 test('covariance and correlationCoefficient Test', () => {
 	// Arrange
 	const srcArray1 = array1Unsorted;
-	const srcArray2 = srcArray1.map((x: number) => -x);
+	const srcArray2 = srcArray1.map(engine.negate);
 	const srcArray3 = engine.createArrayFromElement(1, srcArray1.length);
 	const expectedValue1 = 1;
 	const expectedValue2 = -1;
@@ -160,18 +160,27 @@ test('covariance and correlationCoefficient Test', () => {
 	const squared = (x: number) => x * x;
 
 	// Act
-	const actualValue1 = engine.correlationCoefficient(srcArray1, srcArray1);
-	const actualValue2 = engine.correlationCoefficient(srcArray1, srcArray2);
-	const actualValue3 = engine.correlationCoefficient(srcArray1, srcArray3);
+	const actualValue1 = engine.populationCorrelationCoefficient(
+		srcArray1,
+		srcArray1
+	);
+	const actualValue2 = engine.populationCorrelationCoefficient(
+		srcArray1,
+		srcArray2
+	);
+	const actualValue3 = engine.populationCorrelationCoefficient(
+		srcArray1,
+		srcArray3
+	);
 
 	// Assert
-	expect(engine.covariance(srcArray1, srcArray1)).toEqual(
+	expect(engine.populationCovariance(srcArray1, srcArray1)).toEqual(
 		squared(engine.standardDeviation(srcArray1))
 	);
-	expect(engine.covariance(srcArray2, srcArray2)).toEqual(
+	expect(engine.populationCovariance(srcArray2, srcArray2)).toEqual(
 		squared(engine.standardDeviation(srcArray2))
 	);
-	expect(engine.covariance(srcArray3, srcArray3)).toEqual(
+	expect(engine.populationCovariance(srcArray3, srcArray3)).toEqual(
 		squared(engine.standardDeviation(srcArray3))
 	);
 	expect(actualValue1).toEqual(expectedValue1);
