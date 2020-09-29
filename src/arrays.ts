@@ -543,3 +543,53 @@ export function transpose2d<T>(matrix: T[][]): T[][] {
 // 		return accumulator;
 // 	}, []);
 // }
+
+// TODO: Function performed on arrays of Booleans:
+// - all
+// - any
+// - none
+// - notAll
+// - some
+// -
+
+export function all(array: boolean[]): boolean {
+	for (const value of array) {
+		if (!value) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+export function any(array: boolean[]): boolean {
+	for (const value of array) {
+		if (value) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+export function none(array: boolean[]): boolean {
+	for (const value of array) {
+		if (value) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+export function notAll(array: boolean[]): boolean {
+	for (const value of array) {
+		if (!value) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+export const some = any;
