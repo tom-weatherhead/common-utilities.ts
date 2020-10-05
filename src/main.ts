@@ -20,6 +20,7 @@ export * from './strings';
 export * from './types';
 
 export { IIterator } from './collection-classes/iiterator';
+export * from './collection-classes/hashtable';
 export { PriorityQueue } from './collection-classes/priority-queue';
 export { Queue } from './collection-classes/queue';
 export { Set } from './collection-classes/set';
