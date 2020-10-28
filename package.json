@@ -19,7 +19,6 @@
 	"files": [
 		"lib/**/*"
 	],
-	"bin": {},
 	"man": [],
 	"directories": {
 		"lib": "lib",
@@ -77,7 +76,6 @@
 	},
 	"peerDependencies": {},
 	"// bundledDependencies": "... is an array of package names",
-	"bundledDependencies": [],
 	"optionalDependencies": {},
 	"engines": {
 		"node": ">= 8"
@@ -99,5 +97,6 @@
 		"Sgt. Pepper <shoot1st@thinkl8r.mil>"
 	],
 	"author": "Tom Weatherhead <thaw@2hrd4u.org> (https://github.com/tom-weatherhead)",
-	"license": "MIT"
+	"license": "MIT",
+	"bundleDependencies": []
 }

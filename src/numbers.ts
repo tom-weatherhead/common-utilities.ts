@@ -307,3 +307,10 @@ export function integerDivision(n1: number, n2: number): number {
 	// 	return undefined;
 	// }
 }
+
+export function numberToFixedPrecisionString(
+	n: number,
+	digits: number
+): string {
+	return zeroExtendNumber(factory_fnRoundToNDigits(digits)(n), digits);
+}

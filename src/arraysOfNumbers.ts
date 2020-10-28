@@ -2,13 +2,20 @@
 
 'use strict';
 
-import { createArrayFromElement, max, min } from './arrays';
+import {
+	createArrayFromElement,
+	getLastElementOfArray,
+	max,
+	min
+} from './arrays';
 
 import { pointwise } from './functions';
 
 import { product, sum } from './numbers';
 
 import { clone } from './objects';
+
+import { ifDefinedThenElse } from './types';
 
 export function createNaNArray(length: number): number[] {
 	return createArrayFromElement(NaN, length);
@@ -307,3 +314,7 @@ export const populationCorrelationCoefficient = createCorrelationCoefficientFunc
 export const sampleCorrelationCoefficient = createCorrelationCoefficientFunction(
 	1
 );
+
+export function getLastElementOfNumericArray(array: number[]): number {
+	return ifDefinedThenElse(getLastElementOfArray(array), NaN);
+}

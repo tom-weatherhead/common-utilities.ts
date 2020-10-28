@@ -6,8 +6,6 @@ import { getRandomNonNegativeInteger, sum } from './numbers';
 
 import { clone } from './objects';
 
-import { isArray } from './types';
-
 import { PriorityQueue } from './collection-classes/priority-queue';
 
 export function cloneArray<T>(array: T[]): T[] {
@@ -292,12 +290,15 @@ export function flattenOneLevel<T>(a: Array<T[] | T>, b: T[] = []): T[] {
 	}, b);
 }
 
-export function flattenAllLevels(a: any[], b: any[] = []): any[] {
-	return a.reduce((accumulator, element) => {
-		if (isArray(element)) {
-			flattenAllLevels(element, accumulator);
-		} else {
-			accumulator.push(element);
+export function flattenAllLevels<T>(a: unknown[], b: T[] = []): T[] {
+	return a.reduce((accumulator: T[], element: unknown) => {
+		const elementAsArray = element as unknown[];
+		const elementAsT = element as T;
+
+		if (typeof elementAsArray !== 'undefined') {
+			flattenAllLevels(elementAsArray, accumulator);
+		} else if (typeof elementAsT !== 'undefined') {
+			accumulator.push(elementAsT);
 		}
 
 		return accumulator;
