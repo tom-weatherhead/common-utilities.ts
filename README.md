@@ -1,19 +1,19 @@
 # common-utilities.ts
-Common utility functions implemented in TypeScript
+Common utility functions implemented in TypeScript.
 
 BadgeFest:
 
-[![build status](https://secure.travis-ci.org/tom-weatherhead/common-utilities.ts.svg)](https://travis-ci.org/tom-weatherhead/common-utilities.ts)
-[![npm version](https://img.shields.io/npm/v/thaw-common-utilities.ts.svg)](https://www.npmjs.com/package/thaw-common-utilities.ts)
-[![latest tag](https://badgen.net/github/tag/tom-weatherhead/common-utilities.ts)](https://badgen.net/github/tag/tom-weatherhead/common-utilities.ts)
+[![build status][build-status-badge-image]][build-status-url]
+[![npm version][npm-version-badge-image]][npm-version-url]
+[![latest tag](https://badgen.net/github/tag/tom-weatherhead/common-utilities.ts)](https://github.com/tom-weatherhead/common-utilities.ts/tags)
 [![npm total downloads](https://img.shields.io/npm/dt/thaw-common-utilities.ts.svg)](https://www.npmjs.com/package/thaw-common-utilities.ts)
-[![watchers](https://badgen.net/github/watchers/tom-weatherhead/common-utilities.ts)](https://badgen.net/github/watchers/tom-weatherhead/common-utilities.ts)
-[![stars](https://badgen.net/github/stars/tom-weatherhead/common-utilities.ts)](https://badgen.net/github/stars/tom-weatherhead/common-utilities.ts)
+[![watchers][watchers-badge-image]][watchers-url]
+[![stars][stars-badge-image]][stars-url]
+[![forks][forks-badge-image]][forks-url]
 [![repo dependents](https://badgen.net/github/dependents-repo/tom-weatherhead/common-utilities.ts)](https://badgen.net/github/dependents-repo/tom-weatherhead/common-utilities.ts)
 [![pkg dependents](https://badgen.net/github/dependents-pkg/tom-weatherhead/common-utilities.ts)](https://badgen.net/github/dependents-pkg/tom-weatherhead/common-utilities.ts)
-[![commits](https://badgen.net/github/commits/tom-weatherhead/common-utilities.ts)](https://badgen.net/github/commits/tom-weatherhead/common-utilities.ts)
+[![commits](https://badgen.net/github/commits/tom-weatherhead/common-utilities.ts)](https://github.com/tom-weatherhead/common-utilities.ts/commits/master)
 [![last commit](https://badgen.net/github/last-commit/tom-weatherhead/common-utilities.ts)](https://badgen.net/github/last-commit/tom-weatherhead/common-utilities.ts)
-[![dependents](https://badgen.net/npm/dependents/thaw-common-utilities.ts)](https://badgen.net/npm/dependents/thaw-common-utilities.ts)
 [![types](https://badgen.net/npm/types/thaw-common-utilities.ts)](https://badgen.net/npm/types/thaw-common-utilities.ts)
 [![install size](https://badgen.net/packagephobia/install/thaw-common-utilities.ts)](https://badgen.net/packagephobia/install/thaw-common-utilities.ts)
 [![known vulnerabilities](https://snyk.io/test/github/tom-weatherhead/common-utilities.ts/badge.svg?targetFile=package.json&package-lock.json)](https://snyk.io/test/github/tom-weatherhead/common-utilities.ts?targetFile=package.json&package-lock.json)
@@ -26,6 +26,18 @@ BadgeFest:
 [![license][license-badge-image]][license-url]
 [![FOSSA Status][fossa-badge-image]][fossa-badge-url]
 
+<!-- [![dependents](https://badgen.net/npm/dependents/thaw-common-utilities.ts)](https://badgen.net/npm/dependents/thaw-common-utilities.ts) -->
+
+[build-status-badge-image]: https://secure.travis-ci.org/tom-weatherhead/common-utilities.ts.svg
+[build-status-url]: https://travis-ci.org/tom-weatherhead/common-utilities.ts
+[npm-version-badge-image]: https://img.shields.io/npm/v/thaw-common-utilities.ts.svg
+[npm-version-url]: https://www.npmjs.com/package/thaw-common-utilities.ts
+[watchers-badge-image]: https://badgen.net/github/watchers/tom-weatherhead/common-utilities.ts
+[watchers-url]: https://github.com/tom-weatherhead/common-utilities.ts/watchers
+[stars-badge-image]: https://badgen.net/github/stars/tom-weatherhead/common-utilities.ts
+[stars-url]: https://github.com/tom-weatherhead/common-utilities.ts/stargazers
+[forks-badge-image]: https://badgen.net/github/forks/tom-weatherhead/common-utilities.ts
+[forks-url]: https://github.com/tom-weatherhead/common-utilities.ts/network/members
 [maintainability-badge-image]: https://api.codeclimate.com/v1/badges/2a66d64a08223583a60d/maintainability
 [maintainability-url]: https://codeclimate.com/github/tom-weatherhead/common-utilities.ts/maintainability
 [test-coverage-badge-image]: https://api.codeclimate.com/v1/badges/2a66d64a08223583a60d/test_coverage

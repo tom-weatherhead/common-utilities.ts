@@ -1,9 +1,8 @@
 {
 	"name": "thaw-common-utilities.ts",
 	"version": "0.0.3",
-	"description": "Common utility functions translated from TypeScript to JavaScript",
+	"description": "Common utility functions implemented in TypeScript.",
 	"keywords": [
-		"JavaScript",
 		"TypeScript",
 		"utilities"
 	],
@@ -76,6 +75,7 @@
 	},
 	"peerDependencies": {},
 	"// bundledDependencies": "... is an array of package names",
+	"bundledDependencies": [],
 	"optionalDependencies": {},
 	"engines": {
 		"node": ">= 8"
@@ -97,6 +97,5 @@
 		"Sgt. Pepper <shoot1st@thinkl8r.mil>"
 	],
 	"author": "Tom Weatherhead <thaw@2hrd4u.org> (https://github.com/tom-weatherhead)",
-	"license": "MIT",
-	"bundleDependencies": []
+	"license": "MIT"
 }
