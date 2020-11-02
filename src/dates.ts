@@ -62,7 +62,11 @@ export function getDateUTCString(date: Date): string {
 	)}-${zeroPadNumber(date.getUTCDate(), 2)}`;
 }
 
-export function getDateTimeUTCString(date: Date): string {
+export function getDateTimeUTCString(date?: Date): string {
+	if (typeof date === 'undefined') {
+		date = new Date();
+	}
+
 	return `${getDateUTCString(date)} ${zeroPadNumber(
 		date.getUTCHours(),
 		2

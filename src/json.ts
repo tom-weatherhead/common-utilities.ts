@@ -2,16 +2,21 @@
 
 'use strict';
 
-import { isDefined } from './types';
+export function safeJsonParse<T>(str: string, dflt?: T): T {
+	let result: T | undefined;
+	let errorToThrow = new Error('safeJsonParse() : Typecast error');
 
-export function safeJsonParse(str: string, dflt: unknown): unknown {
 	try {
-		return JSON.parse(str);
+		result = JSON.parse(str) as T;
 	} catch (e) {
-		if (!isDefined(dflt)) {
-			throw e;
-		}
+		errorToThrow = e;
+	}
 
+	if (typeof result !== 'undefined') {
+		return result;
+	} else if (typeof dflt !== 'undefined') {
 		return dflt;
+	} else {
+		throw errorToThrow;
 	}
 }
