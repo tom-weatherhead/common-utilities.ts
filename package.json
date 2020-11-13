@@ -77,7 +77,7 @@
 	"// bundledDependencies": "... is an array of package names",
 	"optionalDependencies": {},
 	"engines": {
-		"node": "^14"
+		"node": ">= 8"
 	},
 	"os": [
 		"darwin",
