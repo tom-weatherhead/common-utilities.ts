@@ -13,6 +13,7 @@ export function identityFunction<T>(arg: T): T {
 export const booleanInvertFunction = (arg: boolean): boolean => !arg;
 
 // 'Composite' as a verb, not an adjective:
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export function compositeFunctions(
 	fnArray: ((x: any) => any)[]
 ): (x: any) => any {
@@ -21,12 +22,14 @@ export function compositeFunctions(
 		identityFunction
 	);
 }
+/* eslint-enable  @typescript-eslint/no-explicit-any */
 
 // Function.length is the number of parameters that a function expects.
 // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length
 
 // E.g. If fn.length === 2, then curry(fn) returns x => y => fn(x, y);
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 function curryHelper(fn: (...args: any[]) => any, args: any[]): any {
 	return (arg: any) => {
 		args.push(arg);
@@ -38,9 +41,18 @@ function curryHelper(fn: (...args: any[]) => any, args: any[]): any {
 		return curryHelper(fn, args);
 	};
 }
+/* eslint-enable  @typescript-eslint/no-explicit-any */
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export function curry(fn: (...args: any[]) => any): any {
 	return curryHelper(fn, []);
+}
+/* eslint-enable  @typescript-eslint/no-explicit-any */
+
+export function curry2ArgumentFunction<A, B, C>(
+	fn: (arg1: A, arg2: B) => C
+): (arg1: A) => (arg2: B) => C {
+	return (arg1: A) => (arg2: B) => fn(arg1, arg2);
 }
 
 export function pointwise<T, U>(

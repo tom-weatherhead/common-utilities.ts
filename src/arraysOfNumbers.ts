@@ -268,6 +268,25 @@ function createCovarianceFunction(
 export const populationCovariance = createCovarianceFunction(0);
 export const sampleCovariance = createCovarianceFunction(1);
 
+// R Squared function: Calculates the coefficient of determination
+// See e.g. https://www.statisticshowto.com/probability-and-statistics/coefficient-of-determination-r-squared/
+
+export function coefficientOfDetermination(x: number[], y: number[]): number {
+	const n = x.length;
+
+	if (n !== y.length || n === 0) {
+		return NaN;
+	}
+
+	const numerator = n * sum(pointwise(product, x, y)) - sum(x) * sum(y);
+	const square = (i: number) => i * i;
+	const fn = (z: number[]): number =>
+		n * sum(z.map(square)) - square(sum(z));
+	const denominatorSquared = fn(x) * fn(y);
+
+	return (numerator * numerator) / denominatorSquared;
+}
+
 export function clamp(
 	value: number,
 	minimum: number,
