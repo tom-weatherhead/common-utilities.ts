@@ -36,3 +36,31 @@ export async function asyncMap<T, U>(
 
 	return result;
 }
+
+export function delayAndResolve(ms: number): Promise<void> {
+	return new Promise<void>(
+		(
+			resolve: (value?: void) => void,
+			/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+			reject: (reason?: unknown) => void
+		): void => {
+			setTimeout(() => {
+				resolve();
+			}, ms);
+		}
+	);
+}
+
+export function delayAndResolveWithValue<T>(ms: number, t: T): Promise<T> {
+	return new Promise<T>(
+		(
+			resolve: (value: T | PromiseLike<T>) => void,
+			/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+			reject: (reason?: unknown) => void
+		): void => {
+			setTimeout(() => {
+				resolve(t);
+			}, ms);
+		}
+	);
+}
