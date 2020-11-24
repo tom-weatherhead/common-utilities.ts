@@ -26,7 +26,7 @@ module.exports = { // if not
 	'collectCoverage': true,
 	'coverageDirectory': './coverage/',
 	'moduleFileExtensions': ['ts', 'js'],
-	'runner': 'jest-runner-tsc',
+	// 'runner': 'jest-runner-tsc',
 	'testEnvironment': 'node',
 	'testRegex': '(/test/.+\\.test\\.ts$)' // ,
 	// 'transformIgnorePatterns': ['/node_modules/(?!thaw-common-utilities.ts)/']
