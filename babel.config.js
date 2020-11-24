@@ -40,6 +40,15 @@ const supportedNodeVersion = semver.minVersion(pkg.engines.node).version;
 // };
 
 module.exports = {
+	"env": {
+		"test": {
+			"plugins": [
+				["@babel/plugin-transform-modules-commonjs", {allowTopLevelThis: true}],
+				'@babel/plugin-transform-strict-mode' // ,
+				// '@babel/plugin-proposal-class-properties'
+			]
+		}
+	},
 	'presets': [
 		[
 			'@babel/preset-env',

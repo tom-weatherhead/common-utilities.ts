@@ -2,7 +2,7 @@
 
 'use strict';
 
-import { Stack } from '../../lib/main';
+import { Stack } from '../../esm/main';
 
 test('Stack test', () => {
 	// Arrange
