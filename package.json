@@ -33,7 +33,6 @@
 	"scripts": {
 		"all": "npm run rebuild-online && npm pack && npm run deploy",
 		"// allw": "rmdir /Q /S coverage & rmdir /Q /S lib & npm run lint & npm run build & npm test & npm pack & move /Y thaw-common-utilities.ts-*.tgz C:\\git\\npm-packages\\",
-		"// travis": "npm run rebuild-online",
 		"rebuild-offline": "npm run clean-offline && npm run build-and-test",
 		"clean-offline": "rm -rf commonjs && rm -rf coverage && rm -rf esm",
 		"rebuild-online": "npm run clean-online && npm i && npm run build-and-test",
@@ -43,11 +42,11 @@
 		"prettier-list": "prettier --list-different \"**/*.js\" \"**/*.ts\"",
 		"prettier-format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"lint": "eslint src --ext .ts",
-		"// build": "rm -rf lib; tsc",
 		"build-commonjs": "tsc -p tsconfig.commonjs.json",
+		"post-build-commonjs": "cp commonjs-package.json commonjs/package.json",
+		"post-build-commonjs-win": "xcopy /Q commonjs-package.json commonjs\\package.json",
 		"build-esm": "tsc -p tsconfig.esm.json",
-		"build": "npm run build-commonjs && npm run build-esm",
-		"// test": "rm -rf coverage; jest --detectOpenHandles --forceExit",
+		"build": "npm run build-commonjs && npm run post-build-commonjs && npm run build-esm",
 		"test": "jest --detectOpenHandles --forceExit",
 		"webpack:dev": "webpack-cli",
 		"webpack:prod": "webpack-cli --mode production",
@@ -85,9 +84,6 @@
 	"peerDependencies": {},
 	"// bundledDependencies": "... is an array of package names",
 	"optionalDependencies": {},
-	"jest-runner-tsc": {
-		"tsconfigPath": "./tsconfig.esm.json"
-	},
 	"engines": {
 		"node": ">= 8"
 	},
