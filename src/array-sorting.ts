@@ -11,30 +11,17 @@ export type SortingFunction<T> = (
 	fnComparator: ComparatorFunction<T>
 ) => T[];
 
-export const numericalComparator: ComparatorFunction<number> = (
+export const numericComparator: ComparatorFunction<number> = (
 	element1: number,
 	element2: number
 ) => element1 < element2;
 
 // Sorting algorithm number 1: Bubble Sort
 
-export function bubbleSort<T>(
+export function genericBubbleSort<T>(
 	array: T[],
-	fnComparator?: ComparatorFunction<T>
-	// fnComparator: ComparatorFunction<T>
+	fnComparator: ComparatorFunction<T>
 ): T[] {
-	if (typeof fnComparator === 'undefined') {
-		// if (T as number) {
-		// if (T extends number) {
-		// if (typeof ((array as unknown[]) as number[]) !== 'undefined') {
-		// if (array instanceof 'number[]') {
-		if (array.length > 0 && array[0] instanceof 'number') {
-			fnComparator = numericalComparator;
-		} else {
-			throw new Error('bubbleSort() : No comparator function provided');
-		}
-	}
-
 	let changeDetected = true;
 
 	array = cloneArray(array);
@@ -55,6 +42,10 @@ export function bubbleSort<T>(
 	}
 
 	return array;
+}
+
+export function bubbleSort(array: number[]): number[] {
+	return genericBubbleSort(array, numericComparator);
 }
 
 // Sorting algorithm number 2: Heap Sort
@@ -247,13 +238,30 @@ export function shellSort<T>(
 	return array;
 }
 
-export function getSortingFunctions<T>(): Record<string, SortingFunction<T>> {
+export function getGenericSortingFunctions<T>(): Record<
+	string,
+	SortingFunction<T>
+> {
 	return {
-		bubbleSort: bubbleSort,
+		bubbleSort: genericBubbleSort,
 		heapSort: heapSort,
 		insertionSort: insertionSort,
 		mergeSort: mergeSort,
 		quickSort: quickSort,
 		shellSort: shellSort
+	};
+}
+
+export function getNumericSortingFunctions(): Record<
+	string,
+	SortingFunction<number>
+> {
+	return {
+		bubbleSort: bubbleSort // ,
+		// heapSort: heapSort,
+		// insertionSort: insertionSort,
+		// mergeSort: mergeSort,
+		// quickSort: quickSort,
+		// shellSort: shellSort
 	};
 }
