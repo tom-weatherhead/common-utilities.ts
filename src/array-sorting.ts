@@ -4,16 +4,23 @@ import { cloneArray } from './arrays';
 
 import { PriorityQueue } from './collection-classes/priority-queue';
 
+export type ComparatorFunction<T> = (element1: T, element2: T) => boolean;
+
 export type SortingFunction<T> = (
 	array: T[],
-	fnComparator: (element1: T, element2: T) => boolean
+	fnComparator: ComparatorFunction<T>
 ) => T[];
+
+export const numericalComparator: ComparatorFunction<number> = (
+	element1: number,
+	element2: number
+) => element1 < element2;
 
 // Sorting algorithm number 1: Bubble Sort
 
 export function bubbleSort<T>(
 	array: T[],
-	fnComparator: (element1: T, element2: T) => boolean
+	fnComparator: ComparatorFunction<T>
 ): T[] {
 	let changeDetected = true;
 
@@ -41,7 +48,7 @@ export function bubbleSort<T>(
 
 export function heapSort<T>(
 	array: T[],
-	fnComparator: (element1: T, element2: T) => boolean
+	fnComparator: ComparatorFunction<T>
 ): T[] {
 	const priorityQueue = new PriorityQueue<T>(fnComparator);
 
@@ -63,7 +70,7 @@ export function heapSort<T>(
 export function insertNumberIntoArray<T>(
 	n: T,
 	array: T[],
-	fnComparator: (element1: T, element2: T) => boolean
+	fnComparator: ComparatorFunction<T>
 ): T[] {
 	// array must already be sorted in the proper order.
 
@@ -83,7 +90,7 @@ export function insertNumberIntoArray<T>(
 
 export function insertionSort<T>(
 	array: T[],
-	fnComparator: (element1: T, element2: T) => boolean
+	fnComparator: ComparatorFunction<T>
 ): T[] {
 	return array.reduce(
 		(accumulator: T[], n: T) =>
@@ -97,7 +104,7 @@ export function insertionSort<T>(
 export function mergeTwoSortedArrays<T>(
 	array1: T[],
 	array2: T[],
-	fnComparator: (element1: T, element2: T) => boolean
+	fnComparator: ComparatorFunction<T>
 ): T[] {
 	let index1 = 0;
 	let index2 = 0;
@@ -128,7 +135,7 @@ export function mergeTwoSortedArrays<T>(
 
 export function mergeSort<T>(
 	array: T[],
-	fnComparator: (element1: T, element2: T) => boolean
+	fnComparator: ComparatorFunction<T>
 ): T[] {
 	if (array.length <= 1) {
 		return array;
@@ -155,7 +162,7 @@ export function mergeSort<T>(
 
 export function quickSort<T>(
 	array: T[],
-	fnComparator: (element1: T, element2: T) => boolean
+	fnComparator: ComparatorFunction<T>
 ): T[] {
 	if (array.length <= 1) {
 		return array;
@@ -181,12 +188,51 @@ export function quickSort<T>(
 
 // Sorting algorithm number 6: Shell Sort
 
-// export function shellSort<T>(
-// 	array: T[],
-// 	fnComparator: (element1: T, element2: T) => boolean
-// ): T[] {
-// 	// ...;
-// }
+// See e.g.https://www.geeksforgeeks.org/shellsort/
+
+export function shellSort<T>(
+	arrayParam: T[],
+	fnComparator: ComparatorFunction<T>
+): T[] {
+	const array = cloneArray(arrayParam);
+
+	// Start with a big gap, then reduce the gap.
+
+	for (
+		// let gap = Math.ceil(array.length / 2);
+		let gap = Math.floor(array.length / 2);
+		gap > 0;
+		gap = Math.floor(gap / 2)
+	) {
+		// Do a gapped insertion sort for this gap size.
+		// The first gap elements a[0..gap-1] are already
+		// in gapped order keep adding one more element
+		// until the entire array is gap-sorted.
+
+		for (let i = gap; i < array.length; i++) {
+			// Add a[i] to the elements that have been gap-sorted,
+			// save a[i] in temp, and make a hole at position i.
+			const temp = array[i];
+
+			// Shift earlier gap-sorted elements up until
+			// the correct location for array[i] is found.
+			let j;
+
+			for (
+				j = i;
+				j >= gap && !fnComparator(array[j - gap], temp);
+				j -= gap
+			) {
+				array[j] = array[j - gap];
+			}
+
+			// Put temp (the original array[i]) in its correct location.
+			array[j] = temp;
+		}
+	}
+
+	return array;
+}
 
 export function getSortingFunctions<T>(): Record<string, SortingFunction<T>> {
 	return {
@@ -194,7 +240,7 @@ export function getSortingFunctions<T>(): Record<string, SortingFunction<T>> {
 		heapSort: heapSort,
 		insertionSort: insertionSort,
 		mergeSort: mergeSort,
-		quickSort: quickSort // ,
-		// 'shellSort': shellSort
+		quickSort: quickSort,
+		shellSort: shellSort
 	};
 }

@@ -1,4 +1,4 @@
-// github:tom-weatherhead/common-utilities.ts/test/arraysOfNumbers.test.ts
+// github:tom-weatherhead/common-utilities.ts/test/arrays-of-numbers.test.ts
 
 'use strict';
 

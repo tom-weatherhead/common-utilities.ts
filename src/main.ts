@@ -6,7 +6,7 @@
 
 export * from './array-sorting';
 export * from './arrays';
-export * from './arraysOfNumbers';
+export * from './arrays-of-numbers';
 export * from './asynchronous';
 export * from './dates';
 export * from './functions';
