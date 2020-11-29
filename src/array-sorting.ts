@@ -20,8 +20,21 @@ export const numericalComparator: ComparatorFunction<number> = (
 
 export function bubbleSort<T>(
 	array: T[],
-	fnComparator: ComparatorFunction<T>
+	fnComparator?: ComparatorFunction<T>
+	// fnComparator: ComparatorFunction<T>
 ): T[] {
+	if (typeof fnComparator === 'undefined') {
+		// if (T as number) {
+		// if (T extends number) {
+		// if (typeof ((array as unknown[]) as number[]) !== 'undefined') {
+		// if (array instanceof 'number[]') {
+		if (array.length > 0 && array[0] instanceof 'number') {
+			fnComparator = numericalComparator;
+		} else {
+			throw new Error('bubbleSort() : No comparator function provided');
+		}
+	}
+
 	let changeDetected = true;
 
 	array = cloneArray(array);
