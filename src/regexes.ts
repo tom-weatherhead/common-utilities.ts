@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/regexes.ts
 
-'use strict';
-
 export const regexInteger = /^(0|-?[1-9][0-9]*)$/;
 
 // TODO: Allow 0.5 and 1.0 and 0.0, but not 00.5 or 01.0 or 0.50 or -0.0

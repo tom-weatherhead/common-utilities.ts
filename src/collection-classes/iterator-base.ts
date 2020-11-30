@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/iterator-base.ts
 
-'use strict';
-
 import { IIterator } from './iiterator';
 
 export abstract class IteratorBase<T> implements IIterator<T> {

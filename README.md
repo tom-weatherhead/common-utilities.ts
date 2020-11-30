@@ -49,6 +49,8 @@ min<T>(array: T[]): T
 
 ### Arrays of Numbers
 
+### Array Sorting
+
 ### Asynchronous Functions
 
 ### Date/Time Functions

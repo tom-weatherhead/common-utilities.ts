@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/arrays-of-numbers.ts
 
-'use strict';
-
 import {
 	createArrayFromElement,
 	getLastElementOfArray,

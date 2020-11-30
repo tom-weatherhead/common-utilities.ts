@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/trees/idictionary.ts
 
-'use strict';
-
 export interface IDictionary<K, V> {
 	clear(): void;
 	// size(): number;

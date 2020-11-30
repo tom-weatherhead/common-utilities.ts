@@ -1,17 +1,15 @@
 // github:tom-weatherhead/common-utilities.ts/src/functors.ts
 
-'use strict';
-
 export interface IFunctor<T> {
 	map<U>(f: (x: T) => U): IFunctor<U>;
 	getValue(): T;
 }
 
-export class UniversalFunctor<T> implements IFunctor<T> {
-	private value: T;
+class UniversalFunctor<T> implements IFunctor<T> {
+	private readonly value: T;
 
-	constructor(valueIn: T) {
-		this.value = valueIn;
+	constructor(value: T) {
+		this.value = value;
 	}
 
 	public getValue(): T {
@@ -21,6 +19,10 @@ export class UniversalFunctor<T> implements IFunctor<T> {
 	public map<U>(f: (x: T) => U): IFunctor<U> {
 		return new UniversalFunctor<U>(f(this.value));
 	}
+}
+
+export function createFunctor<T>(value: T): IFunctor<T> {
+	return new UniversalFunctor<T>(value);
 }
 
 /*

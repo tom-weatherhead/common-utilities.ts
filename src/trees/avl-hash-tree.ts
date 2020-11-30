@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/trees/avl-hash-tree.ts
 
-'use strict';
-
 // import IAVLHashTreeKey from './iavl-hash-tree-key';
 
 // export default interface IAVLHashTreeKey<K> {

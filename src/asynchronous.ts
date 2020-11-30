@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/asynchronous.ts
 
-'use strict';
-
 // From https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404 :
 
 // const waitFor = ms => new Promise(r => setTimeout(r, ms));

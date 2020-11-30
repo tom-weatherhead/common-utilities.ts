@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/functions.ts
 
-'use strict';
-
 import { transpose2d } from './arrays';
 
 import { generateNonNegativeIntegersLessThan } from './numbers';

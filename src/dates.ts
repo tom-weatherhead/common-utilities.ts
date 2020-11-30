@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/dates.ts
 
-'use strict';
-
 import { zeroPadNumber } from './numbers';
 
 export function getDateString(date: Date): string {

@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/types.ts
 
-'use strict';
-
 // import { booleanInvertFunction, compositeFunctions } from './functions';
 
 export function getTypeString(obj: unknown): string {

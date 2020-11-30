@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/strings.ts
 
-'use strict';
-
 export function replicateString(str: string, n: number): string {
 	// if (!isNumber(n)) {
 	// 	return undefined;

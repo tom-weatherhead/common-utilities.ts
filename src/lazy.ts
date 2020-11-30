@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/lazy.ts
 
-'use strict';
-
 import { cloneArray } from './arrays';
 
 function pushMe<T>(array: T[], element: T): T[] {

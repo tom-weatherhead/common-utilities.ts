@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/objects.ts
 
-'use strict';
-
 // error TS2538: Type 'symbol' cannot be used as an index type.
 // export type ObjectKeyType = number | string | symbol;
 export type ObjectKeyType = number | string;

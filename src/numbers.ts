@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/numbers.ts
 
-'use strict';
-
 import { createArrayFromElement } from './arrays';
 
 import { replicateString } from './strings';

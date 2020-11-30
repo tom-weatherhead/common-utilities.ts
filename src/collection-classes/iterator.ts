@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/iterator.ts
 
-'use strict';
-
 import { clone } from '../objects';
 
 import { IIterator } from './iiterator';

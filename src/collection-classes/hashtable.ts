@@ -1,7 +1,5 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/hashtable.ts
 
-'use strict';
-
 export interface IHashable {
 	getHashCode(): number;
 	equals(obj: unknown): boolean;
