@@ -3,7 +3,7 @@ os:
   - linux
 dist: xenial
 node_js:
-  - 14.15.1
+  - 14
 branches:
   only:
     - master
