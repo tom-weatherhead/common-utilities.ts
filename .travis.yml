@@ -5,6 +5,7 @@ dist: focal
 node_js:
   - 14
   - 12
+  - 10
 branches:
   only:
     - master
@@ -15,7 +16,7 @@ install:
   - npm set progress=false
   - npm install
 before_script:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [[ "$TRAVIS_NODE_VERSION" =~ "v14." ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter && ./cc-test-reporter before-build ; fi ; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ "$TRAVIS_NODE_VERSION" = "14" ]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter && ./cc-test-reporter before-build ; fi ; fi
 script:
   - echo "TRAVIS_NODE_VERSION is '$TRAVIS_NODE_VERSION'"
   - npm run prettier-check
@@ -24,4 +25,4 @@ script:
   - npm run build-esm
   - npm test
 after_script:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [[ "$TRAVIS_NODE_VERSION" =~ "v14." ]]; then ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT ; fi ; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then if [ "$TRAVIS_NODE_VERSION" = "14" ]; then ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT ; fi ; fi
