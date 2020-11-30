@@ -1,11 +1,9 @@
 language: node_js
 os:
   - linux
-  - osx
-  - windows
 dist: xenial
 node_js:
-  - 'lts/*'
+  - 14.15.1
 branches:
   only:
     - master
@@ -16,7 +14,7 @@ install:
   - npm set progress=false
   - npm install
 before_script:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter && ./cc-test-reporter before-build ; fi
+  - [ "$TRAVIS_OS_NAME" = "linux" ] && [[ "$TRAVIS_NODE_VERSION" =~ "v14." ]] && { curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter && ./cc-test-reporter before-build }
 script:
   - npm run prettier-check
   - npm run lint
@@ -24,4 +22,4 @@ script:
   - npm run build-esm
   - npm test
 after_script:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT ; fi
+  - [ "$TRAVIS_OS_NAME" = "linux" ] && [[ "$TRAVIS_NODE_VERSION" =~ "v14." ]] && { ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT }
