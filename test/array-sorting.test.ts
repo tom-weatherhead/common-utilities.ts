@@ -26,7 +26,7 @@ test('Sort Test 2: heapSort', () => {
 	const expectedValue = array1Sorted;
 
 	// Act
-	const actualValue = engine.heapSort(input, engine.numericComparator);
+	const actualValue = engine.heapSort(input);
 
 	// Assert
 	expect(actualValue).toEqual(expectedValue);
@@ -38,7 +38,7 @@ test('Sort Test 3: insertionSort', () => {
 	const expectedValue = array1Sorted;
 
 	// Act
-	const actualValue = engine.insertionSort(input, engine.numericComparator);
+	const actualValue = engine.insertionSort(input);
 
 	// Assert
 	expect(actualValue).toEqual(expectedValue);
@@ -50,7 +50,7 @@ test('Sort Test 4: mergeSort', () => {
 	const expectedValue = array1Sorted;
 
 	// Act
-	const actualValue = engine.mergeSort(input, engine.numericComparator);
+	const actualValue = engine.mergeSort(input);
 
 	// Assert
 	expect(actualValue).toEqual(expectedValue);
@@ -62,7 +62,7 @@ test('Sort Test 5: quickSort', () => {
 	const expectedValue = array1Sorted;
 
 	// Act
-	const actualValue = engine.quickSort(input, engine.numericComparator);
+	const actualValue = engine.quickSort(input);
 
 	// Assert
 	expect(actualValue).toEqual(expectedValue);
@@ -74,7 +74,7 @@ test('Sort Test 6: shellSort', () => {
 	const expectedValue = array1Sorted;
 
 	// Act
-	const actualValue = engine.shellSort(input, engine.numericComparator);
+	const actualValue = engine.shellSort(input);
 
 	// Assert
 	expect(actualValue).toEqual(expectedValue);

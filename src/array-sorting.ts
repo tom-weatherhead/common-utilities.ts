@@ -4,6 +4,8 @@ import { cloneArray } from './arrays';
 
 import { PriorityQueue } from './collection-classes/priority-queue';
 
+// If f is a comparator function, then f(element1, element2) must return true
+// if and only if element1 must be placed before element2 in the sorted array
 export type ComparatorFunction<T> = (element1: T, element2: T) => boolean;
 
 export type SortingFunction<T> = (
@@ -50,7 +52,7 @@ export function bubbleSort(array: number[]): number[] {
 
 // Sorting algorithm number 2: Heap Sort
 
-export function heapSort<T>(
+export function genericHeapSort<T>(
 	array: T[],
 	fnComparator: ComparatorFunction<T>
 ): T[] {
@@ -67,6 +69,10 @@ export function heapSort<T>(
 	}
 
 	return result;
+}
+
+export function heapSort(array: number[]): number[] {
+	return genericHeapSort(array, numericComparator);
 }
 
 // Sorting algorithm number 3: Insertion Sort
@@ -92,7 +98,7 @@ export function insertNumberIntoArray<T>(
 	return result;
 }
 
-export function insertionSort<T>(
+export function genericInsertionSort<T>(
 	array: T[],
 	fnComparator: ComparatorFunction<T>
 ): T[] {
@@ -101,6 +107,10 @@ export function insertionSort<T>(
 			insertNumberIntoArray(n, accumulator, fnComparator),
 		[]
 	);
+}
+
+export function insertionSort(array: number[]): number[] {
+	return genericInsertionSort(array, numericComparator);
 }
 
 // Sorting algorithm number 4: Merge Sort
@@ -137,7 +147,7 @@ export function mergeTwoSortedArrays<T>(
 	}
 }
 
-export function mergeSort<T>(
+export function genericMergeSort<T>(
 	array: T[],
 	fnComparator: ComparatorFunction<T>
 ): T[] {
@@ -150,8 +160,8 @@ export function mergeSort<T>(
 	const array1: T[] = array.slice(0, midpoint);
 	const array2: T[] = array.slice(midpoint);
 
-	const sortedArray1: T[] = mergeSort(array1, fnComparator);
-	const sortedArray2: T[] = mergeSort(array2, fnComparator);
+	const sortedArray1: T[] = genericMergeSort(array1, fnComparator);
+	const sortedArray2: T[] = genericMergeSort(array2, fnComparator);
 
 	const mergedArray: T[] = mergeTwoSortedArrays(
 		sortedArray1,
@@ -162,9 +172,13 @@ export function mergeSort<T>(
 	return mergedArray;
 }
 
+export function mergeSort(array: number[]): number[] {
+	return genericMergeSort(array, numericComparator);
+}
+
 // Sorting algorithm number 5: Quicksort
 
-export function quickSort<T>(
+export function genericQuickSort<T>(
 	array: T[],
 	fnComparator: ComparatorFunction<T>
 ): T[] {
@@ -185,16 +199,20 @@ export function quickSort<T>(
 		}
 	});
 
-	return quickSort(subArray1, fnComparator)
+	return genericQuickSort(subArray1, fnComparator)
 		.concat([pivotElement])
-		.concat(quickSort(subArray2, fnComparator));
+		.concat(genericQuickSort(subArray2, fnComparator));
+}
+
+export function quickSort(array: number[]): number[] {
+	return genericQuickSort(array, numericComparator);
 }
 
 // Sorting algorithm number 6: Shell Sort
 
 // See e.g.https://www.geeksforgeeks.org/shellsort/
 
-export function shellSort<T>(
+export function genericShellSort<T>(
 	arrayParam: T[],
 	fnComparator: ComparatorFunction<T>
 ): T[] {
@@ -238,17 +256,23 @@ export function shellSort<T>(
 	return array;
 }
 
+export function shellSort(array: number[]): number[] {
+	return genericShellSort(array, numericComparator);
+}
+
+// ****
+
 export function getGenericSortingFunctions<T>(): Record<
 	string,
 	SortingFunction<T>
 > {
 	return {
 		bubbleSort: genericBubbleSort,
-		heapSort: heapSort,
-		insertionSort: insertionSort,
-		mergeSort: mergeSort,
-		quickSort: quickSort,
-		shellSort: shellSort
+		heapSort: genericHeapSort,
+		insertionSort: genericInsertionSort,
+		mergeSort: genericMergeSort,
+		quickSort: genericQuickSort,
+		shellSort: genericShellSort
 	};
 }
 
@@ -257,11 +281,11 @@ export function getNumericSortingFunctions(): Record<
 	SortingFunction<number>
 > {
 	return {
-		bubbleSort: bubbleSort // ,
-		// heapSort: heapSort,
-		// insertionSort: insertionSort,
-		// mergeSort: mergeSort,
-		// quickSort: quickSort,
-		// shellSort: shellSort
+		bubbleSort: bubbleSort,
+		heapSort: heapSort,
+		insertionSort: insertionSort,
+		mergeSort: mergeSort,
+		quickSort: quickSort,
+		shellSort: shellSort
 	};
 }
