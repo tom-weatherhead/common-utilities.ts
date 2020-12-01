@@ -37,7 +37,7 @@
 		"clean-packages": "rm -rf node_modules && rm -f package-lock.json",
 		"clean": "npm run clean-build-products && npm run clean-packages",
 		"rebuild": "npm run clean && npm i && npm run build-and-test",
-		"rebuild-offline": "npm run clean-build-products && npm run build-and-test",
+		"// rebuild-offline": "npm run clean-build-products && npm run build-and-test",
 		"build-and-test": "npm run prettier-check && npm run lint && npm run build && npm test",
 		"prettier-check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
 		"prettier-list": "prettier --list-different \"**/*.js\" \"**/*.ts\"",
@@ -55,8 +55,8 @@
 		"preversion": "npm run lint",
 		"version": "npm run format && git add -A src",
 		"postversion": "git push && git push --tags",
-		"re": "npm run prettier-format && npm run clean-build-products && npm run build-and-test && npm pack && npm run deploy",
 		"loc": "git ls-files | grep -v package-lock.json | tr -d '\\r' | tr '\\n' '\\0' | xargs -0 wc -l",
+		"re": "npm run prettier-format && npm run clean-build-products && npm run build-and-test && npm pack && npm run deploy",
 		"f": "npm run prettier-format && npm run all",
 		"start": "npm run all"
 	},
