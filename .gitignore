@@ -62,7 +62,3 @@ typings/
 
 .DS_Store
 dist/
-lib/
-
-commonjs/
-esm/

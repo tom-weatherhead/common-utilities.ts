@@ -5,7 +5,7 @@ const { terser } = require("rollup-plugin-terser");
 
 export default [
 	{
-		input: "./lib/main.js",
+		input: "./dist/types/main.js",
 		output: [
 			{
 				file: "dist/thaw-common-utilities.cjs.js",
