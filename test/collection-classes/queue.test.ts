@@ -2,7 +2,7 @@
 
 'use strict';
 
-import { Queue } from '../../esm/main';
+import { Queue } from '../..';
 
 test('Queue test', () => {
 	// Arrange

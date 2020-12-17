@@ -2,7 +2,7 @@
 
 'use strict';
 
-import * as engine from '../esm/main';
+import * as engine from '..';
 
 test('Type Tests', () => {
 	// Arrange

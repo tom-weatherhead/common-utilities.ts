@@ -2,7 +2,7 @@
 
 'use strict';
 
-import { PriorityQueue } from '../../esm/main';
+import { PriorityQueue } from '../..';
 
 test('Priority Queue test', () => {
 	// Arrange

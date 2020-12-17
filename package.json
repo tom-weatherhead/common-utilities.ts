@@ -16,19 +16,10 @@
 	"browser": "dist/thaw-common-utilities.js",
 	"main": "dist/thaw-common-utilities.cjs.js",
 	"module": "dist/thaw-common-utilities.esm.js",
-	"// types": "lib/main.d.ts",
+	"types": "lib/main.d.ts",
 	"files": [
-		"dist/**/*",
-		"esm/**/*.d.ts"
-	],
-	"// browser": "",
-	"// type": "module",
-	"// main": "esm/main.js",
-	"// module": "esm/main.js",
-	"types": "esm/main.d.ts",
-	"// files": [
-		"commonjs/**/*",
-		"esm/**/*"
+		"dist/thaw-common-utilities*.js",
+		"lib/**/*.d.ts"
 	],
 	"man": [],
 	"directories": {
@@ -42,7 +33,7 @@
 	"scripts": {
 		"all": "npm run rebuild && npm pack && npm run deploy",
 		"// allw": "rmdir /Q /S coverage & rmdir /Q /S lib & npm run lint & npm run build & npm test & npm pack & move /Y thaw-common-utilities.ts-*.tgz C:\\git\\npm-packages\\",
-		"clean-build-products": "rm -rf commonjs && rm -rf coverage && rm -rf dist && rm -rf esm",
+		"clean-build-products": "rm -rf coverage && rm -rf dist && rm -rf lib",
 		"clean-packages": "rm -rf node_modules && rm -f package-lock.json",
 		"clean": "npm run clean-build-products && npm run clean-packages",
 		"rebuild": "npm run clean && npm i && npm run build-and-test",
@@ -52,12 +43,7 @@
 		"prettier-list": "prettier --list-different \"**/*.js\" \"**/*.ts\"",
 		"prettier-format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"lint": "eslint src --ext .ts",
-		"build-commonjs": "tsc -p tsconfig.commonjs.json",
-		"post-build-commonjs": "cp commonjs-package.json commonjs/package.json",
-		"post-build-commonjs-win": "xcopy /Q commonjs-package.json commonjs\\package.json",
-		"build-esm": "tsc -p tsconfig.esm.json",
-		"// build": "npm run build-commonjs && npm run post-build-commonjs && npm run build-esm",
-		"build": "npm run build-esm",
+		"build": "tsc",
 		"rollup": "rollup --config",
 		"test": "jest --detectOpenHandles --forceExit",
 		"deploy": "eval mv $npm_package_name-$npm_package_version.tgz $(echo $npm_package_config_deploy_target_dir)/",

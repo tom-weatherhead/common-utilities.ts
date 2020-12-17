@@ -2,7 +2,7 @@
 
 'use strict';
 
-import { Set } from '../../esm/main';
+import { Set } from '../..';
 
 test('Set test 1', () => {
 	// Arrange
