@@ -12,12 +12,21 @@
 	"bugs": {
 		"url": "https://github.com/tom-weatherhead/common-utilities.ts/issues"
 	},
+	"source": "src/main.ts",
+	"browser": "dist/thaw-common-utilities.js",
+	"main": "dist/thaw-common-utilities.cjs.js",
+	"module": "dist/thaw-common-utilities.esm.js",
+	"// types": "lib/main.d.ts",
+	"files": [
+		"dist/**/*",
+		"esm/**/*.d.ts"
+	],
 	"// browser": "",
 	"// type": "module",
-	"main": "esm/main.js",
-	"module": "esm/main.js",
+	"// main": "esm/main.js",
+	"// module": "esm/main.js",
 	"types": "esm/main.d.ts",
-	"files": [
+	"// files": [
 		"commonjs/**/*",
 		"esm/**/*"
 	],
@@ -33,12 +42,12 @@
 	"scripts": {
 		"all": "npm run rebuild && npm pack && npm run deploy",
 		"// allw": "rmdir /Q /S coverage & rmdir /Q /S lib & npm run lint & npm run build & npm test & npm pack & move /Y thaw-common-utilities.ts-*.tgz C:\\git\\npm-packages\\",
-		"clean-build-products": "rm -rf commonjs && rm -rf coverage && rm -rf esm",
+		"clean-build-products": "rm -rf commonjs && rm -rf coverage && rm -rf dist && rm -rf esm",
 		"clean-packages": "rm -rf node_modules && rm -f package-lock.json",
 		"clean": "npm run clean-build-products && npm run clean-packages",
 		"rebuild": "npm run clean && npm i && npm run build-and-test",
 		"// rebuild-offline": "npm run clean-build-products && npm run build-and-test",
-		"build-and-test": "npm run prettier-check && npm run lint && npm run build && npm test",
+		"build-and-test": "npm run prettier-check && npm run lint && npm run build && npm run rollup && npm test",
 		"prettier-check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
 		"prettier-list": "prettier --list-different \"**/*.js\" \"**/*.ts\"",
 		"prettier-format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -47,7 +56,9 @@
 		"post-build-commonjs": "cp commonjs-package.json commonjs/package.json",
 		"post-build-commonjs-win": "xcopy /Q commonjs-package.json commonjs\\package.json",
 		"build-esm": "tsc -p tsconfig.esm.json",
-		"build": "npm run build-commonjs && npm run post-build-commonjs && npm run build-esm",
+		"// build": "npm run build-commonjs && npm run post-build-commonjs && npm run build-esm",
+		"build": "npm run build-esm",
+		"rollup": "rollup --config",
 		"test": "jest --detectOpenHandles --forceExit",
 		"deploy": "eval mv $npm_package_name-$npm_package_version.tgz $(echo $npm_package_config_deploy_target_dir)/",
 		"// prepare": "npm run build",
@@ -77,6 +88,8 @@
 		"eslint": "^7.14.0",
 		"jest": "^26.6.3",
 		"prettier": "^2.2.1",
+		"rollup": "^2.34.1",
+		"rollup-plugin-terser": "^7.0.2",
 		"semver": "^7.3.2",
 		"typescript": "^4.1.2"
 	},

@@ -2,7 +2,8 @@
 
 'use strict';
 
-import * as engine from '../esm/main';
+// import * as engine from '../esm/main';
+import * as engine from '..';
 
 const array1Unsorted = [8, 6, 7, 5, 3, 0, 9];
 const array1Sorted = [0, 3, 5, 6, 7, 8, 9];
