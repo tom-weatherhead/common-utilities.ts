@@ -14,6 +14,7 @@ export * from './json';
 export * from './lazy';
 export * from './numbers';
 export * from './objects';
+export * from './promises';
 export * from './regexes';
 export * from './strings';
 export * from './types';
