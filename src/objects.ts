@@ -39,9 +39,7 @@ export function copySpecifiedObjectProperties<T>(
 	return dst;
 }
 
-export function combineObjects<T>(
-	...objects: ObjectType<T>[]
-): ObjectType<T> {
+export function combineObjects<T>(...objects: ObjectType<T>[]): ObjectType<T> {
 	const combinedObject: ObjectType<T> = {};
 
 	objects.forEach((object) => {
@@ -53,9 +51,7 @@ export function combineObjects<T>(
 	return combinedObject;
 }
 
-export function getOwnProperties(
-	obj: DefaultObjectType = {}
-): ObjectKeyType[] {
+export function getOwnProperties(obj: DefaultObjectType = {}): ObjectKeyType[] {
 	/*
 	// Version 1
 	// See https://stackoverflow.com/questions/208016/how-to-list-the-properties-of-a-javascript-object

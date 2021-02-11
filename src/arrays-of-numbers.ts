@@ -108,9 +108,7 @@ function crossProductVersion2Helper(
 			accumulator1.concat(
 				aa[0].reduce(
 					(accumulator2: number[][], n2: number) =>
-						accumulator2.concat([
-							accumulatorElement.concat([n2])
-						]),
+						accumulator2.concat([accumulatorElement.concat([n2])]),
 					[]
 				)
 			),
@@ -278,18 +276,13 @@ export function coefficientOfDetermination(x: number[], y: number[]): number {
 
 	const numerator = n * sum(pointwise(product, x, y)) - sum(x) * sum(y);
 	const square = (i: number) => i * i;
-	const fn = (z: number[]): number =>
-		n * sum(z.map(square)) - square(sum(z));
+	const fn = (z: number[]): number => n * sum(z.map(square)) - square(sum(z));
 	const denominatorSquared = fn(x) * fn(y);
 
 	return (numerator * numerator) / denominatorSquared;
 }
 
-export function clamp(
-	value: number,
-	minimum: number,
-	maximum: number
-): number {
+export function clamp(value: number, minimum: number, maximum: number): number {
 	if (value < minimum) {
 		return minimum;
 	} else if (value > maximum) {

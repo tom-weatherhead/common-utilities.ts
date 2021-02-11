@@ -63,10 +63,7 @@ export const multiplicativeIdentity = 1;
 // 	);
 // }
 export function multiply(...arg: unknown[]): number {
-	return removeNonNumbers(arg).reduce(
-		binaryMultiply,
-		multiplicativeIdentity
-	);
+	return removeNonNumbers(arg).reduce(binaryMultiply, multiplicativeIdentity);
 }
 
 export const product = multiply;

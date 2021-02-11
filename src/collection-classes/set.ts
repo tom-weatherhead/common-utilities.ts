@@ -138,17 +138,9 @@ export class Set<T> {
 			arrayOfSubsets.push(Set.createFromArray(subsetAsArray));
 		} else {
 			subsetAsArray.push(this.items[index]);
-			this.getAllSubsetsHelper(
-				arrayOfSubsets,
-				subsetAsArray,
-				index + 1
-			);
+			this.getAllSubsetsHelper(arrayOfSubsets, subsetAsArray, index + 1);
 			subsetAsArray.pop();
-			this.getAllSubsetsHelper(
-				arrayOfSubsets,
-				subsetAsArray,
-				index + 1
-			);
+			this.getAllSubsetsHelper(arrayOfSubsets, subsetAsArray, index + 1);
 		}
 	}
 }

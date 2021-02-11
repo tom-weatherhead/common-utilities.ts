@@ -40,9 +40,7 @@ test('Type Tests', () => {
 	expect(engine.getTypeString(testArrayOfNumbers)).toBe('[object Array]');
 	expect(engine.isArray(testArrayOfNumbers)).toBe(true);
 	expect(engine.isArrayOfNumbers(testArrayOfNumbers)).toBe(true);
-	expect(engine.getTypeString(testArrayOfNumbers[0])).toBe(
-		'[object Number]'
-	);
+	expect(engine.getTypeString(testArrayOfNumbers[0])).toBe('[object Number]');
 	expect(engine.isNumber(testArrayOfNumbers[0])).toBe(true);
 	expect(engine.isNumber(NaN)).toBe(false);
 	expect(engine.isNumber(Infinity)).toBe(true);
@@ -60,9 +58,7 @@ test('Type Tests', () => {
 	expect(engine.isFunction(testFunction)).toBe(true);
 	expect(engine.getTypeString(testObject)).toBe('[object Object]');
 	expect(engine.isObject(testObject)).toBe(true);
-	expect(engine.getTypeString(testRegularExpression)).toBe(
-		'[object RegExp]'
-	);
+	expect(engine.getTypeString(testRegularExpression)).toBe('[object RegExp]');
 	expect(engine.isRegularExpression(testRegularExpression)).toBe(true);
 	expect(engine.getTypeString(testString)).toBe('[object String]');
 	expect(engine.isString(testString)).toBe(true);

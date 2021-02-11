@@ -32,11 +32,7 @@ export function isArrayInIncreasingOrder(array: number[]): boolean {
 }
 
 export function isArrayInNonDecreasingOrder(array: number[]): boolean {
-	return doesConsecutiveElementsConditionHold(
-		array,
-		(x, y) => x <= y,
-		true
-	);
+	return doesConsecutiveElementsConditionHold(array, (x, y) => x <= y, true);
 }
 
 export function isArrayInDecreasingOrder(array: number[]): boolean {
@@ -44,11 +40,7 @@ export function isArrayInDecreasingOrder(array: number[]): boolean {
 }
 
 export function isArrayInNonIncreasingOrder(array: number[]): boolean {
-	return doesConsecutiveElementsConditionHold(
-		array,
-		(x, y) => x >= y,
-		true
-	);
+	return doesConsecutiveElementsConditionHold(array, (x, y) => x >= y, true);
 }
 
 export function findSuperlativeElement<T>(

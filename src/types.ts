@@ -38,9 +38,7 @@ export const isDefined: (obj: unknown) => boolean = (obj) =>
 
 export const isArray: (obj: unknown) => boolean = factory_fnIsType('Array');
 
-export const isBoolean: (obj: unknown) => boolean = factory_fnIsType(
-	'Boolean'
-);
+export const isBoolean: (obj: unknown) => boolean = factory_fnIsType('Boolean');
 
 export const isDate: (obj: unknown) => boolean = factory_fnIsType('Date');
 
@@ -65,9 +63,9 @@ export const isSafeNumber: (obj: unknown) => boolean = (arg) =>
 
 export const isObject: (obj: unknown) => boolean = factory_fnIsType('Object');
 
-export const isRegularExpression: (
-	obj: unknown
-) => boolean = factory_fnIsType('RegExp');
+export const isRegularExpression: (obj: unknown) => boolean = factory_fnIsType(
+	'RegExp'
+);
 
 export const isString: (obj: unknown) => boolean = factory_fnIsType('String');
 
@@ -87,10 +85,7 @@ export const isAggregateEntity: (obj: unknown) => boolean = (arg) =>
 // export const ifDefinedElse: (obj: any, dflt: any) => boolean = (arg, dflt) =>
 // 	isDefined(arg) ? arg : dflt;
 
-export function ifDefinedThenElse<T>(
-	valueIn: T | undefined,
-	defaultOut: T
-): T {
+export function ifDefinedThenElse<T>(valueIn: T | undefined, defaultOut: T): T {
 	if (typeof valueIn !== 'undefined') {
 		return valueIn;
 	} else {
