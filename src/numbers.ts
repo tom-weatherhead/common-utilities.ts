@@ -309,3 +309,31 @@ export function numberToFixedPrecisionString(
 ): string {
 	return zeroExtendNumber(factory_fnRoundToNDigits(digits)(n), digits);
 }
+
+export function randomNumberNormalDistribution(): number {
+	// This code from https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve/36481059#36481059
+
+	// The output of Math.random() is uniformly distributed within [0,1).
+	// This Box-Mueller transforms the uniform distribution to a normal distribution (i.e. bell-curve-shaped), with mean = 0 and stddev = 1.
+
+	// See also https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
+
+	// var u = 0, v = 0;
+	// while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+	// while(v === 0) v = Math.random();
+
+	let u: number;
+	let v: number;
+
+	// These two loops convert [0,1) to (0,1).
+
+	do {
+		u = Math.random();
+	} while (u === 0);
+
+	do {
+		v = Math.random();
+	} while (v === 0);
+
+	return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
