@@ -319,7 +319,7 @@ export function randomNumberNormalDistribution(): number {
 	// See also https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
 
 	// var u = 0, v = 0;
-	// while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+	// while(u === 0) u = Math.random(); // Converting [0,1) to (0,1)
 	// while(v === 0) v = Math.random();
 
 	let u: number;

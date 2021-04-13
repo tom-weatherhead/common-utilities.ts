@@ -325,6 +325,9 @@ export const sampleCorrelationCoefficient = createCorrelationCoefficientFunction
 	1
 );
 
-export function getLastElementOfNumericArray(array: number[]): number {
-	return ifDefinedThenElse(getLastElementOfArray(array), NaN);
+export function getLastElementOfNumericArray(
+	array: number[],
+	dflt = NaN
+): number {
+	return ifDefinedThenElse(getLastElementOfArray(array), dflt);
 }
