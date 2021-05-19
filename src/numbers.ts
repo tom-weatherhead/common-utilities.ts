@@ -260,12 +260,25 @@ export function tenToThePowerOfN(n: number): number {
 	return aToThePowerOfB(10, n);
 }
 
-export function factory_fnRoundToNDigits(n: number): (m: number) => number {
+export function roundMToNDigits(m: number, n: number): number {
 	const valueOfTenToThePowerOfN = tenToThePowerOfN(n);
 
-	return (m: number) =>
-		Math.round(m * valueOfTenToThePowerOfN) / valueOfTenToThePowerOfN;
+	return Math.round(m * valueOfTenToThePowerOfN) / valueOfTenToThePowerOfN;
 }
+
+export function factory_fnRoundToNDigits(n: number): (m: number) => number {
+	return (m: number) => roundMToNDigits(m, n);
+}
+
+// A more efficient way: Calculate valueOfTenToThePowerOfN once,
+// and then bind it inside the closure that will be returned:
+
+// export function factory_fnRoundToNDigitsV2(n: number): (m: number) => number {
+// 	const valueOfTenToThePowerOfN = tenToThePowerOfN(n);
+
+// 	return (m: number) =>
+// 		Math.round(m * valueOfTenToThePowerOfN) / valueOfTenToThePowerOfN;
+// }
 
 // export function isInteger(n: number): boolean {
 // 	// return Number.isInteger(n);
@@ -336,4 +349,15 @@ export function randomNumberNormalDistribution(): number {
 	} while (v === 0);
 
 	return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
+
+export function ifDefinedAndNotNaNThenElse(
+	valueIn: number | undefined,
+	defaultOut: number
+): number {
+	if (typeof valueIn === 'undefined' || Number.isNaN(valueIn)) {
+		return defaultOut;
+	}
+
+	return valueIn;
 }

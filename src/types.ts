@@ -42,9 +42,8 @@ export const isBoolean: (obj: unknown) => boolean = factory_fnIsType('Boolean');
 
 export const isDate: (obj: unknown) => boolean = factory_fnIsType('Date');
 
-export const isFunction: (obj: unknown) => boolean = factory_fnIsType(
-	'Function'
-);
+export const isFunction: (obj: unknown) => boolean =
+	factory_fnIsType('Function');
 
 const isNumberType: (obj: unknown) => boolean = factory_fnIsType('Number');
 // export const isNumber = arg => isNumberType(arg) && arg === arg; // This works too, since NaN !== NaN.
@@ -63,9 +62,8 @@ export const isSafeNumber: (obj: unknown) => boolean = (arg) =>
 
 export const isObject: (obj: unknown) => boolean = factory_fnIsType('Object');
 
-export const isRegularExpression: (obj: unknown) => boolean = factory_fnIsType(
-	'RegExp'
-);
+export const isRegularExpression: (obj: unknown) => boolean =
+	factory_fnIsType('RegExp');
 
 export const isString: (obj: unknown) => boolean = factory_fnIsType('String');
 

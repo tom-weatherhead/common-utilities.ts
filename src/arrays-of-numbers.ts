@@ -318,12 +318,10 @@ function createCorrelationCoefficientFunction(
 	};
 }
 
-export const populationCorrelationCoefficient = createCorrelationCoefficientFunction(
-	0
-);
-export const sampleCorrelationCoefficient = createCorrelationCoefficientFunction(
-	1
-);
+export const populationCorrelationCoefficient =
+	createCorrelationCoefficientFunction(0);
+export const sampleCorrelationCoefficient =
+	createCorrelationCoefficientFunction(1);
 
 export function getLastElementOfNumericArray(
 	array: number[],

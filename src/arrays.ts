@@ -410,3 +410,17 @@ export function notAll(array: boolean[]): boolean {
 }
 
 export const some = any;
+
+export function mapLastElementOfArray<T, U>(
+	array: T[],
+	fn: (element: T) => U,
+	dflt: U
+): U {
+	if (array.length === 0) {
+		return dflt;
+	}
+
+	const lastElement = array[array.length - 1];
+
+	return fn(lastElement);
+}
