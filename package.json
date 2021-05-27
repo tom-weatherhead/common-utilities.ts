@@ -1,6 +1,6 @@
 {
 	"name": "thaw-common-utilities.ts",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"description": "Common utility functions implemented in TypeScript.",
 	"keywords": [
 		"TypeScript",
@@ -34,6 +34,7 @@
 		"all": "npm run rebuild && npm pack && npm run deploy",
 		"// allw": "rmdir /Q /S coverage & rmdir /Q /S lib & npm run lint & npm run build & npm test & npm pack & move /Y thaw-common-utilities.ts-*.tgz C:\\git\\npm-packages\\",
 		"clean-build-products": "rm -rf coverage && rm -rf dist",
+		"clean-offline": "npm run clean-build-products",
 		"clean-packages": "rm -rf node_modules && rm -f package-lock.json",
 		"clean": "npm run clean-build-products && npm run clean-packages",
 		"rebuild": "npm run clean && npm i && npm run build-and-test",
@@ -54,14 +55,14 @@
 		"postversion": "git push && git push --tags",
 		"loc": "git ls-files | grep -v package-lock.json | tr -d '\\r' | tr '\\n' '\\0' | xargs -0 wc -l",
 		"re": "npm run prettier-format && npm run clean-build-products && npm run build-and-test && npm pack && npm run deploy",
-		"f": "npm run prettier-format && npm run all",
+		"// f": "npm run prettier-format && npm run all",
+		"f": "npm run clean && npm i && npm run re",
 		"start": "npm run all"
 	},
 	"config": {
 		"deploy_target_dir": "$NPM_PKG_DIR"
 	},
 	"publishConfig": {},
-	"dependencies": {},
 	"devDependencies": {
 		"@babel/core": "^7.14.3",
 		"@babel/preset-env": "^7.14.2",
