@@ -101,53 +101,42 @@ export class Set<T> implements ICollection<T> {
 		}
 	}
 
-	private getEqualityComparisonFunction(item: T): (otherItem: T) => boolean {
-		if (isIEqualityComparable(item)) {
-			const castItem = item as IEqualityComparable;
-
-			// return (
-			// 	typeof this.items.find((i: T) => castItem.strictEquals(i)) !==
-			// 	'undefined'
-			// );
-
-			return (otherItem: T) => castItem.strictEquals(otherItem);
-		}
-
-		return (otherItem: T) => otherItem === item;
-	}
-
 	public remove(item: T): void {
 		// Or: Use indexOf() and splice(), since item should occur in this.items at most one time?
-		let fn = (otherItem: T) => otherItem !== item;
+		// let fn = (otherItem: T) => otherItem !== item;
 
-		if (isIEqualityComparable(item)) {
-			const castItem = item as IEqualityComparable;
+		// if (isIEqualityComparable(item)) {
+		// 	const castItem = item as IEqualityComparable;
 
-			// return (
-			// 	typeof this.items.find((i: T) => castItem.strictEquals(i)) !==
-			// 	'undefined'
-			// );
+		// 	// return (
+		// 	// 	typeof this.items.find((i: T) => castItem.strictEquals(i)) !==
+		// 	// 	'undefined'
+		// 	// );
 
-			fn = (otherItem: T) => !castItem.strictEquals(otherItem);
-		}
+		// 	fn = (otherItem: T) => !castItem.strictEquals(otherItem);
+		// }
+		const fn = this.getEqualityComparisonFunction(item);
 
-		this.items = this.items.filter(fn);
+		this.items = this.items.filter((otherItem: T) => !fn(otherItem));
 	}
 
 	public contains(item: T): boolean {
-		if (isIEqualityComparable(item)) {
-			const castItem = item as IEqualityComparable;
+		// if (isIEqualityComparable(item)) {
+		// 	const castItem = item as IEqualityComparable;
 
-			return (
-				typeof this.items.find((otherItem: T) =>
-					castItem.strictEquals(otherItem)
-				) !== 'undefined'
-			);
-		}
+		// 	return (
+		// 		typeof this.items.find((otherItem: T) =>
+		// 			castItem.strictEquals(otherItem)
+		// 		) !== 'undefined'
+		// 	);
+		// }
 
-		return this.items.indexOf(item) >= 0;
+		// return this.items.indexOf(item) >= 0;
 		// Or? : this.items.includes(item)
 		// Or? : item in this.items
+		const fn = this.getEqualityComparisonFunction(item);
+
+		return typeof this.items.find(fn) !== 'undefined';
 	}
 
 	public isASubsetOf(otherSet: Set<T>): boolean {
@@ -246,6 +235,21 @@ export class Set<T> implements ICollection<T> {
 			subsetAsArray.pop();
 			this.getAllSubsetsHelper(arrayOfSubsets, subsetAsArray, index + 1);
 		}
+	}
+
+	private getEqualityComparisonFunction(item: T): (otherItem: T) => boolean {
+		if (isIEqualityComparable(item)) {
+			const castItem = item as IEqualityComparable;
+
+			// return (
+			// 	typeof this.items.find((i: T) => castItem.strictEquals(i)) !==
+			// 	'undefined'
+			// );
+
+			return (otherItem: T) => castItem.strictEquals(otherItem);
+		}
+
+		return (otherItem: T) => otherItem === item;
 	}
 
 	// Iterators and generators:

@@ -1,14 +1,16 @@
-// github:tom-weatherhead/common-utilities.ts/src/collection-classes/stack.ts
+// collection-array-base.ts
 
 import { ICollection } from './icollection';
 import {
 	IEqualityComparable,
 	isIEqualityComparable
 } from '../interfaces/iequality-comparable';
-import { IIterator } from './iiterator';
-import { Iterator } from './iterator';
+// import { IIterator } from './iiterator';
+// import { Iterator } from './iterator';
 
-export class Stack<T> implements ICollection<T> {
+export abstract class CollectionArrayBase<T> implements ICollection<T> {
+	// Static methods
+
 	// Fields (private member data)
 
 	private items: T[] = [];
@@ -18,7 +20,7 @@ export class Stack<T> implements ICollection<T> {
 	constructor(iterable?: Iterable<T>) {
 		if (typeof iterable !== 'undefined') {
 			for (const item of iterable) {
-				this.push(item);
+				this.add(item);
 			}
 		}
 	}
@@ -41,12 +43,6 @@ export class Stack<T> implements ICollection<T> {
 
 	// Other public methods
 
-	public clone(): Stack<T> {
-		// Creates a shallow copy
-
-		return new Stack<T>(this);
-	}
-
 	public toArray(): T[] {
 		// Creates a shallow copy
 
@@ -61,26 +57,9 @@ export class Stack<T> implements ICollection<T> {
 		this.items = [];
 	}
 
-	public push(item: T): void {
-		this.items.push(item);
-	}
+	public abstract add(item: T): void;
 
-	public pop(): T | undefined {
-		// if (this.isEmpty()) {
-		// 	throw new EmptyStackException();
-		// }
-
-		return this.items.pop();
-	}
-
-	public add(item: T): void {
-		this.push(item);
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public remove(item: T): void {
-		throw new Error('Stack.remove() : Boom.');
-	}
+	public abstract remove(item: T): void;
 
 	public contains(item: T): boolean {
 		const fn = this.getEqualityComparisonFunction(item);
@@ -88,17 +67,11 @@ export class Stack<T> implements ICollection<T> {
 		return typeof this.items.find(fn) !== 'undefined';
 	}
 
-	// public isEqualTo(otherStack: Stack<T>): boolean {
-	// 	return ...;
-	// }
+	// Protected methods
 
-	public getIterator(): IIterator<T> {
-		return Iterator.cloneAndConstruct(this.items);
-	}
-
-	// Private methods
-
-	private getEqualityComparisonFunction(item: T): (otherItem: T) => boolean {
+	protected getEqualityComparisonFunction(
+		item: T
+	): (otherItem: T) => boolean {
 		if (isIEqualityComparable(item)) {
 			const castItem = item as IEqualityComparable;
 
@@ -107,4 +80,6 @@ export class Stack<T> implements ICollection<T> {
 
 		return (otherItem: T) => otherItem === item;
 	}
+
+	// Private methods
 }
