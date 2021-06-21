@@ -1,7 +1,7 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/icollection.ts
 
-export interface ICollection<T> {
-	// [Symbol.iterator]()
+export interface ICollection<T> extends Iterable<T> {
+	// [Symbol.iterator](): IterableIterator<T>
 
 	size: number;
 	toString(): string;

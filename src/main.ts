@@ -2,6 +2,9 @@
 
 // See e.g. https://itnext.io/step-by-step-building-and-publishing-an-npm-typescript-package-44fe7164964c
 
+export * from './interfaces/icomparable';
+export * from './interfaces/iequality-comparable';
+
 export * from './array-sorting';
 export * from './arrays';
 export * from './arrays-of-numbers';
