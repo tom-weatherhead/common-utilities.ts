@@ -1,9 +1,12 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/set.ts
 
+import { ICollection } from './icollection';
 import { IIterator } from './iiterator';
 import { Iterator } from './iterator';
 
-export class Set<T> {
+// error TS2488: Type 'IIterator<T>' must have a '[Symbol.iterator]()' method that returns an iterator.
+
+export class Set<T> implements ICollection<T> {
 	public static createFromArray<U>(array: U[]): Set<U> {
 		const result = new Set<U>();
 
@@ -28,6 +31,10 @@ export class Set<T> {
 
 	private items: T[] = [];
 
+	// public [Symbol.iterator]() {
+	// 	return this.items;
+	// }
+
 	public clone(): Set<T> {
 		const result = new Set<T>();
 
@@ -36,6 +43,18 @@ export class Set<T> {
 		});
 
 		return result;
+	}
+
+	public toString(): string {
+		return `[${this.items.join(', ')}]`;
+	}
+
+	public get size(): number {
+		return this.items.length;
+	}
+
+	public toArray(): T[] {
+		return this.items.slice(0);
 	}
 
 	public clear(): void {

@@ -4,6 +4,10 @@
 
 export function getTypeString(obj: unknown): string {
 	return Object.prototype.toString.call(obj);
+
+	// ? See https://stackoverflow.com/questions/13613524/get-an-objects-class-name-at-runtime
+	// Minification may change the class name.
+	// return obj.constructor.name; // obj.constructor fails if typeof obj is unknown
 }
 
 export function areTypesEqual(obj1: unknown, obj2: unknown): boolean {

@@ -3,15 +3,27 @@ Common utility functions implemented in TypeScript.
 
 Obligatory BadgeFest:
 
+[![codeclimate][codeclimate-badge-image]][codeclimate-url]
+[![git][git-badge-image]][git-url]
+[![github][github-badge-image]][github-url]
+[![npm][npm-badge-image]][npm-url]
+[![packagephobia][packagephobia-badge-image]][packagephobia-url]
+[![terminal][terminal-badge-image]][terminal-url]
+[![travis][travis-badge-image]][travis-url]
+[![typescript][typescript-badge-image]][typescript-url]
+
+[![status][status-badge-image]][status-url]
 [![build status][build-status-badge-image]][build-status-url]
 [![npm version][npm-version-badge-image]][npm-version-url]
 [![latest tag][latest-tag-badge-image]][latest-tag-url]
 [![npm total downloads][npm-total-downloads-badge-image]][npm-total-downloads-url]
 [![watchers][watchers-badge-image]][watchers-url]
 [![stars][stars-badge-image]][stars-url]
+[![issues][issues-badge-image]][issues-url]
 [![forks][forks-badge-image]][forks-url]
-[![repo dependents][repo-dependents-badge-image]][repo-dependents-url]
-[![pkg dependents][pkg-dependents-badge-image]][pkg-dependents-url]
+[![contributors][contributors-badge-image]][contributors-url]
+[![branches][branches-badge-image]][branches-url]
+[![releases][releases-badge-image]][releases-url]
 [![commits][commits-badge-image]][commits-url]
 [![last commit][last-commit-badge-image]][last-commit-url]
 [![types][types-badge-image]][types-url]
@@ -26,6 +38,8 @@ Obligatory BadgeFest:
 [![license][license-badge-image]][license-url]
 [![FOSSA Status][fossa-badge-image]][fossa-badge-url]
 
+<!-- [![repo dependents][repo-dependents-badge-image]][repo-dependents-url]
+[![pkg dependents][pkg-dependents-badge-image]][pkg-dependents-url] -->
 <!-- [![dependents](https://badgen.net/npm/dependents/thaw-common-utilities.ts)](https://badgen.net/npm/dependents/thaw-common-utilities.ts) -->
 
 ## Features
@@ -76,6 +90,25 @@ min<T>(array: T[]): T
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
+[codeclimate-badge-image]: https://badgen.net/badge/icon/codeclimate?icon=codeclimate&label
+[codeclimate-url]: https://codeclimate.com
+[git-badge-image]: https://badgen.net/badge/icon/git?icon=git&label
+[git-url]: https://git-scm.com
+[github-badge-image]: https://badgen.net/badge/icon/github?icon=github&label
+[github-url]: https://github.com
+[npm-badge-image]: https://badgen.net/badge/icon/npm?icon=npm&label
+[npm-url]: https://npmjs.com
+[packagephobia-badge-image]: https://badgen.net/badge/icon/packagephobia?icon=packagephobia&label
+[packagephobia-url]: https://packagephobia.com/
+[terminal-badge-image]: https://badgen.net/badge/icon/terminal?icon=terminal&label
+[terminal-url]: https://en.wikipedia.org/wiki/History_of_Unix
+[travis-badge-image]: https://badgen.net/badge/icon/travis?icon=travis&label
+[travis-url]: https://travis-ci.com
+[typescript-badge-image]: https://badgen.net/badge/icon/typescript?icon=typescript&label
+[typescript-url]: https://www.typescriptlang.org
+
+[status-badge-image]: https://badgen.net/github/status/tom-weatherhead/common-utilities.ts
+[status-url]: https://badgen.net/github/status/tom-weatherhead/common-utilities.ts
 [build-status-badge-image]: https://secure.travis-ci.org/tom-weatherhead/common-utilities.ts.svg
 [build-status-url]: https://travis-ci.org/tom-weatherhead/common-utilities.ts
 [npm-version-badge-image]: https://img.shields.io/npm/v/thaw-common-utilities.ts.svg
@@ -88,16 +121,24 @@ min<T>(array: T[]): T
 [watchers-url]: https://github.com/tom-weatherhead/common-utilities.ts/watchers
 [stars-badge-image]: https://badgen.net/github/stars/tom-weatherhead/common-utilities.ts
 [stars-url]: https://github.com/tom-weatherhead/common-utilities.ts/stargazers
+[issues-badge-image]: https://badgen.net/github/issues/tom-weatherhead/common-utilities.ts
+[issues-url]: https://github.com/tom-weatherhead/common-utilities.ts/issues
 [forks-badge-image]: https://badgen.net/github/forks/tom-weatherhead/common-utilities.ts
 [forks-url]: https://github.com/tom-weatherhead/common-utilities.ts/network/members
-[repo-dependents-badge-image]: https://badgen.net/github/dependents-repo/tom-weatherhead/common-utilities.ts
+<!-- [repo-dependents-badge-image]: https://badgen.net/github/dependents-repo/tom-weatherhead/common-utilities.ts
 [repo-dependents-url]: https://badgen.net/github/dependents-repo/tom-weatherhead/common-utilities.ts
 [pkg-dependents-badge-image]: https://badgen.net/github/dependents-pkg/tom-weatherhead/common-utilities.ts
-[pkg-dependents-url]: https://badgen.net/github/dependents-pkg/tom-weatherhead/common-utilities.ts
+[pkg-dependents-url]: https://badgen.net/github/dependents-pkg/tom-weatherhead/common-utilities.ts -->
+[contributors-badge-image]: https://badgen.net/github/contributors/tom-weatherhead/common-utilities.ts
+[contributors-url]: https://github.com/tom-weatherhead/common-utilities.ts/graphs/contributors
+[branches-badge-image]: https://badgen.net/github/branches/tom-weatherhead/common-utilities.ts
+[branches-url]: https://github.com/tom-weatherhead/common-utilities.ts/branches
+[releases-badge-image]: https://badgen.net/github/releases/tom-weatherhead/common-utilities.ts
+[releases-url]: https://github.com/tom-weatherhead/common-utilities.ts/releases
 [commits-badge-image]: https://badgen.net/github/commits/tom-weatherhead/common-utilities.ts
 [commits-url]: https://github.com/tom-weatherhead/common-utilities.ts/commits/master
 [last-commit-badge-image]: https://badgen.net/github/last-commit/tom-weatherhead/common-utilities.ts
-[last-commit-url]: https://badgen.net/github/last-commit/tom-weatherhead/common-utilities.ts
+[last-commit-url]: https://github.com/tom-weatherhead/common-utilities.ts
 [types-badge-image]: https://badgen.net/npm/types/thaw-common-utilities.ts
 [types-url]: https://badgen.net/npm/types/thaw-common-utilities.ts
 [install-size-badge-image]: https://badgen.net/packagephobia/install/thaw-common-utilities.ts
