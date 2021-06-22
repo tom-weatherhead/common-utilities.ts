@@ -1,14 +1,16 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/set.ts
 
-import { ICollection } from './icollection';
-import {
-	IEqualityComparable,
-	isIEqualityComparable
-} from '../interfaces/iequality-comparable';
+// import { ICollection } from './icollection';
+// import {
+// 	IEqualityComparable,
+// 	isIEqualityComparable
+// } from '../interfaces/iequality-comparable';
 import { IIterator } from './iiterator';
 import { Iterator } from './iterator';
 
-export class Set<T> implements ICollection<T> {
+import { CollectionArrayBase } from './collection-array-base';
+
+export class Set<T> extends CollectionArrayBase<T> {
 	// Static methods
 
 	public static createFromArray<U>(array: U[]): Set<U> {
@@ -35,33 +37,34 @@ export class Set<T> implements ICollection<T> {
 
 	// Fields (private member data)
 
-	private items: T[] = [];
+	// private items: T[] = [];
 
 	// Constructor
 
 	constructor(iterable?: Iterable<T>) {
-		if (typeof iterable !== 'undefined') {
-			for (const item of iterable) {
-				this.add(item);
-			}
-		}
+		super(iterable);
+		// if (typeof iterable !== 'undefined') {
+		// 	for (const item of iterable) {
+		// 		this.add(item);
+		// 	}
+		// }
 	}
 
 	// Fundamental methods
 
-	public [Symbol.iterator](): IterableIterator<T> {
-		return this.items[Symbol.iterator]();
-	}
+	// public [Symbol.iterator](): IterableIterator<T> {
+	// 	return this.items[Symbol.iterator]();
+	// }
 
-	public toString(): string {
-		return `[${this.items.join(', ')}]`;
-	}
+	// public toString(): string {
+	// 	return `[${this.items.join(', ')}]`;
+	// }
 
 	// Accessors
 
-	public get size(): number {
-		return this.items.length;
-	}
+	// public get size(): number {
+	// 	return this.items.length;
+	// }
 
 	// Other public methods
 
@@ -78,22 +81,22 @@ export class Set<T> implements ICollection<T> {
 		return new Set<T>(this);
 	}
 
-	public toArray(): T[] {
-		// Creates a shallow copy
-		// return this.items.slice(0);
+	// public toArray(): T[] {
+	// 	// Creates a shallow copy
+	// 	// return this.items.slice(0);
 
-		// return [...this[Symbol.iterator]()];
+	// 	// return [...this[Symbol.iterator]()];
 
-		return [...this];
-	}
+	// 	return [...this];
+	// }
 
-	public isEmpty(): boolean {
-		return this.size === 0;
-	}
+	// public isEmpty(): boolean {
+	// 	return this.size === 0;
+	// }
 
-	public clear(): void {
-		this.items = [];
-	}
+	// public clear(): void {
+	// 	this.items = [];
+	// }
 
 	public add(item: T): void {
 		if (!this.contains(item)) {
@@ -120,24 +123,24 @@ export class Set<T> implements ICollection<T> {
 		this.items = this.items.filter((otherItem: T) => !fn(otherItem));
 	}
 
-	public contains(item: T): boolean {
-		// if (isIEqualityComparable(item)) {
-		// 	const castItem = item as IEqualityComparable;
+	// public contains(item: T): boolean {
+	// 	// if (isIEqualityComparable(item)) {
+	// 	// 	const castItem = item as IEqualityComparable;
 
-		// 	return (
-		// 		typeof this.items.find((otherItem: T) =>
-		// 			castItem.strictEquals(otherItem)
-		// 		) !== 'undefined'
-		// 	);
-		// }
+	// 	// 	return (
+	// 	// 		typeof this.items.find((otherItem: T) =>
+	// 	// 			castItem.strictEquals(otherItem)
+	// 	// 		) !== 'undefined'
+	// 	// 	);
+	// 	// }
 
-		// return this.items.indexOf(item) >= 0;
-		// Or? : this.items.includes(item)
-		// Or? : item in this.items
-		const fn = this.getEqualityComparisonFunction(item);
+	// 	// return this.items.indexOf(item) >= 0;
+	// 	// Or? : this.items.includes(item)
+	// 	// Or? : item in this.items
+	// 	const fn = this.getEqualityComparisonFunction(item);
 
-		return typeof this.items.find(fn) !== 'undefined';
-	}
+	// 	return typeof this.items.find(fn) !== 'undefined';
+	// }
 
 	public isASubsetOf(otherSet: Set<T>): boolean {
 		return this.items.every((element: T) => otherSet.contains(element));
@@ -237,20 +240,20 @@ export class Set<T> implements ICollection<T> {
 		}
 	}
 
-	private getEqualityComparisonFunction(item: T): (otherItem: T) => boolean {
-		if (isIEqualityComparable(item)) {
-			const castItem = item as IEqualityComparable;
+	// private getEqualityComparisonFunction(item: T): (otherItem: T) => boolean {
+	// 	if (isIEqualityComparable(item)) {
+	// 		const castItem = item as IEqualityComparable;
 
-			// return (
-			// 	typeof this.items.find((i: T) => castItem.strictEquals(i)) !==
-			// 	'undefined'
-			// );
+	// 		// return (
+	// 		// 	typeof this.items.find((i: T) => castItem.strictEquals(i)) !==
+	// 		// 	'undefined'
+	// 		// );
 
-			return (otherItem: T) => castItem.strictEquals(otherItem);
-		}
+	// 		return (otherItem: T) => castItem.strictEquals(otherItem);
+	// 	}
 
-		return (otherItem: T) => otherItem === item;
-	}
+	// 	return (otherItem: T) => otherItem === item;
+	// }
 
 	// Iterators and generators:
 	// See e.g. https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html

@@ -1,4 +1,4 @@
-// collection-array-base.ts
+// github:tom-weatherhead/common-utilities.ts/src/collection-classes/collection-array-base.ts
 
 import { ICollection } from './icollection';
 import {
@@ -13,7 +13,7 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 
 	// Fields (private member data)
 
-	private items: T[] = [];
+	protected items: T[] = [];
 
 	// Constructor
 

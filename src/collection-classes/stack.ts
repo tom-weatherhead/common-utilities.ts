@@ -8,6 +8,11 @@ import {
 import { IIterator } from './iiterator';
 import { Iterator } from './iterator';
 
+// TODO:
+// import { CollectionArrayBase } from './collection-array-base';
+
+// export class Stack<T> extends CollectionArrayBase<T> { ... }
+
 export class Stack<T> implements ICollection<T> {
 	// Fields (private member data)
 
