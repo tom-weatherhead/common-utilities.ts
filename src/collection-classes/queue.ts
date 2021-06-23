@@ -1,10 +1,12 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/queue.ts
 
-import { IIterator } from './iiterator';
-import { Iterator } from './iterator';
+// import { IIterator } from './iiterator';
+// import { Iterator } from './iterator';
 
-export class Queue<T> {
-	private readonly items: T[] = [];
+import { CollectionArrayBase } from './collection-array-base';
+
+export class Queue<T> extends CollectionArrayBase<T> {
+	// private readonly items: T[] = [];
 
 	public enqueue(item: T): void {
 		this.items.push(item);
@@ -18,11 +20,17 @@ export class Queue<T> {
 		return this.items.shift();
 	}
 
-	public isEmpty(): boolean {
-		return this.items.length === 0;
+	protected protectedAdd(item: T): boolean {
+		this.enqueue(item);
+
+		return true;
 	}
 
-	public getIterator(): IIterator<T> {
-		return Iterator.cloneAndConstruct(this.items);
-	}
+	// public isEmpty(): boolean {
+	// 	return this.items.length === 0;
+	// }
+
+	// public getIterator(): IIterator<T> {
+	// 	return Iterator.cloneAndConstruct(this.items);
+	// }
 }

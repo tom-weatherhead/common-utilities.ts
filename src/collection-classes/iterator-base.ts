@@ -1,62 +1,62 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/iterator-base.ts
 
-import { IIterator } from './iiterator';
+// import { IIterator } from './iiterator';
 
-export abstract class IteratorBase<T> implements IIterator<T> {
-	public abstract isDone(): boolean;
-	public abstract next(): T | undefined;
+// export abstract class IteratorBase<T> implements IIterator<T> {
+// 	public abstract isDone(): boolean;
+// 	public abstract next(): T | undefined;
 
-	// The methods in this class are implemented in terms of isDone(), next(), and cloneAndConstruct().
+// 	// The methods in this class are implemented in terms of isDone(), next(), and cloneAndConstruct().
 
-	public every(pred: (element: T) => boolean): boolean {
-		while (!this.isDone()) {
-			if (!pred(this.next() as T)) {
-				return false;
-			}
-		}
+// 	public every(pred: (element: T) => boolean): boolean {
+// 		while (!this.isDone()) {
+// 			if (!pred(this.next() as T)) {
+// 				return false;
+// 			}
+// 		}
 
-		return true;
-	}
+// 		return true;
+// 	}
 
-	public filter(pred: (element: T) => boolean): IIterator<T> {
-		const resultArray: T[] = [];
+// 	public filter(pred: (element: T) => boolean): IIterator<T> {
+// 		const resultArray: T[] = [];
 
-		while (!this.isDone()) {
-			const element = this.next() as T;
+// 		while (!this.isDone()) {
+// 			const element = this.next() as T;
 
-			if (pred(element)) {
-				resultArray.push(element);
-			}
-		}
+// 			if (pred(element)) {
+// 				resultArray.push(element);
+// 			}
+// 		}
 
-		return this.cloneAndConstruct(resultArray);
-	}
+// 		return this.cloneAndConstruct(resultArray);
+// 	}
 
-	public forEach(fn: (element: T) => unknown): void {
-		while (!this.isDone()) {
-			fn(this.next() as T);
-		}
-	}
+// 	public forEach(fn: (element: T) => unknown): void {
+// 		while (!this.isDone()) {
+// 			fn(this.next() as T);
+// 		}
+// 	}
 
-	public map<U>(fnMapElement: (element: T) => U): IIterator<U> {
-		const resultArray: U[] = [];
+// 	public map<U>(fnMapElement: (element: T) => U): IIterator<U> {
+// 		const resultArray: U[] = [];
 
-		while (!this.isDone()) {
-			resultArray.push(fnMapElement(this.next() as T));
-		}
+// 		while (!this.isDone()) {
+// 			resultArray.push(fnMapElement(this.next() as T));
+// 		}
 
-		return this.cloneAndConstruct(resultArray);
-	}
+// 		return this.cloneAndConstruct(resultArray);
+// 	}
 
-	public some(pred: (element: T) => boolean): boolean {
-		while (!this.isDone()) {
-			if (pred(this.next() as T)) {
-				return true;
-			}
-		}
+// 	public some(pred: (element: T) => boolean): boolean {
+// 		while (!this.isDone()) {
+// 			if (pred(this.next() as T)) {
+// 				return true;
+// 			}
+// 		}
 
-		return false;
-	}
+// 		return false;
+// 	}
 
-	protected abstract cloneAndConstruct<U>(items: U[]): IIterator<U>;
-}
+// 	protected abstract cloneAndConstruct<U>(items: U[]): IIterator<U>;
+// }

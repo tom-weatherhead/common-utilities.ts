@@ -26,39 +26,39 @@ test('Queue test', () => {
 	expect(dequeuedValue3).toEqual(item3);
 });
 
-test('Queue iterator test', () => {
-	// Arrange
-	const item1 = 2;
-	const item2 = 3;
-	const item3 = 5;
-	const queue = new Queue<number>();
+// test('Queue iterator test', () => {
+// 	// Arrange
+// 	const item1 = 2;
+// 	const item2 = 3;
+// 	const item3 = 5;
+// 	const queue = new Queue<number>();
 
-	// Act
-	queue.enqueue(item1);
-	queue.enqueue(item2);
-	queue.enqueue(item3);
+// 	// Act
+// 	queue.enqueue(item1);
+// 	queue.enqueue(item2);
+// 	queue.enqueue(item3);
 
-	const iterator = queue.getIterator();
+// 	const iterator = queue.getIterator();
 
-	// Assert
-	expect(iterator.isDone()).toBeFalsy();
+// 	// Assert
+// 	expect(iterator.isDone()).toBeFalsy();
 
-	const dequeuedValue1 = iterator.next();
+// 	const dequeuedValue1 = iterator.next();
 
-	expect(iterator.isDone()).toBeFalsy();
+// 	expect(iterator.isDone()).toBeFalsy();
 
-	const dequeuedValue2 = iterator.next();
+// 	const dequeuedValue2 = iterator.next();
 
-	expect(iterator.isDone()).toBeFalsy();
+// 	expect(iterator.isDone()).toBeFalsy();
 
-	const dequeuedValue3 = iterator.next();
+// 	const dequeuedValue3 = iterator.next();
 
-	expect(iterator.isDone()).toBeTruthy();
-	expect(dequeuedValue1).toEqual(item1);
-	expect(dequeuedValue2).toEqual(item2);
-	expect(dequeuedValue3).toEqual(item3);
+// 	expect(iterator.isDone()).toBeTruthy();
+// 	expect(dequeuedValue1).toEqual(item1);
+// 	expect(dequeuedValue2).toEqual(item2);
+// 	expect(dequeuedValue3).toEqual(item3);
 
-	const dequeuedValue4 = iterator.next();
+// 	const dequeuedValue4 = iterator.next();
 
-	expect(dequeuedValue4).toEqual(undefined);
-});
+// 	expect(dequeuedValue4).toEqual(undefined);
+// });
