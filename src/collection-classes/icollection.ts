@@ -6,9 +6,11 @@ export interface ICollection<T> extends Iterable<T> {
 	size: number;
 	toString(): string;
 	toArray(): T[];
-	clear(): void;
-	add(item: T): void;
-	remove(item: T): void;
-	contains(item: T): boolean;
 	isEmpty(): boolean;
+	clear(): void;
+	contains(item: T): boolean;
+	add(item: T): boolean;
+
+	// The semantics of remove() are class-specific.
+	// remove(item: T): boolean;
 }

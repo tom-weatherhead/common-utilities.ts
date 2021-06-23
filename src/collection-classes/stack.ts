@@ -71,21 +71,30 @@ export class Stack<T> implements ICollection<T> {
 	}
 
 	public pop(): T | undefined {
-		// if (this.isEmpty()) {
-		// 	throw new EmptyStackException();
-		// }
+		if (this.isEmpty()) {
+			// throw new EmptyStackException();
+			throw new Error(
+				'Stack.pop() : Stack underflow: The stack is empty.'
+			);
+		}
 
 		return this.items.pop();
 	}
 
-	public add(item: T): void {
+	protected protectedAdd(item: T): boolean {
 		this.push(item);
+
+		return true;
+	}
+
+	public add(item: T): boolean {
+		return this.protectedAdd(item);
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public remove(item: T): void {
-		throw new Error('Stack.remove() : Boom.');
-	}
+	// public remove(item: T): void {
+	// 	throw new Error('Stack.remove() : Boom.');
+	// }
 
 	public contains(item: T): boolean {
 		const fn = this.getEqualityComparisonFunction(item);

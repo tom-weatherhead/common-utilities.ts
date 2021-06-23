@@ -5,8 +5,8 @@
 // 	IEqualityComparable,
 // 	isIEqualityComparable
 // } from '../interfaces/iequality-comparable';
-import { IIterator } from './iiterator';
-import { Iterator } from './iterator';
+// import { IIterator } from './iiterator';
+// import { Iterator } from './iterator';
 
 import { CollectionArrayBase } from './collection-array-base';
 
@@ -14,133 +14,71 @@ export class Set<T> extends CollectionArrayBase<T> {
 	// Static methods
 
 	public static createFromArray<U>(array: U[]): Set<U> {
-		const result = new Set<U>();
+		// const result = new Set<U>();
 
-		for (const element of array) {
-			result.add(element);
-		}
+		// for (const element of array) {
+		// 	result.add(element);
+		// }
 
-		return result;
+		// return result;
+
+		return new Set<U>(array);
 	}
 
-	public static createFromIterator<U>(iterator: IIterator<U>): Set<U> {
-		const result = new Set<U>();
+	// public static createFromIterator<U>(iterator: IIterator<U>): Set<U> {
+	// 	const result = new Set<U>();
 
-		while (!iterator.isDone()) {
-			const element = iterator.next() as U;
+	// 	while (!iterator.isDone()) {
+	// 		const element = iterator.next() as U;
 
-			result.add(element);
-		}
+	// 		result.add(element);
+	// 	}
 
-		return result;
-	}
+	// 	return result;
+	// }
 
 	// Fields (private member data)
-
-	// private items: T[] = [];
 
 	// Constructor
 
 	constructor(iterable?: Iterable<T>) {
 		super(iterable);
-		// if (typeof iterable !== 'undefined') {
-		// 	for (const item of iterable) {
-		// 		this.add(item);
-		// 	}
-		// }
 	}
 
 	// Fundamental methods
 
-	// public [Symbol.iterator](): IterableIterator<T> {
-	// 	return this.items[Symbol.iterator]();
-	// }
-
-	// public toString(): string {
-	// 	return `[${this.items.join(', ')}]`;
-	// }
-
 	// Accessors
-
-	// public get size(): number {
-	// 	return this.items.length;
-	// }
 
 	// Other public methods
 
 	public clone(): Set<T> {
 		// Creates a shallow copy
-		// const result = new Set<T>();
-
-		// for (const item of this.items) {
-		// 	result.add(item);
-		// }
-
-		// return result;
 
 		return new Set<T>(this);
 	}
 
-	// public toArray(): T[] {
-	// 	// Creates a shallow copy
-	// 	// return this.items.slice(0);
-
-	// 	// return [...this[Symbol.iterator]()];
-
-	// 	return [...this];
-	// }
-
-	// public isEmpty(): boolean {
-	// 	return this.size === 0;
-	// }
-
-	// public clear(): void {
-	// 	this.items = [];
-	// }
-
-	public add(item: T): void {
-		if (!this.contains(item)) {
-			this.items.push(item);
+	protected protectedAdd(item: T): boolean {
+		if (this.contains(item)) {
+			return false;
 		}
+
+		this.items.push(item);
+
+		return true;
 	}
 
-	public remove(item: T): void {
-		// Or: Use indexOf() and splice(), since item should occur in this.items at most one time?
-		// let fn = (otherItem: T) => otherItem !== item;
+	public add(item: T): boolean {
+		return this.protectedAdd(item);
+	}
 
-		// if (isIEqualityComparable(item)) {
-		// 	const castItem = item as IEqualityComparable;
-
-		// 	// return (
-		// 	// 	typeof this.items.find((i: T) => castItem.strictEquals(i)) !==
-		// 	// 	'undefined'
-		// 	// );
-
-		// 	fn = (otherItem: T) => !castItem.strictEquals(otherItem);
-		// }
+	public remove(item: T): boolean {
+		const oldSize = this.size;
 		const fn = this.getEqualityComparisonFunction(item);
 
 		this.items = this.items.filter((otherItem: T) => !fn(otherItem));
+
+		return this.size < oldSize;
 	}
-
-	// public contains(item: T): boolean {
-	// 	// if (isIEqualityComparable(item)) {
-	// 	// 	const castItem = item as IEqualityComparable;
-
-	// 	// 	return (
-	// 	// 		typeof this.items.find((otherItem: T) =>
-	// 	// 			castItem.strictEquals(otherItem)
-	// 	// 		) !== 'undefined'
-	// 	// 	);
-	// 	// }
-
-	// 	// return this.items.indexOf(item) >= 0;
-	// 	// Or? : this.items.includes(item)
-	// 	// Or? : item in this.items
-	// 	const fn = this.getEqualityComparisonFunction(item);
-
-	// 	return typeof this.items.find(fn) !== 'undefined';
-	// }
 
 	public isASubsetOf(otherSet: Set<T>): boolean {
 		return this.items.every((element: T) => otherSet.contains(element));
@@ -154,12 +92,6 @@ export class Set<T> extends CollectionArrayBase<T> {
 	// This set is not modified.
 
 	public intersection(otherSet: Set<T>): Set<T> {
-		// const result = this.clone();
-
-		// result.intersectionInPlace(otherSet);
-
-		// return result;
-
 		return new Set<T>(
 			this.items.filter((item: T) => otherSet.contains(item))
 		);
@@ -168,37 +100,20 @@ export class Set<T> extends CollectionArrayBase<T> {
 	// Remove any of this set's elements that are not also in otherSet, in place (i.e. this set may be modified).
 
 	public intersectionInPlace(otherSet: Set<T>): void {
-		// const elementsToRemove = new Set<T>();
-
-		// this.items.forEach((element: T) => {
-		// 	if (!otherSet.contains(element)) {
-		// 		elementsToRemove.add(element);
-		// 	}
-		// });
-		// for (const item of this.items) {
-		// 	;
-		// }
-		const itemsToRemove = this.items.filter(
-			(item: T) => !otherSet.contains(item)
-		);
-
-		// elementsToRemove.items.forEach((element: T) => {
-		// 	this.remove(element);
-		// });
-		for (const item of itemsToRemove) {
-			this.remove(item);
-		}
+		this.items = this.items.filter((item: T) => otherSet.contains(item));
 	}
 
 	// Return a new set that is the union of this set and otherSet.
 	// This set is not modified.
 
 	public union(otherSet: Set<T>): Set<T> {
-		const result = this.clone();
+		// const result = this.clone();
 
-		result.unionInPlace(otherSet);
+		// result.unionInPlace(otherSet);
 
-		return result;
+		// return result;
+
+		return new Set<T>(this.items.concat(otherSet.items));
 	}
 
 	// Add otherSet's elements to this set, in place (i.e. this set may be modified).
@@ -212,15 +127,14 @@ export class Set<T> extends CollectionArrayBase<T> {
 	public getAllSubsets(): Set<T>[] {
 		const result: Set<T>[] = [];
 
-		// this.getAllSubsetsHelper(result, [], 0);
 		this.getAllSubsetsHelper(result);
 
 		return result;
 	}
 
-	public getIterator(): IIterator<T> {
-		return Iterator.cloneAndConstruct(this.items);
-	}
+	// public getIterator(): IIterator<T> {
+	// 	return Iterator.cloneAndConstruct(this.items);
+	// }
 
 	// Private methods
 
@@ -230,7 +144,6 @@ export class Set<T> extends CollectionArrayBase<T> {
 		index = 0
 	): void {
 		if (index >= this.items.length) {
-			// arrayOfSubsets.push(Set.createFromArray(subsetAsArray));
 			arrayOfSubsets.push(new Set<T>(subsetAsArray));
 		} else {
 			subsetAsArray.push(this.items[index]);

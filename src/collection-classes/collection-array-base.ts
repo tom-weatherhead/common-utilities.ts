@@ -20,7 +20,7 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 	constructor(iterable?: Iterable<T>) {
 		if (typeof iterable !== 'undefined') {
 			for (const item of iterable) {
-				this.add(item);
+				this.protectedAdd(item);
 			}
 		}
 	}
@@ -57,17 +57,21 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 		this.items = [];
 	}
 
-	public abstract add(item: T): void;
-
-	public abstract remove(item: T): void;
-
 	public contains(item: T): boolean {
 		const fn = this.getEqualityComparisonFunction(item);
 
 		return typeof this.items.find(fn) !== 'undefined';
 	}
 
+	public add(item: T): boolean {
+		return this.protectedAdd(item);
+	}
+
+	// public abstract remove(item: T): boolean;
+
 	// Protected methods
+
+	protected abstract protectedAdd(item: T): boolean;
 
 	protected getEqualityComparisonFunction(
 		item: T
