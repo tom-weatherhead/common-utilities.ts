@@ -1,26 +1,17 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/priority-queue.ts
 
-// import { clone } from '../objects';
-
-// import { IIterator } from './iiterator';
-// import { Iterator } from './iterator';
-
 import { CollectionArrayBase } from './collection-array-base';
 
 export class PriorityQueue<T> extends CollectionArrayBase<T> {
-	// private items: T[] = [];
-
+	// fnComparator:
 	// Returns true if item1 has a higher priority than item2.
 	// Returns false if item2 has a higher priority than item1.
-	// private readonly fnComparator: (item1: T, item2: T) => boolean;
 
 	constructor(
 		private readonly fnComparator: (item1: T, item2: T) => boolean,
 		iterable?: Iterable<T>
 	) {
 		super(iterable);
-
-		// this.fnComparator = fnComparator;
 	}
 
 	public enqueue(item: T): void {
@@ -29,7 +20,7 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 		// Now: Restore the heap condition throughout the heap by propagating
 		// the element that is now at index heap.length - 1 up through the heap, as necessary.
 
-		let index = this.items.length - 1;
+		let index = this.size - 1;
 
 		while (index) {
 			const nextIndex = Math.trunc((index - 1) / 2);
@@ -51,15 +42,19 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 
 	public dequeue(): T {
 		if (this.items.length === 0) {
-			// return undefined;
 			throw new Error('PriorityQueue.dequeue() : The queue is empty.');
 		}
 
 		const result = this.items[0];
+		const lastElement = this.items.pop();
 
-		const lastElement = this.items.pop() as T;
+		if (typeof lastElement === 'undefined') {
+			throw new Error(
+				'PriorityQueue.dequeue() : this.items.pop() returned undefined.'
+			);
+		}
 
-		if (!this.items.length) {
+		if (this.items.length === 0) {
 			return result;
 		}
 
@@ -119,23 +114,4 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 
 		return true;
 	}
-
-	// public isEmpty(): boolean {
-	// 	return this.items.length === 0;
-	// }
-
-	// public getIterator(): IIterator<T> {
-	// 	const originalItems = this.items;
-	// 	const sortedItems: T[] = [];
-
-	// 	this.items = clone(this.items);
-
-	// 	while (!this.isEmpty()) {
-	// 		sortedItems.push(this.dequeue() as T);
-	// 	}
-
-	// 	this.items = originalItems;
-
-	// 	return new Iterator<T>(sortedItems); // No need to clone sortedItems
-	// }
 }

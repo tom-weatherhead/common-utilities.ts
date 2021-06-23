@@ -1,49 +1,21 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/set.ts
 
-// import { ICollection } from './icollection';
-// import {
-// 	IEqualityComparable,
-// 	isIEqualityComparable
-// } from '../interfaces/iequality-comparable';
-// import { IIterator } from './iiterator';
-// import { Iterator } from './iterator';
-
 import { CollectionArrayBase } from './collection-array-base';
 
 export class Set<T> extends CollectionArrayBase<T> {
 	// Static methods
 
 	public static createFromArray<U>(array: U[]): Set<U> {
-		// const result = new Set<U>();
-
-		// for (const element of array) {
-		// 	result.add(element);
-		// }
-
-		// return result;
-
 		return new Set<U>(array);
 	}
-
-	// public static createFromIterator<U>(iterator: IIterator<U>): Set<U> {
-	// 	const result = new Set<U>();
-
-	// 	while (!iterator.isDone()) {
-	// 		const element = iterator.next() as U;
-
-	// 		result.add(element);
-	// 	}
-
-	// 	return result;
-	// }
 
 	// Fields (private member data)
 
 	// Constructor
 
-	constructor(iterable?: Iterable<T>) {
-		super(iterable);
-	}
+	// constructor(iterable?: Iterable<T>) {
+	// 	super(iterable);
+	// }
 
 	// Fundamental methods
 
@@ -107,12 +79,6 @@ export class Set<T> extends CollectionArrayBase<T> {
 	// This set is not modified.
 
 	public union(otherSet: Set<T>): Set<T> {
-		// const result = this.clone();
-
-		// result.unionInPlace(otherSet);
-
-		// return result;
-
 		return new Set<T>(this.items.concat(otherSet.items));
 	}
 
@@ -132,10 +98,6 @@ export class Set<T> extends CollectionArrayBase<T> {
 		return result;
 	}
 
-	// public getIterator(): IIterator<T> {
-	// 	return Iterator.cloneAndConstruct(this.items);
-	// }
-
 	// Private methods
 
 	private getAllSubsetsHelper(
@@ -152,21 +114,6 @@ export class Set<T> extends CollectionArrayBase<T> {
 			this.getAllSubsetsHelper(arrayOfSubsets, subsetAsArray, index + 1);
 		}
 	}
-
-	// private getEqualityComparisonFunction(item: T): (otherItem: T) => boolean {
-	// 	if (isIEqualityComparable(item)) {
-	// 		const castItem = item as IEqualityComparable;
-
-	// 		// return (
-	// 		// 	typeof this.items.find((i: T) => castItem.strictEquals(i)) !==
-	// 		// 	'undefined'
-	// 		// );
-
-	// 		return (otherItem: T) => castItem.strictEquals(otherItem);
-	// 	}
-
-	// 	return (otherItem: T) => otherItem === item;
-	// }
 
 	// Iterators and generators:
 	// See e.g. https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html

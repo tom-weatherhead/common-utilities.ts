@@ -125,10 +125,6 @@ min<T>(array: T[]): T
 [issues-url]: https://github.com/tom-weatherhead/common-utilities.ts/issues
 [forks-badge-image]: https://badgen.net/github/forks/tom-weatherhead/common-utilities.ts
 [forks-url]: https://github.com/tom-weatherhead/common-utilities.ts/network/members
-<!-- [repo-dependents-badge-image]: https://badgen.net/github/dependents-repo/tom-weatherhead/common-utilities.ts
-[repo-dependents-url]: https://badgen.net/github/dependents-repo/tom-weatherhead/common-utilities.ts
-[pkg-dependents-badge-image]: https://badgen.net/github/dependents-pkg/tom-weatherhead/common-utilities.ts
-[pkg-dependents-url]: https://badgen.net/github/dependents-pkg/tom-weatherhead/common-utilities.ts -->
 [contributors-badge-image]: https://badgen.net/github/contributors/tom-weatherhead/common-utilities.ts
 [contributors-url]: https://github.com/tom-weatherhead/common-utilities.ts/graphs/contributors
 [branches-badge-image]: https://badgen.net/github/branches/tom-weatherhead/common-utilities.ts
