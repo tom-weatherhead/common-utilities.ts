@@ -5,8 +5,6 @@ import {
 	IEqualityComparable,
 	isIEqualityComparable
 } from '../interfaces/iequality-comparable';
-// import { IIterator } from './iiterator';
-// import { Iterator } from './iterator';
 
 export abstract class CollectionArrayBase<T> implements ICollection<T> {
 	// Static methods

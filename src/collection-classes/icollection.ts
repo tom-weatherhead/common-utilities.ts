@@ -1,7 +1,7 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/icollection.ts
 
 export interface ICollection<T> extends Iterable<T> {
-	// [Symbol.iterator](): IterableIterator<T>
+	// Iterable<T> contains: [Symbol.iterator](): IterableIterator<T>
 
 	size: number;
 	toString(): string;
@@ -11,6 +11,6 @@ export interface ICollection<T> extends Iterable<T> {
 	contains(item: T): boolean;
 	add(item: T): boolean;
 
-	// The semantics of remove() are class-specific.
+	// The signature and semantics of remove() can be class-specific.
 	// remove(item: T): boolean;
 }
