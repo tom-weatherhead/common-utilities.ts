@@ -4,9 +4,13 @@ import { cloneArray } from './arrays';
 
 import { PriorityQueue } from './collection-classes/priority-queue';
 
+import { ifDefinedThenElse } from './types';
+
 // If f is a comparator function, then f(element1, element2) must return true
 // if and only if element1 must be placed before element2 in the sorted array
 export type ComparatorFunction<T> = (element1: T, element2: T) => boolean;
+
+export type SortingFunctionNoComparator<T> = (array: T[]) => T[];
 
 export type SortingFunction<T> = (
 	array: T[],
@@ -16,6 +20,11 @@ export type SortingFunction<T> = (
 export const numericComparator: ComparatorFunction<number> = (
 	element1: number,
 	element2: number
+) => element1 < element2;
+
+const stringComparator: ComparatorFunction<string> = (
+	element1: string,
+	element2: string
 ) => element1 < element2;
 
 // Sorting algorithm number 1: Bubble Sort
@@ -262,6 +271,37 @@ export function shellSort(array: number[]): number[] {
 
 // ****
 
+function numericArraySortingFunctionDispatcher(
+	fnSort: SortingFunction<number>,
+	fnCompare?: ComparatorFunction<number>
+): SortingFunctionNoComparator<number> {
+	return (array: number[]): number[] =>
+		fnSort(array, ifDefinedThenElse(fnCompare, numericComparator));
+}
+
+function stringArraySortingFunctionDispatcher(
+	fnSort: SortingFunction<string>,
+	fnCompare?: ComparatorFunction<string>
+): SortingFunctionNoComparator<string> {
+	return (array: string[]): string[] =>
+		fnSort(array, ifDefinedThenElse(fnCompare, stringComparator));
+}
+
+// function arraySortingFunctionDispatcher<T>(
+// 	fnSort: SortingFunction<T>,
+// 	fnCompare?: ComparatorFunction<T>
+// ): SortingFunctionNoComparator<T> {
+// 	if (typeof T === 'number') {
+// 		return (array: number[]): number[] => fnSort(array, numericComparator);
+// 	} else if (typeof T === 'string') {
+// 		return (array: string[]): string[] => fnSort(array, stringComparator);
+// 	} else if (typeof fnCompare !== 'undefined') {
+// 		return (array: T[]): T[] => fnSort(array, fnCompare);
+// 	} else {
+// 		throw new Error('arraySortingFunctionDispatcher()');
+// 	}
+// }
+
 export function getGenericSortingFunctions<T>(): Record<
 	string,
 	SortingFunction<T>
@@ -281,11 +321,27 @@ export function getNumericSortingFunctions(): Record<
 	SortingFunction<number>
 > {
 	return {
-		bubbleSort: bubbleSort,
-		heapSort: heapSort,
-		insertionSort: insertionSort,
-		mergeSort: mergeSort,
-		quickSort: quickSort,
-		shellSort: shellSort
+		bubbleSort: numericArraySortingFunctionDispatcher(genericBubbleSort),
+		heapSort: numericArraySortingFunctionDispatcher(genericHeapSort),
+		insertionSort:
+			numericArraySortingFunctionDispatcher(genericInsertionSort),
+		mergeSort: numericArraySortingFunctionDispatcher(genericMergeSort),
+		quickSort: numericArraySortingFunctionDispatcher(genericQuickSort),
+		shellSort: numericArraySortingFunctionDispatcher(genericShellSort)
+	};
+}
+
+export function getStringSortingFunctions(): Record<
+	string,
+	SortingFunction<string>
+> {
+	return {
+		bubbleSort: stringArraySortingFunctionDispatcher(genericBubbleSort),
+		heapSort: stringArraySortingFunctionDispatcher(genericHeapSort),
+		insertionSort:
+			stringArraySortingFunctionDispatcher(genericInsertionSort),
+		mergeSort: stringArraySortingFunctionDispatcher(genericMergeSort),
+		quickSort: stringArraySortingFunctionDispatcher(genericQuickSort),
+		shellSort: stringArraySortingFunctionDispatcher(genericShellSort)
 	};
 }

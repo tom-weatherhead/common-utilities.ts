@@ -1,6 +1,6 @@
 // github:tom-weatherhead/common-utilities.ts/src/numbers.ts
 
-import { createArrayFromElement } from './arrays';
+// import { createArrayFromElement } from './arrays';
 
 import { replicateString } from './strings';
 
@@ -253,7 +253,8 @@ export function mode(arg: keyType[]): IModeResult {
 }
 
 export function aToThePowerOfB(a: number, b: number): number {
-	return product(...createArrayFromElement(a, b));
+	// return product(...createArrayFromElement(a, b)); // Creates a circular reference between arrays.ts and numbers.ts
+	return product(...new Array<number>(Math.max(b, 0)).fill(a));
 }
 
 export function tenToThePowerOfN(n: number): number {

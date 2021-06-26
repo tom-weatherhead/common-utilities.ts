@@ -1,5 +1,6 @@
 // github:tom-weatherhead/common-utilities.ts/src/arrays.ts
 
+// WARNING: Circular dependency: arrays -> numbers -> arrays
 import { getRandomNonNegativeInteger, sum } from './numbers';
 
 export function cloneArray<T>(array: T[]): T[] {
