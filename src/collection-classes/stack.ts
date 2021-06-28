@@ -23,15 +23,26 @@ export class Stack<T> extends CollectionArrayBase<T> {
 		this.items.push(item);
 	}
 
-	public pop(): T | undefined {
-		if (this.isEmpty()) {
+	public pop(): T {
+		const result = this.items.pop();
+
+		if (typeof result === 'undefined') {
 			// throw new EmptyStackException();
 			throw new Error(
 				'Stack.pop() : Stack underflow: The stack is empty.'
 			);
 		}
 
-		return this.items.pop();
+		return result;
+	}
+
+	public peek(): T {
+		if (this.isEmpty()) {
+			// throw new EmptyStackException();
+			throw new Error('Stack.peek() : The stack is empty.');
+		}
+
+		return this.items[this.items.length - 1];
 	}
 
 	protected protectedAdd(item: T): boolean {
