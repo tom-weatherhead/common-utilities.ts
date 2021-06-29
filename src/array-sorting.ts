@@ -67,9 +67,9 @@ export function genericHeapSort<T>(
 ): T[] {
 	const priorityQueue = new PriorityQueue<T>(fnComparator);
 
-	array.forEach((element: T) => {
+	for (const element of array) {
 		priorityQueue.enqueue(element);
-	});
+	}
 
 	const result: T[] = [];
 
@@ -200,13 +200,13 @@ export function genericQuickSort<T>(
 	const subArray1: T[] = [];
 	const subArray2: T[] = [];
 
-	array.slice(1).forEach((element: T) => {
+	for (const element of array.slice(1)) {
 		if (fnComparator(element, pivotElement)) {
 			subArray1.push(element);
 		} else {
 			subArray2.push(element);
 		}
-	});
+	}
 
 	return genericQuickSort(subArray1, fnComparator)
 		.concat([pivotElement])

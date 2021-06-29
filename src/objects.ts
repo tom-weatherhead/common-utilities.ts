@@ -22,19 +22,13 @@ export function copySpecifiedObjectProperties<T>(
 	src: ObjectType<T>,
 	dst: ObjectType<T> = {}
 ): ObjectType<T> {
-	// propertyList.forEach(property => {
-
-	// 	if (isDefined(src[property])) {
-	// 		dst[property] = src[property];
-	// 	}
-	// });
-
-	propertyList
-		// .filter(property => isDefined(src[property]))
-		.filter((property) => typeof src[property] !== 'undefined')
-		.forEach((property) => {
-			dst[property] = src[property];
-		});
+	for (const property of propertyList.filter(
+		(p: string) => typeof src[p] !== 'undefined'
+	)) {
+		// .for Each((property) => {
+		dst[property] = src[property];
+		// });
+	}
 
 	return dst;
 }
@@ -42,11 +36,14 @@ export function copySpecifiedObjectProperties<T>(
 export function combineObjects<T>(...objects: ObjectType<T>[]): ObjectType<T> {
 	const combinedObject: ObjectType<T> = {};
 
-	objects.forEach((object) => {
-		Object.keys(object).forEach((key) => {
+	// objects.for Each((object) => {
+	for (const object of objects) {
+		// Object.keys(object).for Each((key) => {
+		for (const key of Object.keys(object)) {
 			combinedObject[key] = object[key];
-		});
-	});
+		}
+		// });
+	} // );
 
 	return combinedObject;
 }
@@ -108,9 +105,11 @@ export function deleteUndefinedValuesFromObject<T>(
 		(key) => typeof obj[key] === 'undefined'
 	);
 
-	keysToDelete.forEach((key) => {
+	// keysToDelete.for Each((key) => {
+	for (const key of keysToDelete) {
 		delete obj[key];
-	});
+	}
+	// });
 
 	return obj;
 }
@@ -137,7 +136,7 @@ export function deleteUndefinedValuesFromObject<T>(
 // 	let result = clone(obj1);
 // 	const obj2OwnProperties = getOwnProperties(obj2);
 
-// 	obj2OwnProperties.forEach(prop => {
+// 	obj2OwnProperties.for Each(prop => {
 // 		// TODO: Do nothing here if obj2[prop] is undefined.
 
 // 		if (!isAggregateEntity(obj2[prop])) {
