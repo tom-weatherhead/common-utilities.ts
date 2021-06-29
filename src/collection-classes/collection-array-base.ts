@@ -77,7 +77,7 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 		if (isIEqualityComparable(item)) {
 			const castItem = item as IEqualityComparable;
 
-			return (otherItem: T) => castItem.strictEquals(otherItem);
+			return (otherItem: T) => castItem.equals(otherItem);
 		}
 
 		return (otherItem: T) => otherItem === item;
