@@ -12,13 +12,8 @@ export const booleanInvertFunction = (arg: boolean): boolean => !arg;
 
 // 'Composite' as a verb, not an adjective:
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-export function compositeFunctions(
-	fnArray: ((x: any) => any)[]
-): (x: any) => any {
-	return fnArray.reduce(
-		(accumulator, element) => (arg) => element(accumulator(arg)),
-		identityFunction
-	);
+export function compositeFunctions(fnArray: ((x: any) => any)[]): (x: any) => any {
+	return fnArray.reduce((accumulator, element) => (arg) => element(accumulator(arg)), identityFunction);
 }
 /* eslint-enable  @typescript-eslint/no-explicit-any */
 
@@ -47,16 +42,11 @@ export function curry(fn: (...args: any[]) => any): any {
 }
 /* eslint-enable  @typescript-eslint/no-explicit-any */
 
-export function curry2ArgumentFunction<A, B, C>(
-	fn: (arg1: A, arg2: B) => C
-): (arg1: A) => (arg2: B) => C {
+export function curry2ArgumentFunction<A, B, C>(fn: (arg1: A, arg2: B) => C): (arg1: A) => (arg2: B) => C {
 	return (arg1: A) => (arg2: B) => fn(arg1, arg2);
 }
 
-export function pointwise<T, U>(
-	operation: (...series: T[]) => U,
-	...serieses: T[][]
-): U[] {
+export function pointwise<T, U>(operation: (...series: T[]) => U, ...serieses: T[][]): U[] {
 	if (serieses.length === 0) {
 		return [];
 	}
@@ -69,14 +59,9 @@ export function pointwise<T, U>(
 	);
 }
 
-export function rolling<T, U>(
-	operation: (...series: T[]) => U,
-	series: T[],
-	window: number
-): U[] {
+export function rolling<T, U>(operation: (...series: T[]) => U, series: T[], window: number): U[] {
 	return generateNonNegativeIntegersLessThan(series.length).map(
-		(i: number): U =>
-			operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
+		(i: number): U => operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
 	);
 }
 
@@ -92,14 +77,10 @@ export function cascade<T>(
 	});
 }
 
-export function spreadArrayParameter<T, U>(
-	fn: (...array: T[]) => U
-): (array: T[]) => U {
+export function spreadArrayParameter<T, U>(fn: (...array: T[]) => U): (array: T[]) => U {
 	return (array: T[]) => fn(...array);
 }
 
-export function unspreadArrayParameter<T, U>(
-	fn: (array: T[]) => U
-): (...array: T[]) => U {
+export function unspreadArrayParameter<T, U>(fn: (array: T[]) => U): (...array: T[]) => U {
 	return (...array: T[]) => fn(array);
 }

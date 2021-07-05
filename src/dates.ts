@@ -7,23 +7,20 @@ export function getDateString(date: Date): string {
 	// 	date = new Date();
 	// }
 
-	return `${date.getFullYear()}-${zeroPadNumber(
-		date.getMonth() + 1,
+	return `${date.getFullYear()}-${zeroPadNumber(date.getMonth() + 1, 2)}-${zeroPadNumber(
+		date.getDate(),
 		2
-	)}-${zeroPadNumber(date.getDate(), 2)}`;
+	)}`;
 }
 
 export function getDateTimeString(date: Date): string {
 	// See https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
 	// ('000' + num).slice(-4)
 
-	return `${getDateString(date)} ${zeroPadNumber(
-		date.getHours(),
+	return `${getDateString(date)} ${zeroPadNumber(date.getHours(), 2)}:${zeroPadNumber(
+		date.getMinutes(),
 		2
-	)}:${zeroPadNumber(date.getMinutes(), 2)}:${zeroPadNumber(
-		date.getSeconds(),
-		2
-	)}`;
+	)}:${zeroPadNumber(date.getSeconds(), 2)}`;
 
 	/*
 	// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleTimeString .
@@ -54,10 +51,10 @@ export function getDateTimeString(date: Date): string {
 }
 
 export function getDateUTCString(date: Date): string {
-	return `${date.getUTCFullYear()}-${zeroPadNumber(
-		date.getUTCMonth() + 1,
+	return `${date.getUTCFullYear()}-${zeroPadNumber(date.getUTCMonth() + 1, 2)}-${zeroPadNumber(
+		date.getUTCDate(),
 		2
-	)}-${zeroPadNumber(date.getUTCDate(), 2)}`;
+	)}`;
 }
 
 export function getDateTimeUTCString(date?: Date): string {
@@ -65,13 +62,10 @@ export function getDateTimeUTCString(date?: Date): string {
 		date = new Date();
 	}
 
-	return `${getDateUTCString(date)} ${zeroPadNumber(
-		date.getUTCHours(),
+	return `${getDateUTCString(date)} ${zeroPadNumber(date.getUTCHours(), 2)}:${zeroPadNumber(
+		date.getUTCMinutes(),
 		2
-	)}:${zeroPadNumber(date.getUTCMinutes(), 2)}:${zeroPadNumber(
-		date.getUTCSeconds(),
-		2
-	)}`;
+	)}:${zeroPadNumber(date.getUTCSeconds(), 2)}`;
 }
 
 // export function getDifferenceBetweenDatesAsObject (dateEarlier, dateLater) {
@@ -123,9 +117,7 @@ function pluralize(n: number, unit: string): string {
 // }
 
 // export function getIntervalStringFromMillisecondsV2(milliseconds: number): string {
-export function getIntervalStringFromMilliseconds(
-	milliseconds: number
-): string {
+export function getIntervalStringFromMilliseconds(milliseconds: number): string {
 	const resultArray: string[] = [];
 	let seconds = Math.floor(milliseconds / 1000);
 
@@ -166,9 +158,7 @@ export function getIntervalStringFromMilliseconds(
 
 		default:
 			// This will ensure the presence of an Oxford comma.
-			resultArray[resultArray.length - 1] = `and ${
-				resultArray[resultArray.length - 1]
-			}`;
+			resultArray[resultArray.length - 1] = `and ${resultArray[resultArray.length - 1]}`;
 
 			return resultArray.join(', ');
 	}

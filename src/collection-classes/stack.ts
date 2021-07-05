@@ -28,9 +28,7 @@ export class Stack<T> extends CollectionArrayBase<T> {
 
 		if (typeof result === 'undefined') {
 			// throw new EmptyStackException();
-			throw new Error(
-				'Stack.pop() : Stack underflow: The stack is empty.'
-			);
+			throw new Error('Stack.pop() : Stack underflow: The stack is empty.');
 		}
 
 		return result;

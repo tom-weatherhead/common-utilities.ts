@@ -36,9 +36,7 @@ class HashTable<K extends IHashable, V> implements IHashTable<K, V> {
 
 	public set(key: K, value: V): boolean {
 		const bucket = this.findBucket(key) || [];
-		const newBucket = [{ key, value }].concat(
-			this.bucketWithKeyRemoved(bucket, key)
-		);
+		const newBucket = [{ key, value }].concat(this.bucketWithKeyRemoved(bucket, key));
 
 		return newBucket.length > bucket.length;
 	}
@@ -66,10 +64,7 @@ class HashTable<K extends IHashable, V> implements IHashTable<K, V> {
 		return this.hashTable.get(key.getHashCode());
 	}
 
-	private bucketWithKeyRemoved(
-		bucket: KeyValuePair<K, V>[],
-		key: K
-	): KeyValuePair<K, V>[] {
+	private bucketWithKeyRemoved(bucket: KeyValuePair<K, V>[], key: K): KeyValuePair<K, V>[] {
 		return bucket.filter((kvp) => !key.equals(kvp.key));
 	}
 }

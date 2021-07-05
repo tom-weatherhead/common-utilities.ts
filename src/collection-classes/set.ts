@@ -64,9 +64,7 @@ export class Set<T> extends CollectionArrayBase<T> {
 	// This set is not modified.
 
 	public intersection(otherSet: Set<T>): Set<T> {
-		return new Set<T>(
-			this.items.filter((item: T) => otherSet.contains(item))
-		);
+		return new Set<T>(this.items.filter((item: T) => otherSet.contains(item)));
 	}
 
 	// Remove any of this set's elements that are not also in otherSet, in place (i.e. this set may be modified).
@@ -100,11 +98,7 @@ export class Set<T> extends CollectionArrayBase<T> {
 
 	// Private methods
 
-	private getAllSubsetsHelper(
-		arrayOfSubsets: Set<T>[],
-		subsetAsArray: T[] = [],
-		index = 0
-	): void {
+	private getAllSubsetsHelper(arrayOfSubsets: Set<T>[], subsetAsArray: T[] = [], index = 0): void {
 		if (index >= this.items.length) {
 			arrayOfSubsets.push(new Set<T>(subsetAsArray));
 		} else {

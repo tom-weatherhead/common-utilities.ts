@@ -11,10 +11,7 @@ test('UniversalFunctor test 1', () => {
 	const fnMapArray = (array: number[]) => array.map(fnMapElement);
 
 	// Act
-	const actualResult: number[] = engine
-		.createFunctor([2, 3, 5])
-		.map(fnMapArray)
-		.getValue();
+	const actualResult: number[] = engine.createFunctor([2, 3, 5]).map(fnMapArray).getValue();
 
 	// Assert
 	expect(actualResult).toEqual(expectedResult);
@@ -28,11 +25,7 @@ test('UniversalFunctor test 2', () => {
 	const initialValue = 8675309;
 
 	// Act
-	const actualResult = engine
-		.createFunctor(initialValue)
-		.map(fnToString)
-		.map(fnStringToLength)
-		.getValue();
+	const actualResult = engine.createFunctor(initialValue).map(fnToString).map(fnStringToLength).getValue();
 
 	// Assert
 	expect(actualResult).toEqual(expectedResult);

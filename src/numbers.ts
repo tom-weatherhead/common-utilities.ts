@@ -12,10 +12,8 @@ import { isNumber, isSafeNumber } from './types';
 // 	);
 // }
 
-export const isGreaterThan = (x: number, y: number): boolean =>
-	isNumber(x) && isNumber(y) && x > y;
-export const isLessThan = (x: number, y: number): boolean =>
-	isNumber(x) && isNumber(y) && x < y;
+export const isGreaterThan = (x: number, y: number): boolean => isNumber(x) && isNumber(y) && x > y;
+export const isLessThan = (x: number, y: number): boolean => isNumber(x) && isNumber(y) && x < y;
 
 export const fnIsGreaterThan = isGreaterThan;
 export const fnIsLessThan = isLessThan;
@@ -135,9 +133,7 @@ export function generateRange(start: number, end: number): number[] {
 
 	// return result;
 	// return [...Array(end - start + 1).keys()].map(n => start + n);
-	return generateNonNegativeIntegersLessThan(end - start + 1).map(
-		(n) => start + n
-	);
+	return generateNonNegativeIntegersLessThan(end - start + 1).map((n) => start + n);
 }
 
 export function generateFirstNNaturalNumbers(n: number): number[] {
@@ -152,9 +148,7 @@ export function getRandomNonNegativeInteger(n: number): number {
 	}
 
 	if (n !== Math.floor(n)) {
-		throw new Error(
-			`getRandomNonNegativeInteger() : ${n} is not an integer.`
-		);
+		throw new Error(`getRandomNonNegativeInteger() : ${n} is not an integer.`);
 	}
 
 	return Math.floor(Math.random() * n);
@@ -164,10 +158,7 @@ export function zeroPadNumber(n: number, minLength: number): string {
 	return (replicateString('0', minLength) + n).slice(-minLength);
 }
 
-export function zeroExtendNumber(
-	n: number,
-	minNumberOfDecimalPlaces: number
-): string {
+export function zeroExtendNumber(n: number, minNumberOfDecimalPlaces: number): string {
 	let str = n.toString();
 	let indexOfDecimalPoint = str.indexOf('.');
 
@@ -176,13 +167,7 @@ export function zeroExtendNumber(
 		str = str + '.';
 	}
 
-	return (
-		str +
-		replicateString(
-			'0',
-			indexOfDecimalPoint + 1 + minNumberOfDecimalPlaces - str.length
-		)
-	);
+	return str + replicateString('0', indexOfDecimalPoint + 1 + minNumberOfDecimalPlaces - str.length);
 }
 
 export function removeNonNumbers(arg: unknown[]): number[] {
@@ -220,10 +205,7 @@ export function histogram(arg: keyType[]): histogramType {
 // 		return undefined;
 // 	}
 // }
-export function histogramLookup(
-	hist: histogramType,
-	key: keyType
-): number | undefined {
+export function histogramLookup(hist: histogramType, key: keyType): number | undefined {
 	return hist.get(key);
 }
 
@@ -317,10 +299,7 @@ export function integerDivision(n1: number, n2: number): number {
 	// }
 }
 
-export function numberToFixedPrecisionString(
-	n: number,
-	digits: number
-): string {
+export function numberToFixedPrecisionString(n: number, digits: number): string {
 	return zeroExtendNumber(factory_fnRoundToNDigits(digits)(n), digits);
 }
 
@@ -352,10 +331,7 @@ export function randomNumberNormalDistribution(): number {
 	return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
 }
 
-export function ifDefinedAndNotNaNThenElse(
-	valueIn: number | undefined,
-	defaultOut: number
-): number {
+export function ifDefinedAndNotNaNThenElse(valueIn: number | undefined, defaultOut: number): number {
 	if (typeof valueIn === 'undefined' || Number.isNaN(valueIn)) {
 		return defaultOut;
 	}

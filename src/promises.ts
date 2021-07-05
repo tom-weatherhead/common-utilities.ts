@@ -4,10 +4,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export function promisify(
-	fn: Function,
-	context: any
-): (...args: any[]) => Promise<any> {
+export function promisify(fn: Function, context: any): (...args: any[]) => Promise<any> {
 	return (...args: any[]) => {
 		return new Promise((resolve, reject) => {
 			function customCallback(err: any, result: any) {

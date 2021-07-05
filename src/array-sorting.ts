@@ -12,27 +12,17 @@ export type ComparatorFunction<T> = (element1: T, element2: T) => boolean;
 
 export type SortingFunctionNoComparator<T> = (array: T[]) => T[];
 
-export type SortingFunction<T> = (
-	array: T[],
-	fnComparator: ComparatorFunction<T>
-) => T[];
+export type SortingFunction<T> = (array: T[], fnComparator: ComparatorFunction<T>) => T[];
 
-export const numericComparator: ComparatorFunction<number> = (
-	element1: number,
-	element2: number
-) => element1 < element2;
+export const numericComparator: ComparatorFunction<number> = (element1: number, element2: number) =>
+	element1 < element2;
 
-const stringComparator: ComparatorFunction<string> = (
-	element1: string,
-	element2: string
-) => element1 < element2;
+const stringComparator: ComparatorFunction<string> = (element1: string, element2: string) =>
+	element1 < element2;
 
 // Sorting algorithm number 1: Bubble Sort
 
-export function genericBubbleSort<T>(
-	array: T[],
-	fnComparator: ComparatorFunction<T>
-): T[] {
+export function genericBubbleSort<T>(array: T[], fnComparator: ComparatorFunction<T>): T[] {
 	let changeDetected = true;
 
 	array = cloneArray(array);
@@ -61,10 +51,7 @@ export function bubbleSort(array: number[]): number[] {
 
 // Sorting algorithm number 2: Heap Sort
 
-export function genericHeapSort<T>(
-	array: T[],
-	fnComparator: ComparatorFunction<T>
-): T[] {
+export function genericHeapSort<T>(array: T[], fnComparator: ComparatorFunction<T>): T[] {
 	const priorityQueue = new PriorityQueue<T>(fnComparator);
 
 	for (const element of array) {
@@ -86,11 +73,7 @@ export function heapSort(array: number[]): number[] {
 
 // Sorting algorithm number 3: Insertion Sort
 
-export function insertNumberIntoArray<T>(
-	n: T,
-	array: T[],
-	fnComparator: ComparatorFunction<T>
-): T[] {
+export function insertNumberIntoArray<T>(n: T, array: T[], fnComparator: ComparatorFunction<T>): T[] {
 	// array must already be sorted in the proper order.
 
 	let i = array.findIndex((m) => !fnComparator(m, n));
@@ -107,15 +90,8 @@ export function insertNumberIntoArray<T>(
 	return result;
 }
 
-export function genericInsertionSort<T>(
-	array: T[],
-	fnComparator: ComparatorFunction<T>
-): T[] {
-	return array.reduce(
-		(accumulator: T[], n: T) =>
-			insertNumberIntoArray(n, accumulator, fnComparator),
-		[]
-	);
+export function genericInsertionSort<T>(array: T[], fnComparator: ComparatorFunction<T>): T[] {
+	return array.reduce((accumulator: T[], n: T) => insertNumberIntoArray(n, accumulator, fnComparator), []);
 }
 
 export function insertionSort(array: number[]): number[] {
@@ -124,11 +100,7 @@ export function insertionSort(array: number[]): number[] {
 
 // Sorting algorithm number 4: Merge Sort
 
-export function mergeTwoSortedArrays<T>(
-	array1: T[],
-	array2: T[],
-	fnComparator: ComparatorFunction<T>
-): T[] {
+export function mergeTwoSortedArrays<T>(array1: T[], array2: T[], fnComparator: ComparatorFunction<T>): T[] {
 	let index1 = 0;
 	let index2 = 0;
 	const result: T[] = [];
@@ -156,10 +128,7 @@ export function mergeTwoSortedArrays<T>(
 	}
 }
 
-export function genericMergeSort<T>(
-	array: T[],
-	fnComparator: ComparatorFunction<T>
-): T[] {
+export function genericMergeSort<T>(array: T[], fnComparator: ComparatorFunction<T>): T[] {
 	if (array.length <= 1) {
 		return array;
 	}
@@ -172,11 +141,7 @@ export function genericMergeSort<T>(
 	const sortedArray1: T[] = genericMergeSort(array1, fnComparator);
 	const sortedArray2: T[] = genericMergeSort(array2, fnComparator);
 
-	const mergedArray: T[] = mergeTwoSortedArrays(
-		sortedArray1,
-		sortedArray2,
-		fnComparator
-	);
+	const mergedArray: T[] = mergeTwoSortedArrays(sortedArray1, sortedArray2, fnComparator);
 
 	return mergedArray;
 }
@@ -187,10 +152,7 @@ export function mergeSort(array: number[]): number[] {
 
 // Sorting algorithm number 5: Quicksort
 
-export function genericQuickSort<T>(
-	array: T[],
-	fnComparator: ComparatorFunction<T>
-): T[] {
+export function genericQuickSort<T>(array: T[], fnComparator: ComparatorFunction<T>): T[] {
 	if (array.length <= 1) {
 		return array;
 	}
@@ -221,10 +183,7 @@ export function quickSort(array: number[]): number[] {
 
 // See e.g.https://www.geeksforgeeks.org/shellsort/
 
-export function genericShellSort<T>(
-	arrayParam: T[],
-	fnComparator: ComparatorFunction<T>
-): T[] {
+export function genericShellSort<T>(arrayParam: T[], fnComparator: ComparatorFunction<T>): T[] {
 	const array = cloneArray(arrayParam);
 
 	// Start with a big gap, then reduce the gap.
@@ -249,11 +208,7 @@ export function genericShellSort<T>(
 			// the correct location for array[i] is found.
 			let j;
 
-			for (
-				j = i;
-				j >= gap && !fnComparator(array[j - gap], temp);
-				j -= gap
-			) {
+			for (j = i; j >= gap && !fnComparator(array[j - gap], temp); j -= gap) {
 				array[j] = array[j - gap];
 			}
 
@@ -275,16 +230,14 @@ function numericArraySortingFunctionDispatcher(
 	fnSort: SortingFunction<number>,
 	fnCompare?: ComparatorFunction<number>
 ): SortingFunctionNoComparator<number> {
-	return (array: number[]): number[] =>
-		fnSort(array, ifDefinedThenElse(fnCompare, numericComparator));
+	return (array: number[]): number[] => fnSort(array, ifDefinedThenElse(fnCompare, numericComparator));
 }
 
 function stringArraySortingFunctionDispatcher(
 	fnSort: SortingFunction<string>,
 	fnCompare?: ComparatorFunction<string>
 ): SortingFunctionNoComparator<string> {
-	return (array: string[]): string[] =>
-		fnSort(array, ifDefinedThenElse(fnCompare, stringComparator));
+	return (array: string[]): string[] => fnSort(array, ifDefinedThenElse(fnCompare, stringComparator));
 }
 
 // function arraySortingFunctionDispatcher<T>(
@@ -302,10 +255,7 @@ function stringArraySortingFunctionDispatcher(
 // 	}
 // }
 
-export function getGenericSortingFunctions<T>(): Record<
-	string,
-	SortingFunction<T>
-> {
+export function getGenericSortingFunctions<T>(): Record<string, SortingFunction<T>> {
 	return {
 		bubbleSort: genericBubbleSort,
 		heapSort: genericHeapSort,
@@ -316,30 +266,22 @@ export function getGenericSortingFunctions<T>(): Record<
 	};
 }
 
-export function getNumericSortingFunctions(): Record<
-	string,
-	SortingFunction<number>
-> {
+export function getNumericSortingFunctions(): Record<string, SortingFunction<number>> {
 	return {
 		bubbleSort: numericArraySortingFunctionDispatcher(genericBubbleSort),
 		heapSort: numericArraySortingFunctionDispatcher(genericHeapSort),
-		insertionSort:
-			numericArraySortingFunctionDispatcher(genericInsertionSort),
+		insertionSort: numericArraySortingFunctionDispatcher(genericInsertionSort),
 		mergeSort: numericArraySortingFunctionDispatcher(genericMergeSort),
 		quickSort: numericArraySortingFunctionDispatcher(genericQuickSort),
 		shellSort: numericArraySortingFunctionDispatcher(genericShellSort)
 	};
 }
 
-export function getStringSortingFunctions(): Record<
-	string,
-	SortingFunction<string>
-> {
+export function getStringSortingFunctions(): Record<string, SortingFunction<string>> {
 	return {
 		bubbleSort: stringArraySortingFunctionDispatcher(genericBubbleSort),
 		heapSort: stringArraySortingFunctionDispatcher(genericHeapSort),
-		insertionSort:
-			stringArraySortingFunctionDispatcher(genericInsertionSort),
+		insertionSort: stringArraySortingFunctionDispatcher(genericInsertionSort),
 		mergeSort: stringArraySortingFunctionDispatcher(genericMergeSort),
 		quickSort: stringArraySortingFunctionDispatcher(genericQuickSort),
 		shellSort: stringArraySortingFunctionDispatcher(genericShellSort)

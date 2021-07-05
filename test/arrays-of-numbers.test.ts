@@ -46,11 +46,7 @@ test('dotProduct test 1', () => {
 	const expectedValue = 233;
 
 	// Act
-	const actualValue: number = engine.dotProduct(
-		[3, 7, 5, 2],
-		[1, 8],
-		[3, 4, 5]
-	);
+	const actualValue: number = engine.dotProduct([3, 7, 5, 2], [1, 8], [3, 4, 5]);
 
 	// Assert
 	expect(actualValue).toEqual(expectedValue);
@@ -139,11 +135,7 @@ test('crossProduct test 4', () => {
 	];
 
 	// Act
-	const actualValue: number[][] = engine.crossProduct(
-		[1, 2, 3],
-		[4, 5],
-		[6, 7, 8]
-	);
+	const actualValue: number[][] = engine.crossProduct([1, 2, 3], [4, 5], [6, 7, 8]);
 
 	// Assert
 	expect(actualValue).toStrictEqual(expectedValue);
@@ -160,18 +152,9 @@ test('covariance and correlationCoefficient Test', () => {
 	const squared = (x: number) => x * x;
 
 	// Act
-	const actualValue1 = engine.populationCorrelationCoefficient(
-		srcArray1,
-		srcArray1
-	);
-	const actualValue2 = engine.populationCorrelationCoefficient(
-		srcArray1,
-		srcArray2
-	);
-	const actualValue3 = engine.populationCorrelationCoefficient(
-		srcArray1,
-		srcArray3
-	);
+	const actualValue1 = engine.populationCorrelationCoefficient(srcArray1, srcArray1);
+	const actualValue2 = engine.populationCorrelationCoefficient(srcArray1, srcArray2);
+	const actualValue3 = engine.populationCorrelationCoefficient(srcArray1, srcArray3);
 
 	// Assert
 	expect(engine.populationCovariance(srcArray1, srcArray1)).toEqual(

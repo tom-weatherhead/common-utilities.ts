@@ -54,10 +54,7 @@ export default class AVLHashTree<K, V> {
 	private fnGetHashCode: (key: K) => number;
 	private fnKeyEquals: (key1: K, key2: K) => boolean;
 
-	constructor(
-		fnGetHashCode: (key: K) => number,
-		fnKeyEquals: (key1: K, key2: K) => boolean
-	) {
+	constructor(fnGetHashCode: (key: K) => number, fnKeyEquals: (key1: K, key2: K) => boolean) {
 		// this.root = null;
 		this.fnGetHashCode = fnGetHashCode;
 		this.fnKeyEquals = fnKeyEquals;
@@ -78,9 +75,7 @@ export default class AVLHashTree<K, V> {
 			return null;
 		}
 
-		const keyValuePair = keyValuePairArray.find((kvp: [K, V]) =>
-			this.fnKeyEquals(kvp[0], key)
-		);
+		const keyValuePair = keyValuePairArray.find((kvp: [K, V]) => this.fnKeyEquals(kvp[0], key));
 
 		if (typeof keyValuePair === 'undefined') {
 			return null;
@@ -102,9 +97,7 @@ export default class AVLHashTree<K, V> {
 			return;
 		}
 
-		const i = keyValuePairArray.findIndex((kvp: [K, V]) =>
-			this.fnKeyEquals(kvp[0], key)
-		);
+		const i = keyValuePairArray.findIndex((kvp: [K, V]) => this.fnKeyEquals(kvp[0], key));
 
 		if (i < 0) {
 			keyValuePairArray.push([key, value]);

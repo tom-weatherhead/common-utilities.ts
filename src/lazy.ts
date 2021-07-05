@@ -10,10 +10,7 @@ function pushMe<T>(array: T[], element: T): T[] {
 
 // Here, fn can be an n-ary function, not just a binary function:
 
-export function makeLazyList(
-	fn: (...args: unknown[]) => unknown,
-	...args: unknown[]
-): unknown {
+export function makeLazyList(fn: (...args: unknown[]) => unknown, ...args: unknown[]): unknown {
 	// const argsClone = args.slice(0); // See https://davidwalsh.name/javascript-clone-array
 	const argsClone = cloneArray(args);
 	const arg1 = args.shift();

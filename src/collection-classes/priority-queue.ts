@@ -7,10 +7,7 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 	// Returns true if item1 has a higher priority than item2.
 	// Returns false if item2 has a higher priority than item1.
 
-	constructor(
-		private readonly fnComparator: (item1: T, item2: T) => boolean,
-		iterable?: Iterable<T>
-	) {
+	constructor(private readonly fnComparator: (item1: T, item2: T) => boolean, iterable?: Iterable<T>) {
 		super(iterable);
 	}
 
@@ -49,9 +46,7 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 		const lastElement = this.items.pop();
 
 		if (typeof lastElement === 'undefined') {
-			throw new Error(
-				'PriorityQueue.dequeue() : this.items.pop() returned undefined.'
-			);
+			throw new Error('PriorityQueue.dequeue() : this.items.pop() returned undefined.');
 		}
 
 		if (this.items.length === 0) {
@@ -81,12 +76,7 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 				break;
 			} else if (nextIndex2 >= this.items.length) {
 				nextIndex = nextIndex1;
-			} else if (
-				this.fnComparator(
-					this.items[nextIndex1],
-					this.items[nextIndex2]
-				)
-			) {
+			} else if (this.fnComparator(this.items[nextIndex1], this.items[nextIndex2])) {
 				nextIndex = nextIndex1;
 			} else {
 				nextIndex = nextIndex2;

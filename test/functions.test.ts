@@ -31,9 +31,7 @@ test('curry Test', () => {
 	const expectedResult = 6;
 
 	// Act
-	const actualResult = engine.curry(
-		(x: number, y: number, z: number) => x + y + z
-	)(1)(2)(3);
+	const actualResult = engine.curry((x: number, y: number, z: number) => x + y + z)(1)(2)(3);
 
 	// Assert
 	expect(actualResult).toBe(expectedResult);

@@ -1,10 +1,7 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/collection-array-base.ts
 
 import { ICollection } from './icollection';
-import {
-	IEqualityComparable,
-	isIEqualityComparable
-} from '../interfaces/iequality-comparable';
+import { IEqualityComparable, isIEqualityComparable } from '../interfaces/iequality-comparable';
 
 export abstract class CollectionArrayBase<T> implements ICollection<T> {
 	// Static methods
@@ -71,9 +68,7 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 
 	protected abstract protectedAdd(item: T): boolean;
 
-	protected getEqualityComparisonFunction(
-		item: T
-	): (otherItem: T) => boolean {
+	protected getEqualityComparisonFunction(item: T): (otherItem: T) => boolean {
 		if (isIEqualityComparable(item)) {
 			const castItem = item as IEqualityComparable;
 

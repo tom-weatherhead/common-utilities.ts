@@ -36,16 +36,7 @@ test('maxEmptyArray', () => {
 
 test('generateAllSubsets', () => {
 	// Arrange
-	const expectedValue: number[][] = [
-		[],
-		[3],
-		[2],
-		[2, 3],
-		[1],
-		[1, 3],
-		[1, 2],
-		[1, 2, 3]
-	];
+	const expectedValue: number[][] = [[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]];
 
 	// Act
 	const actualValue: number[][] = engine.generateAllSubsets([1, 2, 3]);

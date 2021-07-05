@@ -44,17 +44,12 @@ export function isArrayInNonIncreasingOrder(array: number[]): boolean {
 	return doesConsecutiveElementsConditionHold(array, (x, y) => x >= y, true);
 }
 
-export function findSuperlativeElement<T>(
-	array: T[],
-	fn: (x: T, y: T) => T
-): T {
+export function findSuperlativeElement<T>(array: T[], fn: (x: T, y: T) => T): T {
 	if (!array.length) {
 		// From https://www.sitepen.com/blog/typescript-2-3-the-sexy-default-type-argument/ :
 		// return <T> {}; // Return the default value for type T.
 
-		throw new Error(
-			'findSuperlativeElement() : array has a length of zero.'
-		);
+		throw new Error('findSuperlativeElement() : array has a length of zero.');
 	}
 
 	return array.slice(1).reduce(fn, array[0]);
@@ -130,16 +125,8 @@ export function getRandomArrayElement<T>(array: T[]): T | undefined {
 	return array[getRandomNonNegativeInteger(array.length)];
 }
 
-export function propertySum(
-	array: Record<string, unknown>[],
-	propertyName: string
-): number {
-	return sum(
-		array.map(
-			(element: Record<string, unknown>) =>
-				element[propertyName] as number
-		)
-	);
+export function propertySum(array: Record<string, unknown>[], propertyName: string): number {
+	return sum(array.map((element: Record<string, unknown>) => element[propertyName] as number));
 }
 
 // Categorize? Or pigeonhole?
@@ -166,18 +153,14 @@ export function categorizeArrayElementsByFunction<T>(
 ): Record<ObjectKeyType, T[]> {
 	// [...new Set(array)] : Remove duplicate elements
 	// const propertyValues = [...new Set(array.map(element => fn(element)))];
-	const propertyValues = removeDuplicatesFromArray(
-		array.map((element) => fn(element))
-	);
+	const propertyValues = removeDuplicatesFromArray(array.map((element) => fn(element)));
 	const start: Record<ObjectKeyType, T[]> = {};
 	// Or: const start = new Map<U, T[]>();
 
 	propertyValues.sort();
 
 	return propertyValues.reduce((accumulator, propertyValue) => {
-		accumulator[propertyValue] = array.filter(
-			(element) => fn(element) === propertyValue
-		);
+		accumulator[propertyValue] = array.filter((element) => fn(element) === propertyValue);
 
 		return accumulator;
 	}, start);
@@ -212,10 +195,7 @@ export function categorizeArrayElementsByProperty(
 	array: Foo1ElementType[],
 	propertyName: ObjectKeyType
 ): Record<ObjectKeyType, Foo1ElementType[]> {
-	return categorizeArrayElementsByFunction(
-		array,
-		(element: Foo1ElementType) => element[propertyName]
-	);
+	return categorizeArrayElementsByFunction(array, (element: Foo1ElementType) => element[propertyName]);
 }
 
 export function getLastElementOfArray<T>(array: T[]): T | undefined {
@@ -246,10 +226,7 @@ export function getLastElementOfArray<T>(array: T[]): T | undefined {
 // 	...dimensions: number[]
 // ): Metaarray<T> { ... }
 
-export function createAndFillArray(
-	obj: unknown,
-	...dimensions: number[]
-): unknown {
+export function createAndFillArray(obj: unknown, ...dimensions: number[]): unknown {
 	if (!dimensions || !dimensions.length) {
 		return obj;
 	}
@@ -277,30 +254,18 @@ export function createArrayFromElement<T>(element: T, length: number): T[] {
 	return new Array(Math.max(length, 0)).fill(element);
 }
 
-export function generateAllSubsets<T>(
-	array: T[],
-	i = 0,
-	accumulator: T[] = []
-): T[][] {
+export function generateAllSubsets<T>(array: T[], i = 0, accumulator: T[] = []): T[][] {
 	if (i >= array.length) {
 		return [accumulator];
 	}
 
 	const list1 = generateAllSubsets(array, i + 1, accumulator);
-	const list2 = generateAllSubsets(
-		array,
-		i + 1,
-		accumulator.concat([array[i]])
-	);
+	const list2 = generateAllSubsets(array, i + 1, accumulator.concat([array[i]]));
 
 	return list1.concat(list2);
 }
 
-export function padOrTrimArrayAtStart<T>(
-	array: T[],
-	desiredLength: number,
-	defaultElement: T
-): T[] {
+export function padOrTrimArrayAtStart<T>(array: T[], desiredLength: number, defaultElement: T): T[] {
 	const diff = array.length - desiredLength;
 
 	if (diff >= 0) {
@@ -310,10 +275,7 @@ export function padOrTrimArrayAtStart<T>(
 	}
 }
 
-export function selectElementsByIndex<T>(
-	array: T[],
-	...selectedIndices: number[]
-): T[] {
+export function selectElementsByIndex<T>(array: T[], ...selectedIndices: number[]): T[] {
 	return selectedIndices
 		.filter((value: number) => value < array.length)
 		.map((selectedIndex: number) => array[selectedIndex]);
@@ -412,11 +374,7 @@ export function notAll(array: boolean[]): boolean {
 
 export const some = any;
 
-export function mapLastElementOfArray<T, U>(
-	array: T[],
-	fn: (element: T) => U,
-	dflt: U
-): U {
+export function mapLastElementOfArray<T, U>(array: T[], fn: (element: T) => U, dflt: U): U {
 	if (array.length === 0) {
 		return dflt;
 	}

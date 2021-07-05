@@ -1,11 +1,6 @@
 // github:tom-weatherhead/common-utilities.ts/src/arrays-of-numbers.ts
 
-import {
-	createArrayFromElement,
-	getLastElementOfArray,
-	max,
-	min
-} from './arrays';
+import { createArrayFromElement, getLastElementOfArray, max, min } from './arrays';
 
 import { pointwise } from './functions';
 
@@ -95,10 +90,7 @@ export function dotProduct(...serieses: number[][]): number {
 // 	);
 // }
 
-function crossProductVersion2Helper(
-	accumulator: number[][],
-	...aa: number[][]
-): number[][] {
+function crossProductVersion2Helper(accumulator: number[][], ...aa: number[][]): number[][] {
 	if (aa.length === 0) {
 		return accumulator;
 	}
@@ -124,9 +116,7 @@ export function crossProduct(...aa: number[][]): number[][] {
 	return crossProductVersion2Helper([[]], ...aa);
 }
 
-export function generateHierarchyOfLocalMaximaAndMinima(
-	array: number[]
-): Record<string, unknown>[][] {
+export function generateHierarchyOfLocalMaximaAndMinima(array: number[]): Record<string, unknown>[][] {
 	const result = [];
 
 	let currentTier = array.map((element) => {
@@ -232,9 +222,7 @@ Given this information, the formula for covariance is:
 Covariance(x, y) = SUM [(xi - xm) * (yi - ym)] / (n - 1)
  */
 
-function createCovarianceFunction(
-	k: number
-): (x: number[], y: number[]) => number {
+function createCovarianceFunction(k: number): (x: number[], y: number[]) => number {
 	return (x: number[], y: number[]): number => {
 		if (x.length !== y.length || x.length <= 1) {
 			return NaN;
@@ -246,14 +234,7 @@ function createCovarianceFunction(
 		// Note that if x is a list of numbers, then covariance(x, x) === (standardDeviation(x)) ^ 2
 
 		return (
-			sum(
-				...pointwise(
-					(xi: number, yi: number): number =>
-						(xi - meanX) * (yi - meanY),
-					x,
-					y
-				)
-			) /
+			sum(...pointwise((xi: number, yi: number): number => (xi - meanX) * (yi - meanY), x, y)) /
 			(x.length - k)
 		);
 	};
@@ -298,9 +279,7 @@ export function clamp(value: number, minimum: number, maximum: number): number {
 
 // CorrelationCoefficient(x, y) = covariance(x, y) / (standardDeviation(x) * standardDeviation(y))
 
-function createCorrelationCoefficientFunction(
-	k: number
-): (x: number[], y: number[]) => number {
+function createCorrelationCoefficientFunction(k: number): (x: number[], y: number[]) => number {
 	return (x: number[], y: number[]): number => {
 		if (x.length !== y.length || x.length <= 1) {
 			return NaN;
@@ -318,14 +297,9 @@ function createCorrelationCoefficientFunction(
 	};
 }
 
-export const populationCorrelationCoefficient =
-	createCorrelationCoefficientFunction(0);
-export const sampleCorrelationCoefficient =
-	createCorrelationCoefficientFunction(1);
+export const populationCorrelationCoefficient = createCorrelationCoefficientFunction(0);
+export const sampleCorrelationCoefficient = createCorrelationCoefficientFunction(1);
 
-export function getLastElementOfNumericArray(
-	array: number[],
-	dflt = NaN
-): number {
+export function getLastElementOfNumericArray(array: number[], dflt = NaN): number {
 	return ifDefinedThenElse(getLastElementOfArray(array), dflt);
 }
