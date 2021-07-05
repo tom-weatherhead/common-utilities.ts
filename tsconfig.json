@@ -1,9 +1,14 @@
 {
 	"compilerOptions": {
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
 		"declaration": true,
 		"module": "es2015",
 		"moduleResolution": "node",
-		"noImplicitThis": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
 		"outDir": "./dist/types",
 		"sourceMap": false,
 		"strict": true,

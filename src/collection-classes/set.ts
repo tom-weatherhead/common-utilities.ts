@@ -39,7 +39,7 @@ export class Set<T> extends CollectionArrayBase<T> {
 		return true;
 	}
 
-	public add(item: T): boolean {
+	public override add(item: T): boolean {
 		return this.protectedAdd(item);
 	}
 
