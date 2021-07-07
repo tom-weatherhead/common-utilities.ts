@@ -12,19 +12,15 @@
 		"importHelpers": false,
 		"module": "es2015",
 		"moduleResolution": "node",
+		"newLine": "LF",
 		"noEmitOnError": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
 		"noPropertyAccessFromIndexSignature": true,
-		"noUncheckedIndexedAccess": false,
+		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
-		"outDir": "./dist/lib",
-		"plugins": [
-			{
-				"name": "typescript-eslint-language-service"
-			}
-		],
+		"outDir": "./dist/types",
 		"removeComments": true,
 		"resolveJsonModule": false,
 		"sourceMap": false,
