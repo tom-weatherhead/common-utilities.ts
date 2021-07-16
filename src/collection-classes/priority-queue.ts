@@ -7,19 +7,18 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 	// Returns true if item1 has a higher priority than item2.
 	// Returns false if item2 has a higher priority than item1.
 
-	constructor(private readonly fnComparator: (item1: T, item2: T) => boolean, iterable?: Iterable<T>) {
+	constructor(
+		private readonly fnComparator: (item1: T, item2: T) => boolean,
+		iterable?: Iterable<T>
+	) {
 		super(iterable);
 	}
 
-	public enqueue(item: T): void {
-		this.items.push(item);
-
+	private upHeap(index: number): void {
 		// Now: Restore the heap condition throughout the heap by propagating
-		// the element that is now at index heap.length - 1 up through the heap, as necessary.
+		// the element that is now at index up through the heap, as necessary.
 
-		let index = this.size - 1;
-
-		while (index) {
+		while (index > 0) {
 			const nextIndex = Math.trunc((index - 1) / 2);
 
 			const elementAtIndex = this.items[index];
@@ -37,24 +36,7 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 		}
 	}
 
-	public dequeue(): T {
-		if (this.items.length === 0) {
-			throw new Error('PriorityQueue.dequeue() : The queue is empty.');
-		}
-
-		const result = this.items[0];
-		const lastElement = this.items.pop();
-
-		if (typeof lastElement === 'undefined') {
-			throw new Error('PriorityQueue.dequeue() : this.items.pop() returned undefined.');
-		}
-
-		if (this.items.length === 0) {
-			return result;
-		}
-
-		this.items[0] = lastElement;
-
+	private downHeap(): void {
 		// Now: Restore the heap condition throughout the heap by propagating lastElement
 		// (i.e. the element that is now at index 0) down through the heap, as necessary.
 
@@ -95,6 +77,41 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 
 			index = nextIndex;
 		}
+	}
+
+	public findAndUpHeap(item: T, equalityComparator: (item1: T, item2: T) => boolean): void {
+		this.upHeap(this.items.findIndex((item2: T) => equalityComparator(item, item2)));
+	}
+
+	public enqueue(item: T): void {
+		this.items.push(item);
+
+		// Now: Restore the heap condition throughout the heap by propagating
+		// the element that is now at index heap.length - 1 up through the heap, as necessary.
+		this.upHeap(this.size - 1);
+	}
+
+	public dequeue(): T {
+		if (this.items.length === 0) {
+			throw new Error('PriorityQueue.dequeue() : The queue is empty.');
+		}
+
+		const result = this.items[0];
+		const lastElement = this.items.pop();
+
+		if (typeof lastElement === 'undefined') {
+			throw new Error('PriorityQueue.dequeue() : this.items.pop() returned undefined.');
+		}
+
+		if (this.items.length === 0) {
+			return result;
+		}
+
+		this.items[0] = lastElement;
+
+		// Now: Restore the heap condition throughout the heap by propagating lastElement
+		// (i.e. the element that is now at index 0) down through the heap, as necessary.
+		this.downHeap();
 
 		return result;
 	}

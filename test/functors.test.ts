@@ -25,7 +25,11 @@ test('UniversalFunctor test 2', () => {
 	const initialValue = 8675309;
 
 	// Act
-	const actualResult = engine.createFunctor(initialValue).map(fnToString).map(fnStringToLength).getValue();
+	const actualResult = engine
+		.createFunctor(initialValue)
+		.map(fnToString)
+		.map(fnStringToLength)
+		.getValue();
 
 	// Assert
 	expect(actualResult).toEqual(expectedResult);

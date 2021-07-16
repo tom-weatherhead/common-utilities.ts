@@ -195,7 +195,10 @@ export function categorizeArrayElementsByProperty(
 	array: Foo1ElementType[],
 	propertyName: ObjectKeyType
 ): Record<ObjectKeyType, Foo1ElementType[]> {
-	return categorizeArrayElementsByFunction(array, (element: Foo1ElementType) => element[propertyName]);
+	return categorizeArrayElementsByFunction(
+		array,
+		(element: Foo1ElementType) => element[propertyName]
+	);
 }
 
 export function getLastElementOfArray<T>(array: T[]): T | undefined {
@@ -265,7 +268,11 @@ export function generateAllSubsets<T>(array: T[], i = 0, accumulator: T[] = []):
 	return list1.concat(list2);
 }
 
-export function padOrTrimArrayAtStart<T>(array: T[], desiredLength: number, defaultElement: T): T[] {
+export function padOrTrimArrayAtStart<T>(
+	array: T[],
+	desiredLength: number,
+	defaultElement: T
+): T[] {
 	const diff = array.length - desiredLength;
 
 	if (diff >= 0) {

@@ -73,7 +73,11 @@ export function heapSort(array: number[]): number[] {
 
 // Sorting algorithm number 3: Insertion Sort
 
-export function insertNumberIntoArray<T>(n: T, array: T[], fnComparator: ComparatorFunction<T>): T[] {
+export function insertNumberIntoArray<T>(
+	n: T,
+	array: T[],
+	fnComparator: ComparatorFunction<T>
+): T[] {
 	// array must already be sorted in the proper order.
 
 	let i = array.findIndex((m) => !fnComparator(m, n));
@@ -91,7 +95,10 @@ export function insertNumberIntoArray<T>(n: T, array: T[], fnComparator: Compara
 }
 
 export function genericInsertionSort<T>(array: T[], fnComparator: ComparatorFunction<T>): T[] {
-	return array.reduce((accumulator: T[], n: T) => insertNumberIntoArray(n, accumulator, fnComparator), []);
+	return array.reduce(
+		(accumulator: T[], n: T) => insertNumberIntoArray(n, accumulator, fnComparator),
+		[]
+	);
 }
 
 export function insertionSort(array: number[]): number[] {
@@ -100,7 +107,11 @@ export function insertionSort(array: number[]): number[] {
 
 // Sorting algorithm number 4: Merge Sort
 
-export function mergeTwoSortedArrays<T>(array1: T[], array2: T[], fnComparator: ComparatorFunction<T>): T[] {
+export function mergeTwoSortedArrays<T>(
+	array1: T[],
+	array2: T[],
+	fnComparator: ComparatorFunction<T>
+): T[] {
 	let index1 = 0;
 	let index2 = 0;
 	const result: T[] = [];
@@ -230,14 +241,16 @@ function numericArraySortingFunctionDispatcher(
 	fnSort: SortingFunction<number>,
 	fnCompare?: ComparatorFunction<number>
 ): SortingFunctionNoComparator<number> {
-	return (array: number[]): number[] => fnSort(array, ifDefinedThenElse(fnCompare, numericComparator));
+	return (array: number[]): number[] =>
+		fnSort(array, ifDefinedThenElse(fnCompare, numericComparator));
 }
 
 function stringArraySortingFunctionDispatcher(
 	fnSort: SortingFunction<string>,
 	fnCompare?: ComparatorFunction<string>
 ): SortingFunctionNoComparator<string> {
-	return (array: string[]): string[] => fnSort(array, ifDefinedThenElse(fnCompare, stringComparator));
+	return (array: string[]): string[] =>
+		fnSort(array, ifDefinedThenElse(fnCompare, stringComparator));
 }
 
 // function arraySortingFunctionDispatcher<T>(

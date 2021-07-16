@@ -116,7 +116,9 @@ export function crossProduct(...aa: number[][]): number[][] {
 	return crossProductVersion2Helper([[]], ...aa);
 }
 
-export function generateHierarchyOfLocalMaximaAndMinima(array: number[]): Record<string, unknown>[][] {
+export function generateHierarchyOfLocalMaximaAndMinima(
+	array: number[]
+): Record<string, unknown>[][] {
 	const result = [];
 
 	let currentTier = array.map((element) => {
@@ -234,7 +236,9 @@ function createCovarianceFunction(k: number): (x: number[], y: number[]) => numb
 		// Note that if x is a list of numbers, then covariance(x, x) === (standardDeviation(x)) ^ 2
 
 		return (
-			sum(...pointwise((xi: number, yi: number): number => (xi - meanX) * (yi - meanY), x, y)) /
+			sum(
+				...pointwise((xi: number, yi: number): number => (xi - meanX) * (yi - meanY), x, y)
+			) /
 			(x.length - k)
 		);
 	};

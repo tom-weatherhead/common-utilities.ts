@@ -1,3 +1,5 @@
+// babel.config.js
+
 /**
  * Copyright (c) Tom Weatherhead. All Rights Reserved.
  *
@@ -9,43 +11,18 @@
 
 'use strict';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
 const semver = require('semver');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require('./package.json');
 
 const supportedNodeVersion = semver.minVersion(pkg.engines.node).version;
 
-// module.exports = {
-// 	"env": {
-// 		"test": {
-// 			"plugins": [
-// 				["@babel/plugin-transform-modules-commonjs", {allowTopLevelThis: true}],
-// 				'@babel/plugin-transform-strict-mode',
-// 				'@babel/plugin-proposal-class-properties'
-// 			]
-// 		}
-// 	},
-// 	"presets": [
-// 		[
-// 			"@babel/preset-env",
-// 			{
-// 				exclude: ["@babel/plugin-proposal-dynamic-import"],
-// 				shippedProposals: true,
-// 				targets: {node: supportedNodeVersion}
-// 			}
-// 		],
-// 		"@babel/preset-typescript"
-// 	]
-// };
-
 module.exports = {
-	'presets': [
+	presets: [
 		[
 			'@babel/preset-env',
 			{
 				targets: {
-					// node: "current"
 					node: supportedNodeVersion
 				}
 			}

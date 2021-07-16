@@ -98,7 +98,11 @@ export class Set<T> extends CollectionArrayBase<T> {
 
 	// Private methods
 
-	private getAllSubsetsHelper(arrayOfSubsets: Set<T>[], subsetAsArray: T[] = [], index = 0): void {
+	private getAllSubsetsHelper(
+		arrayOfSubsets: Set<T>[],
+		subsetAsArray: T[] = [],
+		index = 0
+	): void {
 		if (index >= this.items.length) {
 			arrayOfSubsets.push(new Set<T>(subsetAsArray));
 		} else {

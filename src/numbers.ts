@@ -167,7 +167,9 @@ export function zeroExtendNumber(n: number, minNumberOfDecimalPlaces: number): s
 		str = str + '.';
 	}
 
-	return str + replicateString('0', indexOfDecimalPoint + 1 + minNumberOfDecimalPlaces - str.length);
+	return (
+		str + replicateString('0', indexOfDecimalPoint + 1 + minNumberOfDecimalPlaces - str.length)
+	);
 }
 
 export function removeNonNumbers(arg: unknown[]): number[] {
@@ -331,7 +333,10 @@ export function randomNumberNormalDistribution(): number {
 	return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
 }
 
-export function ifDefinedAndNotNaNThenElse(valueIn: number | undefined, defaultOut: number): number {
+export function ifDefinedAndNotNaNThenElse(
+	valueIn: number | undefined,
+	defaultOut: number
+): number {
 	if (typeof valueIn === 'undefined' || Number.isNaN(valueIn)) {
 		return defaultOut;
 	}

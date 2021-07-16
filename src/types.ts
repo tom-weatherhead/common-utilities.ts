@@ -57,7 +57,8 @@ export const isNumber: (obj: unknown) => boolean = (arg) => isNumberType(arg) &&
 // 		typeof arg === 'number' && !Number.isNaN(arg) && Number.isFinite(arg)
 // 	);
 // }
-export const isSafeNumber: (obj: unknown) => boolean = (arg) => isNumber(arg) && Number.isFinite(arg);
+export const isSafeNumber: (obj: unknown) => boolean = (arg) =>
+	isNumber(arg) && Number.isFinite(arg);
 
 export const isObject: (obj: unknown) => boolean = factory_fnIsType('Object');
 
@@ -85,7 +86,11 @@ export function ifDefinedThenElse<T>(valueIn: T | undefined, defaultOut: T): T {
 	}
 }
 
-export function ifDefinedThenMapElse<T, U>(valueIn: T | undefined, fn: (value: T) => U, defaultOut: U): U {
+export function ifDefinedThenMapElse<T, U>(
+	valueIn: T | undefined,
+	fn: (value: T) => U,
+	defaultOut: U
+): U {
 	if (typeof valueIn !== 'undefined') {
 		return fn(valueIn);
 	} else {

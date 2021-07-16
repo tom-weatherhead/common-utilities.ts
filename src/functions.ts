@@ -13,7 +13,10 @@ export const booleanInvertFunction = (arg: boolean): boolean => !arg;
 // 'Composite' as a verb, not an adjective:
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export function compositeFunctions(fnArray: ((x: any) => any)[]): (x: any) => any {
-	return fnArray.reduce((accumulator, element) => (arg) => element(accumulator(arg)), identityFunction);
+	return fnArray.reduce(
+		(accumulator, element) => (arg) => element(accumulator(arg)),
+		identityFunction
+	);
 }
 /* eslint-enable  @typescript-eslint/no-explicit-any */
 
@@ -42,7 +45,9 @@ export function curry(fn: (...args: any[]) => any): any {
 }
 /* eslint-enable  @typescript-eslint/no-explicit-any */
 
-export function curry2ArgumentFunction<A, B, C>(fn: (arg1: A, arg2: B) => C): (arg1: A) => (arg2: B) => C {
+export function curry2ArgumentFunction<A, B, C>(
+	fn: (arg1: A, arg2: B) => C
+): (arg1: A) => (arg2: B) => C {
 	return (arg1: A) => (arg2: B) => fn(arg1, arg2);
 }
 
