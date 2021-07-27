@@ -51,10 +51,10 @@ export function getDateTimeString(date: Date): string {
 }
 
 export function getDateUTCString(date: Date): string {
-	return `${date.getUTCFullYear()}-${zeroPadNumber(date.getUTCMonth() + 1, 2)}-${zeroPadNumber(
-		date.getUTCDate(),
+	return `${date.getUTCFullYear()}-${zeroPadNumber(
+		date.getUTCMonth() + 1,
 		2
-	)}`;
+	)}-${zeroPadNumber(date.getUTCDate(), 2)}`;
 }
 
 export function getDateTimeUTCString(date?: Date): string {

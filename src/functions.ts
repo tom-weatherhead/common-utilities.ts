@@ -64,7 +64,11 @@ export function pointwise<T, U>(operation: (...series: T[]) => U, ...serieses: T
 	);
 }
 
-export function rolling<T, U>(operation: (...series: T[]) => U, series: T[], window: number): U[] {
+export function rolling<T, U>(
+	operation: (...series: T[]) => U,
+	series: T[],
+	window: number
+): U[] {
 	return generateNonNegativeIntegersLessThan(series.length).map(
 		(i: number): U => operation(...series.slice(Math.max(i + 1 - window, 0), i + 1))
 	);

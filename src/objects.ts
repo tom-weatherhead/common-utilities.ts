@@ -68,7 +68,11 @@ export function getOwnProperties(obj: DefaultObjectType = {}): ObjectKeyType[] {
 
 // E.g. getProperty(obj, 'subObj1.subObj2.arrayMember.length', 'Toast');
 
-export function getProperty<T>(obj: DefaultObjectType, propertyPath: string, defaultValue: T): T {
+export function getProperty<T>(
+	obj: DefaultObjectType,
+	propertyPath: string,
+	defaultValue: T
+): T {
 	const arrayOfProperties = propertyPath.split('.');
 	let result: unknown = obj;
 

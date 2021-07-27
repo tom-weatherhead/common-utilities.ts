@@ -14,8 +14,10 @@ export type SortingFunctionNoComparator<T> = (array: T[]) => T[];
 
 export type SortingFunction<T> = (array: T[], fnComparator: ComparatorFunction<T>) => T[];
 
-export const numericComparator: ComparatorFunction<number> = (element1: number, element2: number) =>
-	element1 < element2;
+export const numericComparator: ComparatorFunction<number> = (
+	element1: number,
+	element2: number
+) => element1 < element2;
 
 const stringComparator: ComparatorFunction<string> = (element1: string, element2: string) =>
 	element1 < element2;

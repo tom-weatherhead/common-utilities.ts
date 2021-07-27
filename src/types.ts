@@ -48,7 +48,8 @@ export const isFunction: (obj: unknown) => boolean = factory_fnIsType('Function'
 
 const isNumberType: (obj: unknown) => boolean = factory_fnIsType('Number');
 // export const isNumber = arg => isNumberType(arg) && arg === arg; // This works too, since NaN !== NaN.
-export const isNumber: (obj: unknown) => boolean = (arg) => isNumberType(arg) && !Number.isNaN(arg);
+export const isNumber: (obj: unknown) => boolean = (arg) =>
+	isNumberType(arg) && !Number.isNaN(arg);
 // && typeof arg === 'number'
 // && Number.isFinite(arg);
 
@@ -66,13 +67,16 @@ export const isRegularExpression: (obj: unknown) => boolean = factory_fnIsType('
 
 export const isString: (obj: unknown) => boolean = factory_fnIsType('String');
 
-export const isArrayOf: (obj: unknown, fn: (element: unknown) => boolean) => boolean = (arg, fn) =>
-	isArray(arg) && (arg as unknown[]).every(fn);
+export const isArrayOf: (obj: unknown, fn: (element: unknown) => boolean) => boolean = (
+	arg,
+	fn
+) => isArray(arg) && (arg as unknown[]).every(fn);
 
 // export const isArrayOfNumbers = arg => isArray(arg) && arg.every(isNumber);
 export const isArrayOfNumbers: (obj: unknown) => boolean = (arg) => isArrayOf(arg, isNumber);
 
-export const isAggregateEntity: (obj: unknown) => boolean = (arg) => isArray(arg) || isObject(arg);
+export const isAggregateEntity: (obj: unknown) => boolean = (arg) =>
+	isArray(arg) || isObject(arg);
 
 // Deprecated. Superseded by ifDefinedThenElse<T>()
 // export const ifDefinedElse: (obj: any, dflt: any) => boolean = (arg, dflt) =>

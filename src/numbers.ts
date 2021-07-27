@@ -12,8 +12,10 @@ import { isNumber, isSafeNumber } from './types';
 // 	);
 // }
 
-export const isGreaterThan = (x: number, y: number): boolean => isNumber(x) && isNumber(y) && x > y;
-export const isLessThan = (x: number, y: number): boolean => isNumber(x) && isNumber(y) && x < y;
+export const isGreaterThan = (x: number, y: number): boolean =>
+	isNumber(x) && isNumber(y) && x > y;
+export const isLessThan = (x: number, y: number): boolean =>
+	isNumber(x) && isNumber(y) && x < y;
 
 export const fnIsGreaterThan = isGreaterThan;
 export const fnIsLessThan = isLessThan;
@@ -32,18 +34,11 @@ export const binaryAdd = (a: number, b: number): number => a + b;
 export const fnAddition = binaryAdd;
 export const additiveIdentity = 0;
 
-// export function add(...arg: number[]): number {
-// 	return arg.reduce(binaryAdd, additiveIdentity);
-// }
 export function add(...arg: unknown[]): number {
 	return removeNonNumbers(arg).reduce(binaryAdd, additiveIdentity);
 }
 
 export const sum = add;
-
-// export function arraySum(arg: unknown[]): number {
-// 	return sum(...arg);
-// }
 
 // **** subtract ****
 export const subtract = (a: number, b: number): number => a - b;
@@ -54,12 +49,6 @@ export const binaryMultiply = (a: number, b: number): number => a * b;
 export const fnMultiplication = binaryMultiply;
 export const multiplicativeIdentity = 1;
 
-// export function multiply(...arg: number[]): number {
-// 	return arg.reduce(
-// 		binaryMultiply,
-// 		multiplicativeIdentity
-// 	);
-// }
 export function multiply(...arg: unknown[]): number {
 	return removeNonNumbers(arg).reduce(binaryMultiply, multiplicativeIdentity);
 }
@@ -110,29 +99,17 @@ export function getSign(n: number): number {
  * @param  {Int}   end					The largest integer in the array to be generated
  * @return {Array<Int>}					The integers from start to end, inclusive, in increasing order
  */
-/*
-function range (start, end) {
-	// return [...Array(end - start + 1).keys()].map(n => start + n);
+// function range (start, end) {
+// 	// return [...Array(end - start + 1).keys()].map(n => start + n);
 
-	return [...Array.from(Array(end - start + 1).keys())].map(n => start + n); // The Array.from() is for TypeScript, where Array.keys() returns an iterator, not an array.
-}
- */
+// 	return [...Array.from(Array(end - start + 1).keys())].map(n => start + n); // The Array.from() is for TypeScript, where Array.keys() returns an iterator, not an array.
+// }
 
 export function generateNonNegativeIntegersLessThan(n: number): number[] {
-	// return generateRange(0, n - 1);
 	return [...Array(n).keys()];
 }
 
 export function generateRange(start: number, end: number): number[] {
-	// const result: number[] = [];
-
-	// while (start <= end) {
-	// 	result.push(start);
-	// 	start++;
-	// }
-
-	// return result;
-	// return [...Array(end - start + 1).keys()].map(n => start + n);
 	return generateNonNegativeIntegersLessThan(end - start + 1).map((n) => start + n);
 }
 
@@ -168,13 +145,12 @@ export function zeroExtendNumber(n: number, minNumberOfDecimalPlaces: number): s
 	}
 
 	return (
-		str + replicateString('0', indexOfDecimalPoint + 1 + minNumberOfDecimalPlaces - str.length)
+		str +
+		replicateString('0', indexOfDecimalPoint + 1 + minNumberOfDecimalPlaces - str.length)
 	);
 }
 
 export function removeNonNumbers(arg: unknown[]): number[] {
-	// return arg.map((o) => o as number).filter((o) => o !== undefined);
-
 	return arg
 		.filter((o) => typeof o === 'number')
 		.map((o): number => o as number)
@@ -185,15 +161,11 @@ type keyType = number | string;
 type histogramType = Map<keyType, number>;
 
 export function histogram(arg: keyType[]): histogramType {
-	return arg.reduce(
-		(accumulator: histogramType, element: keyType): histogramType => {
-			// accumulator[element] = (accumulator[element] || 0) + 1;
-			accumulator.set(element, (accumulator.get(element) || 0) + 1);
+	return arg.reduce((accumulator: histogramType, element: keyType): histogramType => {
+		accumulator.set(element, (accumulator.get(element) || 0) + 1);
 
-			return accumulator;
-		},
-		new Map<keyType, number>() // {}
-	);
+		return accumulator;
+	}, new Map<keyType, number>());
 }
 
 // export function histogramLookup(hist: object, key: number | string, fnEqual: (number | string, number | string) => boolean): number | undefined {
@@ -226,7 +198,6 @@ export function mode(arg: keyType[]): IModeResult {
 			const elementCount = hist.get(element) || 0;
 
 			if (elementCount > accumulator.count) {
-				// accumulator = { element: element || undefined, count: elementCount };
 				accumulator = { element, count: elementCount };
 			}
 
@@ -255,15 +226,9 @@ export function factory_fnRoundToNDigits(n: number): (m: number) => number {
 	return (m: number) => roundMToNDigits(m, n);
 }
 
-// A more efficient way: Calculate valueOfTenToThePowerOfN once,
-// and then bind it inside the closure that will be returned:
-
-// export function factory_fnRoundToNDigitsV2(n: number): (m: number) => number {
-// 	const valueOfTenToThePowerOfN = tenToThePowerOfN(n);
-
-// 	return (m: number) =>
-// 		Math.round(m * valueOfTenToThePowerOfN) / valueOfTenToThePowerOfN;
-// }
+export function toCurrencyString(m: number, digits = 2): string {
+	return zeroExtendNumber(roundMToNDigits(m, digits), digits);
+}
 
 // export function isInteger(n: number): boolean {
 // 	// return Number.isInteger(n);

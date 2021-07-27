@@ -237,7 +237,11 @@ function createCovarianceFunction(k: number): (x: number[], y: number[]) => numb
 
 		return (
 			sum(
-				...pointwise((xi: number, yi: number): number => (xi - meanX) * (yi - meanY), x, y)
+				...pointwise(
+					(xi: number, yi: number): number => (xi - meanX) * (yi - meanY),
+					x,
+					y
+				)
 			) /
 			(x.length - k)
 		);

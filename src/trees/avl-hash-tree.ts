@@ -75,7 +75,9 @@ export default class AVLHashTree<K, V> {
 			return null;
 		}
 
-		const keyValuePair = keyValuePairArray.find((kvp: [K, V]) => this.fnKeyEquals(kvp[0], key));
+		const keyValuePair = keyValuePairArray.find((kvp: [K, V]) =>
+			this.fnKeyEquals(kvp[0], key)
+		);
 
 		if (typeof keyValuePair === 'undefined') {
 			return null;

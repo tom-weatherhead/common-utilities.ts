@@ -1,6 +1,8 @@
 // github:tom-weatherhead/common-utilities.ts/src/arrays.ts
 
-// WARNING: Circular dependency: arrays -> numbers -> arrays
+// For an excellent resource on the JavaScript Array API, see:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+
 import { getRandomNonNegativeInteger, sum } from './numbers';
 
 export function cloneArray<T>(array: T[]): T[] {
@@ -92,6 +94,7 @@ export function flattenOneLevel<T>(a: Array<T[] | T>, b: T[] = []): T[] {
 		const castedElement: T[] = element as T[];
 
 		// if (isArray(element)) {
+		// TODO?: if (typeof castedElement === 'Array') {
 		if (typeof castedElement !== 'undefined') {
 			return accumulator.concat(castedElement);
 		} else {
@@ -126,7 +129,9 @@ export function getRandomArrayElement<T>(array: T[]): T | undefined {
 }
 
 export function propertySum(array: Record<string, unknown>[], propertyName: string): number {
-	return sum(array.map((element: Record<string, unknown>) => element[propertyName] as number));
+	return sum(
+		array.map((element: Record<string, unknown>) => element[propertyName] as number)
+	);
 }
 
 // Categorize? Or pigeonhole?
@@ -247,13 +252,6 @@ export function createAndFillArray(obj: unknown, ...dimensions: number[]): unkno
 }
 
 export function createArrayFromElement<T>(element: T, length: number): T[] {
-	// if (length < 0) {
-	// 	return [];
-	// }
-
-	// return createAndFillArray(element, length);
-
-	// TODO: return new Array(length).fill(element);
 	return new Array(Math.max(length, 0)).fill(element);
 }
 
@@ -389,4 +387,20 @@ export function mapLastElementOfArray<T, U>(array: T[], fn: (element: T) => U, d
 	const lastElement = array[array.length - 1];
 
 	return fn(lastElement);
+}
+
+// Return a randomly reordered version of the array.
+
+export function shuffle<T>(array: T[]): T[] {
+	const arrayCopy = array.slice(0);
+	const result: T[] = [];
+
+	while (arrayCopy.length > 0) {
+		const i = getRandomNonNegativeInteger(arrayCopy.length);
+		const arrayOfDeletedElements = arrayCopy.splice(i, 1);
+
+		result.push(arrayOfDeletedElements[0]);
+	}
+
+	return result;
 }
