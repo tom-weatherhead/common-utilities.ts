@@ -3,13 +3,13 @@ Common utility functions implemented in TypeScript.
 
 Obligatory BadgeFest:
 
+[![circleci][circleci-badge-image]][circleci-url]
 [![codeclimate][codeclimate-badge-image]][codeclimate-url]
 [![git][git-badge-image]][git-url]
 [![github][github-badge-image]][github-url]
 [![npm][npm-badge-image]][npm-url]
 [![packagephobia][packagephobia-badge-image]][packagephobia-url]
 [![terminal][terminal-badge-image]][terminal-url]
-[![travis][travis-badge-image]][travis-url]
 [![typescript][typescript-badge-image]][typescript-url]
 
 [![status][status-badge-image]][status-url]
@@ -37,10 +37,6 @@ Obligatory BadgeFest:
 [![code style: prettier][prettier-badge-image]][prettier-url]
 [![license][license-badge-image]][license-url]
 [![FOSSA Status][fossa-badge-image]][fossa-badge-url]
-
-<!-- [![repo dependents][repo-dependents-badge-image]][repo-dependents-url]
-[![pkg dependents][pkg-dependents-badge-image]][pkg-dependents-url] -->
-<!-- [![dependents](https://badgen.net/npm/dependents/thaw-common-utilities.ts)](https://badgen.net/npm/dependents/thaw-common-utilities.ts) -->
 
 ## Features
 
@@ -90,6 +86,8 @@ min<T>(array: T[]): T
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
+[circleci-badge-image]: https://badgen.net/badge/icon/circleci?icon=circleci&label
+[circleci-url]: https://circleci.com
 [codeclimate-badge-image]: https://badgen.net/badge/icon/codeclimate?icon=codeclimate&label
 [codeclimate-url]: https://codeclimate.com
 [git-badge-image]: https://badgen.net/badge/icon/git?icon=git&label
@@ -109,8 +107,8 @@ min<T>(array: T[]): T
 
 [status-badge-image]: https://badgen.net/github/status/tom-weatherhead/common-utilities.ts
 [status-url]: https://badgen.net/github/status/tom-weatherhead/common-utilities.ts
-[build-status-badge-image]: https://secure.travis-ci.org/tom-weatherhead/common-utilities.ts.svg
-[build-status-url]: https://travis-ci.org/tom-weatherhead/common-utilities.ts
+[build-status-badge-image]: https://circleci.com/gh/tom-weatherhead/common-utilities.ts.svg?style=shield
+[build-status-url]: https://circleci.com/gh/tom-weatherhead/common-utilities.ts
 [npm-version-badge-image]: https://img.shields.io/npm/v/thaw-common-utilities.ts.svg
 [npm-version-url]: https://www.npmjs.com/package/thaw-common-utilities.ts
 [latest-tag-badge-image]: https://badgen.net/github/tag/tom-weatherhead/common-utilities.ts
