@@ -4,6 +4,7 @@
 
 export * from './interfaces/icomparable';
 export * from './interfaces/iequality-comparable';
+export * from './interfaces/istringifiable';
 
 export * from './array-sorting';
 export * from './arrays';
