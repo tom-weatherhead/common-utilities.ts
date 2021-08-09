@@ -1,6 +1,22 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/set.ts
 
-import { CollectionArrayBase } from './collection-array-base';
+import { CollectionArrayBase, getEqualityComparisonFunction } from './collection-array-base';
+
+import { ICollection, IImmutableCollection } from './icollection';
+
+export interface IImmutableSet<T> extends IImmutableCollection<T> {
+	clone(): Set<T>;
+	isASubsetOf(otherSet: Set<T>): boolean;
+	intersection(otherSet: Set<T>): Set<T>;
+	union(otherSet: Set<T>): Set<T>;
+	getAllSubsets(): Set<T>[];
+}
+
+export interface ISet<T> extends ICollection<T>, IImmutableSet<T> {
+	remove(item: T): boolean;
+	intersectionInPlace(otherSet: Set<T>): void;
+	unionInPlace(otherSet: Set<T>): void;
+}
 
 const typenameSet = 'Set';
 
@@ -10,7 +26,7 @@ export function isSet<T>(obj: unknown): obj is Set<T> {
 	return typeof otherSet !== 'undefined' && otherSet.typename === typenameSet;
 }
 
-export class Set<T> extends CollectionArrayBase<T> {
+export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 	// Static methods
 
 	public static createFromArray<U>(array: U[]): Set<U> {
@@ -60,7 +76,7 @@ export class Set<T> extends CollectionArrayBase<T> {
 
 	public remove(item: T): boolean {
 		const oldSize = this.size;
-		const fn = this.getEqualityComparisonFunction(item);
+		const fn = getEqualityComparisonFunction(item);
 
 		this.items = this.items.filter((otherItem: T) => !fn(otherItem));
 
@@ -72,6 +88,7 @@ export class Set<T> extends CollectionArrayBase<T> {
 	}
 
 	public isEqualTo(otherSet: Set<T>): boolean {
+		// Deprecated. Use equals()
 		return this.isASubsetOf(otherSet) && otherSet.isASubsetOf(this);
 	}
 

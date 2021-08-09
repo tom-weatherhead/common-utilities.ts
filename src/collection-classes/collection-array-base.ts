@@ -3,6 +3,16 @@
 import { ICollection } from './icollection';
 import { IEqualityComparable, isIEqualityComparable } from '../interfaces/iequality-comparable';
 
+export function getEqualityComparisonFunction<T>(item: T): (otherItem: T) => boolean {
+	if (isIEqualityComparable(item)) {
+		const castItem = item as IEqualityComparable;
+
+		return (otherItem: T) => castItem.equals(otherItem);
+	}
+
+	return (otherItem: T) => otherItem === item;
+}
+
 export abstract class CollectionArrayBase<T> implements ICollection<T> {
 	// Static methods
 
@@ -38,7 +48,7 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 		}
 
 		return this.items.every((item: T, i: number) => {
-			const eqFn = this.getEqualityComparisonFunction(item);
+			const eqFn = getEqualityComparisonFunction(item);
 
 			return eqFn(otherCollection.items[i]);
 		});
@@ -71,7 +81,7 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 	}
 
 	public contains(item: T): boolean {
-		const fn = this.getEqualityComparisonFunction(item);
+		const fn = getEqualityComparisonFunction(item);
 
 		return typeof this.items.find(fn) !== 'undefined';
 	}
@@ -86,15 +96,15 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 
 	protected abstract protectedAdd(item: T): boolean;
 
-	protected getEqualityComparisonFunction(item: T): (otherItem: T) => boolean {
-		if (isIEqualityComparable(item)) {
-			const castItem = item as IEqualityComparable;
-
-			return (otherItem: T) => castItem.equals(otherItem);
-		}
-
-		return (otherItem: T) => otherItem === item;
-	}
+	// protected getEqualityComparisonFunction(item: T): (otherItem: T) => boolean {
+	// 	if (isIEqualityComparable(item)) {
+	// 		const castItem = item as IEqualityComparable;
+	//
+	// 		return (otherItem: T) => castItem.equals(otherItem);
+	// 	}
+	//
+	// 	return (otherItem: T) => otherItem === item;
+	// }
 
 	// Private methods
 }
