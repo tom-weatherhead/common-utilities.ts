@@ -2,6 +2,14 @@
 
 import { CollectionArrayBase } from './collection-array-base';
 
+const typenameSet = 'Set';
+
+export function isSet<T>(obj: unknown): obj is Set<T> {
+	const otherSet = obj as Set<T>;
+
+	return typeof otherSet !== 'undefined' && otherSet.typename === typenameSet;
+}
+
 export class Set<T> extends CollectionArrayBase<T> {
 	// Static methods
 
@@ -10,6 +18,7 @@ export class Set<T> extends CollectionArrayBase<T> {
 	}
 
 	// Fields (private member data)
+	public readonly typename = typenameSet;
 
 	// Constructor
 
@@ -18,6 +27,12 @@ export class Set<T> extends CollectionArrayBase<T> {
 	// }
 
 	// Fundamental methods
+
+	public override equals(other: unknown): boolean {
+		const otherSet = other as Set<T>;
+
+		return isSet<T>(otherSet) && this.isASubsetOf(otherSet) && otherSet.isASubsetOf(this);
+	}
 
 	// Accessors
 

@@ -26,6 +26,24 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 		return this.items[Symbol.iterator]();
 	}
 
+	public equals(other: unknown): boolean {
+		const otherCollection = other as CollectionArrayBase<T>;
+
+		if (
+			typeof otherCollection === 'undefined' ||
+			typeof otherCollection.items === 'undefined' ||
+			otherCollection.items.length !== this.items.length
+		) {
+			return false;
+		}
+
+		return this.items.every((item: T, i: number) => {
+			const eqFn = this.getEqualityComparisonFunction(item);
+
+			return eqFn(otherCollection.items[i]);
+		});
+	}
+
 	public toString(): string {
 		return `[${this.items.join(', ')}]`;
 	}
