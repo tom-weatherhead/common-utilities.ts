@@ -15,6 +15,11 @@ export interface IImmutableCollection<T> extends IEqualityComparable, Iterable<T
 
 	// The signature and semantics of remove() can be class-specific.
 	// remove(item: T): boolean;
+
+	// Iterator-based methods
+	find(pred: (item: T) => boolean): T | undefined;
+	some(pred: (item: T) => boolean): boolean;
+	every(pred: (item: T) => boolean): boolean;
 }
 
 // TODO?:

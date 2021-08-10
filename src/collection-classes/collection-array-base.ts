@@ -92,6 +92,35 @@ export abstract class CollectionArrayBase<T> implements ICollection<T> {
 
 	// public abstract remove(item: T): boolean;
 
+	// Iterator-based methods
+
+	public find(pred: (item: T) => boolean): T | undefined {
+		for (const item of this) {
+			if (pred(item)) {
+				return item;
+			}
+		}
+		return undefined;
+	}
+
+	public some(pred: (item: T) => boolean): boolean {
+		for (const item of this) {
+			if (pred(item)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public every(pred: (item: T) => boolean): boolean {
+		for (const item of this) {
+			if (!pred(item)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	// Protected methods
 
 	protected abstract protectedAdd(item: T): boolean;
