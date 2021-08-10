@@ -6,16 +6,16 @@ import { ICollection, IImmutableCollection } from './icollection';
 
 export interface IImmutableSet<T> extends IImmutableCollection<T> {
 	clone(): Set<T>;
-	isASubsetOf(otherSet: Set<T>): boolean;
-	intersection(otherSet: Set<T>): Set<T>;
-	union(otherSet: Set<T>): Set<T>;
+	isASubsetOf(otherSet: IImmutableSet<T>): boolean;
+	intersection(otherSet: IImmutableSet<T>): Set<T>;
+	union(otherSet: IImmutableSet<T>): Set<T>;
 	getAllSubsets(): Set<T>[];
 }
 
 export interface ISet<T> extends ICollection<T>, IImmutableSet<T> {
 	remove(item: T): boolean;
-	intersectionInPlace(otherSet: Set<T>): void;
-	unionInPlace(otherSet: Set<T>): void;
+	intersectionInPlace(otherSet: IImmutableSet<T>): void;
+	unionInPlace(otherSet: IImmutableSet<T>): void;
 }
 
 const typenameSet = 'Set';
@@ -45,7 +45,7 @@ export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 	// Fundamental methods
 
 	public override equals(other: unknown): boolean {
-		const otherSet = other as Set<T>;
+		const otherSet = other as IImmutableSet<T>;
 
 		return isSet<T>(otherSet) && this.isASubsetOf(otherSet) && otherSet.isASubsetOf(this);
 	}
@@ -83,11 +83,11 @@ export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 		return this.size < oldSize;
 	}
 
-	public isASubsetOf(otherSet: Set<T>): boolean {
+	public isASubsetOf(otherSet: IImmutableSet<T>): boolean {
 		return this.items.every((element: T) => otherSet.contains(element));
 	}
 
-	public isEqualTo(otherSet: Set<T>): boolean {
+	public isEqualTo(otherSet: IImmutableSet<T>): boolean {
 		// Deprecated. Use equals()
 		return this.isASubsetOf(otherSet) && otherSet.isASubsetOf(this);
 	}
@@ -95,26 +95,26 @@ export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 	// Return a new set that is the intersection of this set and otherSet.
 	// This set is not modified.
 
-	public intersection(otherSet: Set<T>): Set<T> {
+	public intersection(otherSet: IImmutableSet<T>): Set<T> {
 		return new Set<T>(this.items.filter((item: T) => otherSet.contains(item)));
 	}
 
 	// Remove any of this set's elements that are not also in otherSet, in place (i.e. this set may be modified).
 
-	public intersectionInPlace(otherSet: Set<T>): void {
+	public intersectionInPlace(otherSet: IImmutableSet<T>): void {
 		this.items = this.items.filter((item: T) => otherSet.contains(item));
 	}
 
 	// Return a new set that is the union of this set and otherSet.
 	// This set is not modified.
 
-	public union(otherSet: Set<T>): Set<T> {
-		return new Set<T>(this.items.concat(otherSet.items));
+	public union(otherSet: IImmutableSet<T>): Set<T> {
+		return new Set<T>(this.items.concat(...otherSet));
 	}
 
 	// Add otherSet's elements to this set, in place (i.e. this set may be modified).
 
-	public unionInPlace(otherSet: Set<T>): void {
+	public unionInPlace(otherSet: IImmutableSet<T>): void {
 		for (const item of otherSet) {
 			this.add(item);
 		}
