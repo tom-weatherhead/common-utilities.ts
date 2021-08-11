@@ -2,21 +2,24 @@
 
 import { CollectionArrayBase, getEqualityComparisonFunction } from './collection-array-base';
 
-import { ICollection, IImmutableCollection } from './icollection';
+// import { ICollection, IImmutableCollection } from './icollection';
 
-export interface IImmutableSet<T> extends IImmutableCollection<T> {
-	clone(): Set<T>;
-	isASubsetOf(otherSet: IImmutableSet<T>): boolean;
-	intersection(otherSet: IImmutableSet<T>): Set<T>;
-	union(otherSet: IImmutableSet<T>): Set<T>;
-	getAllSubsets(): Set<T>[];
-}
+import { IImmutableSet } from './interfaces/iimmutable-set';
+import { ISet } from './interfaces/iset';
 
-export interface ISet<T> extends ICollection<T>, IImmutableSet<T> {
-	remove(item: T): boolean;
-	intersectionInPlace(otherSet: IImmutableSet<T>): void;
-	unionInPlace(otherSet: IImmutableSet<T>): void;
-}
+// export interface IImmutableSet<T> extends IImmutableCollection<T> {
+// 	clone(): Set<T>;
+// 	isASubsetOf(otherSet: IImmutableSet<T>): boolean;
+// 	intersection(otherSet: IImmutableSet<T>): Set<T>;
+// 	union(otherSet: IImmutableSet<T>): Set<T>;
+// 	getAllSubsets(): Set<T>[];
+// }
+
+// export interface ISet<T> extends ICollection<T>, IImmutableSet<T> {
+// 	remove(item: T): boolean;
+// 	intersectionInPlace(otherSet: IImmutableSet<T>): void;
+// 	unionInPlace(otherSet: IImmutableSet<T>): void;
+// }
 
 const typenameSet = 'Set';
 

@@ -23,7 +23,12 @@ export * from './regexes';
 export * from './strings';
 export * from './types';
 
-// export { IIterator } from './collection-classes/iiterator';
+// export * from './collection-classes/interfaces/icollection';
+export * from './collection-classes/interfaces/iimmutable-collection';
+export * from './collection-classes/interfaces/iimmutable-set';
+export * from './collection-classes/interfaces/iset';
+export * from './collection-classes/interfaces/istack';
+
 export * from './collection-classes/hashtable';
 export * from './collection-classes/icollection';
 export * from './collection-classes/priority-queue';

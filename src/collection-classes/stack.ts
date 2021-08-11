@@ -2,17 +2,19 @@
 
 import { CollectionArrayBase } from './collection-array-base';
 
-import { ICollection, IImmutableCollection } from './icollection';
+// import { ICollection, IImmutableCollection } from './icollection';
 
-export interface IImmutableStack<T> extends IImmutableCollection<T> {
-	clone(): Stack<T>;
-	peek(): T;
-}
+import { IStack } from './interfaces/istack';
 
-export interface IStack<T> extends ICollection<T>, IImmutableStack<T> {
-	push(item: T): void;
-	pop(): T;
-}
+// export interface IImmutableStack<T> extends IImmutableCollection<T> {
+// 	clone(): Stack<T>;
+// 	peek(): T;
+// }
+//
+// export interface IStack<T> extends ICollection<T>, IImmutableStack<T> {
+// 	push(item: T): void;
+// 	pop(): T;
+// }
 
 export class Stack<T> extends CollectionArrayBase<T> implements IStack<T> {
 	// Fields (private member data)
