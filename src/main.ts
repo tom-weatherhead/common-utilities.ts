@@ -25,7 +25,8 @@ export * from './types';
 
 // export { IIterator } from './collection-classes/iiterator';
 export * from './collection-classes/hashtable';
-export { PriorityQueue } from './collection-classes/priority-queue';
-export { Queue } from './collection-classes/queue';
-export { Set } from './collection-classes/set';
-export { Stack } from './collection-classes/stack';
+export * from './collection-classes/icollection';
+export * from './collection-classes/priority-queue';
+export * from './collection-classes/queue';
+export * from './collection-classes/set';
+export * from './collection-classes/stack';
