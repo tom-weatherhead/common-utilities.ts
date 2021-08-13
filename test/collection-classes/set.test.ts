@@ -2,7 +2,7 @@
 
 'use strict';
 
-import { Set } from '../..';
+import { createSet, Set } from '../..';
 
 test('Set test 1', () => {
 	// Arrange
@@ -95,29 +95,29 @@ test('Set test 4', () => {
 
 test('unionInPlace test', () => {
 	// Arrange
-	const set1 = Set.createFromArray([1, 3, 5, 7]);
-	const set2 = Set.createFromArray([2, 8]);
-	const expectedResult = Set.createFromArray([1, 2, 3, 5, 7, 8]);
+	const set1 = createSet([1, 3, 5, 7]);
+	const set2 = createSet([2, 8]);
+	const expectedResult = createSet([1, 2, 3, 5, 7, 8]);
 
 	// Act
 	set1.unionInPlace(set2);
 
 	// Assert
-	expect(set1.isEqualTo(expectedResult)).toBeTruthy();
+	expect(set1.equals(expectedResult)).toBeTruthy();
 });
 
 test('getAllSubsets test', () => {
 	// Arrange
-	const set = Set.createFromArray([1, 2, 3]);
+	const set = createSet([1, 2, 3]);
 	const expectedResult = [
-		Set.createFromArray([1, 2, 3]),
-		Set.createFromArray([1, 2]),
-		Set.createFromArray([1, 3]),
-		Set.createFromArray([1]),
-		Set.createFromArray([2, 3]),
-		Set.createFromArray([2]),
-		Set.createFromArray([3]),
-		Set.createFromArray([])
+		createSet([1, 2, 3]),
+		createSet([1, 2]),
+		createSet([1, 3]),
+		createSet([1]),
+		createSet([2, 3]),
+		createSet([2]),
+		createSet([3]),
+		createSet([])
 	];
 
 	// Act

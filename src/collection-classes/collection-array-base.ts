@@ -1,6 +1,6 @@
 // github:tom-weatherhead/common-utilities.ts/src/collection-classes/collection-array-base.ts
 
-import { ICollection } from './icollection';
+import { ICollection } from './interfaces/icollection';
 import { IEqualityComparable, isIEqualityComparable } from '../interfaces/iequality-comparable';
 
 export function getEqualityComparisonFunction<T>(item: T): (otherItem: T) => boolean {

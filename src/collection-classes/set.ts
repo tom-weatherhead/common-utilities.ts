@@ -2,24 +2,7 @@
 
 import { CollectionArrayBase, getEqualityComparisonFunction } from './collection-array-base';
 
-// import { ICollection, IImmutableCollection } from './icollection';
-
-import { IImmutableSet } from './interfaces/iimmutable-set';
-import { ISet } from './interfaces/iset';
-
-// export interface IImmutableSet<T> extends IImmutableCollection<T> {
-// 	clone(): Set<T>;
-// 	isASubsetOf(otherSet: IImmutableSet<T>): boolean;
-// 	intersection(otherSet: IImmutableSet<T>): Set<T>;
-// 	union(otherSet: IImmutableSet<T>): Set<T>;
-// 	getAllSubsets(): Set<T>[];
-// }
-
-// export interface ISet<T> extends ICollection<T>, IImmutableSet<T> {
-// 	remove(item: T): boolean;
-// 	intersectionInPlace(otherSet: IImmutableSet<T>): void;
-// 	unionInPlace(otherSet: IImmutableSet<T>): void;
-// }
+import { IImmutableSet, ISet } from './interfaces/iset';
 
 const typenameSet = 'Set';
 
@@ -29,14 +12,18 @@ export function isSet<T>(obj: unknown): obj is Set<T> {
 	return typeof otherSet !== 'undefined' && otherSet.typename === typenameSet;
 }
 
+// Typescript has already defined its own Set<T> class, which does not allow
+// for custom equality comparisons. We want to ensure that we use our own
+// Set<T> class. It helps if we access Sets through our ISet<T> interface.
+
 export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 	// Static methods
 
-	public static createFromArray<U>(array: U[]): Set<U> {
-		return new Set<U>(array);
-	}
+	// public static createFromArray<U>(array: U[]): ISet<U> { // Deprecated
+	// 	return new Set<U>(array);
+	// }
 
-	// Fields (private member data)
+	// Fields (member data)
 	public readonly typename = typenameSet;
 
 	// Constructor
@@ -50,27 +37,21 @@ export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 	public override equals(other: unknown): boolean {
 		const otherSet = other as IImmutableSet<T>;
 
-		return isSet<T>(otherSet) && this.isASubsetOf(otherSet) && otherSet.isASubsetOf(this);
+		return (
+			isSet<T>(otherSet) &&
+			this.isASubsetOf(otherSet) &&
+			otherSet.isASubsetOf(this as IImmutableSet<T>)
+		);
 	}
 
 	// Accessors
 
 	// Other public methods
 
-	public clone(): Set<T> {
+	public clone(): ISet<T> {
 		// Creates a shallow copy
 
-		return new Set<T>(this);
-	}
-
-	protected protectedAdd(item: T): boolean {
-		if (this.contains(item)) {
-			return false;
-		}
-
-		this.items.push(item);
-
-		return true;
+		return createSet<T>(this);
 	}
 
 	public override add(item: T): boolean {
@@ -90,16 +71,16 @@ export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 		return this.items.every((element: T) => otherSet.contains(element));
 	}
 
-	public isEqualTo(otherSet: IImmutableSet<T>): boolean {
-		// Deprecated. Use equals()
-		return this.isASubsetOf(otherSet) && otherSet.isASubsetOf(this);
-	}
+	// public isEqualTo(otherSet: IImmutableSet<T>): boolean {
+	// 	// Deprecated. Use equals()
+	// 	return this.isASubsetOf(otherSet) && otherSet.isASubsetOf(this as IImmutableSet<T>);
+	// }
 
 	// Return a new set that is the intersection of this set and otherSet.
 	// This set is not modified.
 
-	public intersection(otherSet: IImmutableSet<T>): Set<T> {
-		return new Set<T>(this.items.filter((item: T) => otherSet.contains(item)));
+	public intersection(otherSet: IImmutableSet<T>): ISet<T> {
+		return createSet<T>(this.items.filter((item: T) => otherSet.contains(item)));
 	}
 
 	// Remove any of this set's elements that are not also in otherSet, in place (i.e. this set may be modified).
@@ -111,8 +92,8 @@ export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 	// Return a new set that is the union of this set and otherSet.
 	// This set is not modified.
 
-	public union(otherSet: IImmutableSet<T>): Set<T> {
-		return new Set<T>(this.items.concat(...otherSet));
+	public union(otherSet: IImmutableSet<T>): ISet<T> {
+		return createSet<T>(this.items.concat(...otherSet));
 	}
 
 	// Add otherSet's elements to this set, in place (i.e. this set may be modified).
@@ -123,23 +104,35 @@ export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 		}
 	}
 
-	public getAllSubsets(): Set<T>[] {
-		const result: Set<T>[] = [];
+	public getAllSubsets(): ISet<T>[] {
+		const result: ISet<T>[] = [];
 
 		this.getAllSubsetsHelper(result);
 
 		return result;
 	}
 
+	// Protected methods
+
+	protected protectedAdd(item: T): boolean {
+		if (this.contains(item)) {
+			return false;
+		}
+
+		this.items.push(item);
+
+		return true;
+	}
+
 	// Private methods
 
 	private getAllSubsetsHelper(
-		arrayOfSubsets: Set<T>[],
+		arrayOfSubsets: ISet<T>[],
 		subsetAsArray: T[] = [],
 		index = 0
 	): void {
 		if (index >= this.items.length) {
-			arrayOfSubsets.push(new Set<T>(subsetAsArray));
+			arrayOfSubsets.push(createSet<T>(subsetAsArray));
 		} else {
 			subsetAsArray.push(this.items[index]);
 			this.getAllSubsetsHelper(arrayOfSubsets, subsetAsArray, index + 1);
@@ -186,4 +179,8 @@ export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 	// 		yield str;
 	// 	}
 	// }
+}
+
+export function createSet<T>(iterable?: Iterable<T>): ISet<T> {
+	return new Set<T>(iterable);
 }

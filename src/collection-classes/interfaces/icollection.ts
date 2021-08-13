@@ -26,6 +26,8 @@
 // 	every(pred: (item: T) => boolean): boolean;
 // }
 
+import { IImmutableCollection } from './iimmutable-collection';
+
 export interface ICollection<T> extends IImmutableCollection<T> {
 	clear(): void;
 	add(item: T): boolean;
