@@ -2,7 +2,10 @@
 
 import { CollectionArrayBase } from './collection-array-base';
 
-export class PriorityQueue<T> extends CollectionArrayBase<T> {
+import { IQueue } from './interfaces/iqueue';
+
+// export class PriorityQueue<T extends IComparable<T>> extends CollectionArrayBase<T> {
+export class PriorityQueue<T> extends CollectionArrayBase<T> implements IQueue<T> {
 	// fnComparator:
 	// Returns true if item1 has a higher priority than item2.
 	// Returns false if item2 has a higher priority than item1.
@@ -91,9 +94,10 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> {
 		this.upHeap(this.size - 1);
 	}
 
-	public dequeue(): T {
+	public dequeue(): T | undefined {
 		if (this.items.length === 0) {
-			throw new Error('PriorityQueue.dequeue() : The queue is empty.');
+			// throw new Error('PriorityQueue.dequeue() : The queue is empty.');
+			return undefined;
 		}
 
 		const result = this.items[0];

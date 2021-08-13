@@ -2,7 +2,9 @@
 
 import { CollectionArrayBase } from './collection-array-base';
 
-export class Queue<T> extends CollectionArrayBase<T> {
+import { IQueue } from './interfaces/iqueue';
+
+export class Queue<T> extends CollectionArrayBase<T> implements IQueue<T> {
 	public enqueue(item: T): void {
 		this.items.push(item);
 	}
