@@ -2,11 +2,11 @@
 
 'use strict';
 
-import { createSet, Set } from '../..';
+import { createSet } from '../..';
 
 test('Set test 1', () => {
 	// Arrange
-	const set = new Set<number>();
+	const set = createSet<number>();
 
 	// Act
 	// Assert
@@ -16,7 +16,7 @@ test('Set test 1', () => {
 
 test('Set test 2', () => {
 	// Arrange
-	const set = new Set<number>();
+	const set = createSet<number>();
 	const item1 = 2;
 	const item2 = 3;
 	const item3 = 5;
@@ -38,7 +38,7 @@ test('Set test 2', () => {
 
 test('Set test 3', () => {
 	// Arrange
-	const set = new Set<number>();
+	const set = createSet<number>();
 	const item1 = 2;
 	const item2 = 3;
 	const item3 = 5;
@@ -65,7 +65,7 @@ test('Set test 3', () => {
 
 test('Set test 4', () => {
 	// Arrange
-	const set = new Set<number>();
+	const set = createSet<number>();
 	const item1 = 2;
 	const item2 = 3;
 	const item3 = 5;

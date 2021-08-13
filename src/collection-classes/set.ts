@@ -4,10 +4,10 @@ import { CollectionArrayBase, getEqualityComparisonFunction } from './collection
 
 import { IImmutableSet, ISet } from './interfaces/iset';
 
-const typenameSet = 'Set';
+const typenameSet = 'ThawSet';
 
-export function isSet<T>(obj: unknown): obj is Set<T> {
-	const otherSet = obj as Set<T>;
+export function isSet<T>(obj: unknown): obj is ThawSet<T> {
+	const otherSet = obj as ThawSet<T>;
 
 	return typeof otherSet !== 'undefined' && otherSet.typename === typenameSet;
 }
@@ -16,7 +16,7 @@ export function isSet<T>(obj: unknown): obj is Set<T> {
 // for custom equality comparisons. We want to ensure that we use our own
 // Set<T> class. It helps if we access Sets through our ISet<T> interface.
 
-export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
+class ThawSet<T> extends CollectionArrayBase<T> implements ISet<T> {
 	// Static methods
 
 	// public static createFromArray<U>(array: U[]): ISet<U> { // Deprecated
@@ -182,5 +182,5 @@ export class Set<T> extends CollectionArrayBase<T> implements ISet<T> {
 }
 
 export function createSet<T>(iterable?: Iterable<T>): ISet<T> {
-	return new Set<T>(iterable);
+	return new ThawSet<T>(iterable);
 }
