@@ -2,19 +2,36 @@
 
 import { CollectionArrayBase } from './collection-array-base';
 
+import { IComparable, isIComparable } from '../interfaces/icomparable';
+
 import { IQueue } from './interfaces/iqueue';
 
-// export class PriorityQueue<T extends IComparable<T>> extends CollectionArrayBase<T> {
+// export class PriorityQueue<T extends IComparable<T>>
 export class PriorityQueue<T> extends CollectionArrayBase<T> implements IQueue<T> {
 	// fnComparator:
 	// Returns true if item1 has a higher priority than item2.
 	// Returns false if item2 has a higher priority than item1.
+	private readonly fnComparator: (item1: T, item2: T) => boolean;
 
-	constructor(
-		private readonly fnComparator: (item1: T, item2: T) => boolean,
-		iterable?: Iterable<T>
-	) {
+	constructor(fnComparator?: (item1: T, item2: T) => boolean, iterable?: Iterable<T>) {
 		super(iterable);
+
+		// TODO? : If fnComparator is undefined, can we use
+		// getEqualityComparisonFunction() to try to get a comparator
+		// based on compareTo() from IComparable<T> ?
+
+		if (typeof fnComparator !== 'undefined') {
+			this.fnComparator = fnComparator;
+		} else {
+			if (!this.items.every(isIComparable)) {
+				throw new Error(
+					'PriorityQueue<T> constructor: fnComparator is undefined and not every item is isIComparable'
+				);
+			}
+
+			this.fnComparator = (item1: T, item2: T) =>
+				(item1 as unknown as IComparable<T>).compareTo(item2) > 0;
+		}
 	}
 
 	private upHeap(index: number): void {
@@ -26,6 +43,8 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> implements IQueue<T
 
 			const elementAtIndex = this.items[index];
 			const elementAtNextIndex = this.items[nextIndex];
+
+			// const fnComparator = ifDefinedThenElse(this.fnComparator, (elementAtIndex as IComparable<T>).compareTo);
 
 			if (this.fnComparator(elementAtNextIndex, elementAtIndex)) {
 				break;
