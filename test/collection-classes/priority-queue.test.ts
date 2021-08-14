@@ -43,15 +43,8 @@ test('Priority Queue iterator test', () => {
 	priorityQueue.enqueue(item1);
 	priorityQueue.enqueue(item2);
 	priorityQueue.enqueue(item3);
+	priorityQueue.enqueue(item4);
 
-	// const iterator = priorityQueue.getIterator();
-
-	priorityQueue.enqueue(item4); // The iterator above should not see this value
-
-	// const dequeuedValue1 = iterator.next();
-	// const dequeuedValue2 = iterator.next();
-	// const dequeuedValue3 = iterator.next();
-	// const dequeuedValue4 = iterator.next();
 	const dequeuedValues: number[] = [];
 
 	while (!priorityQueue.isEmpty()) {
@@ -64,6 +57,8 @@ test('Priority Queue iterator test', () => {
 	expect(dequeuedValues[0]).toEqual(item4);
 	expect(dequeuedValues[1]).toEqual(item2);
 	expect(dequeuedValues[2]).toEqual(item3);
-	// expect(dequeuedValue4).toEqual(undefined);
 	expect(dequeuedValues[3]).toEqual(item1);
 });
+
+// test('Priority Queue IComparable<T> test', () => {
+// });
