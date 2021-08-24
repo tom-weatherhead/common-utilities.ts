@@ -12,6 +12,7 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> implements IQueue<T
 	// Returns true if item1 has a higher priority than item2.
 	// Returns false if item2 has a higher priority than item1.
 	private readonly fnComparator: (item1: T, item2: T) => boolean;
+	private readonly requireIComparable: boolean = false;
 
 	constructor(fnComparator?: (item1: T, item2: T) => boolean, iterable?: Iterable<T>) {
 		super(iterable);
@@ -24,11 +25,13 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> implements IQueue<T
 			this.fnComparator = fnComparator;
 		} else {
 			if (!this.items.every(isIComparable)) {
+				// PriorityQueueException
 				throw new Error(
 					'PriorityQueue<T> constructor: fnComparator is undefined and not every item is isIComparable'
 				);
 			}
 
+			this.requireIComparable = true;
 			this.fnComparator = (item1: T, item2: T) =>
 				(item1 as unknown as IComparable<T>).compareTo(item2) > 0;
 		}
@@ -106,6 +109,11 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> implements IQueue<T
 	}
 
 	public enqueue(item: T): void {
+		if (this.requireIComparable && !isIComparable(item)) {
+			// PriorityQueueException
+			throw new Error('PriorityQueue<T>.enqueue() : item is not IComparable');
+		}
+
 		this.items.push(item);
 
 		// Now: Restore the heap condition throughout the heap by propagating
