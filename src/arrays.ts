@@ -71,6 +71,16 @@ export function arrayIncludes<T>(array: T[], element: T): boolean {
 	return array.indexOf(element) >= 0;
 }
 
+export function appendIfNotFound<T>(array: T[], ...elements: T[]): T[] {
+	for (const element of elements) {
+		if (!arrayIncludes(array, element)) {
+			array.push(element);
+		}
+	}
+
+	return array;
+}
+
 export function removeDuplicatesFromArray<T>(array: T[]): T[] {
 	// See the discussion at https://gist.github.com/telekosmos/3b62a31a5c43f40849bb
 
@@ -87,6 +97,8 @@ export function removeDuplicatesFromArray<T>(array: T[]): T[] {
 		// (x: T[], y: T) => x.indexOf(y) >= 0 ? x : [...x, y],
 		[]
 	); // Yes. From svnpenn.
+
+	// ThAW 2021-10-29 : return appendIfNotFound([], ...array);
 }
 
 export function flattenOneLevel<T>(a: Array<T[] | T>, b: T[] = []): T[] {
@@ -329,15 +341,8 @@ export function transpose2d<T>(matrix: T[][]): T[][] {
 // 	}, []);
 // }
 
-// TODO: Function performed on arrays of Booleans:
-// - all
-// - any
-// - none
-// - notAll
-// - some
-// -
-
-export function all(array: boolean[]): boolean {
+// export function all(array: boolean[]): boolean {
+export function all(array: Iterable<boolean>): boolean {
 	for (const value of array) {
 		if (!value) {
 			return false;
@@ -347,7 +352,8 @@ export function all(array: boolean[]): boolean {
 	return true;
 }
 
-export function any(array: boolean[]): boolean {
+// export function any(array: boolean[]): boolean {
+export function any(array: Iterable<boolean>): boolean {
 	for (const value of array) {
 		if (value) {
 			return true;
@@ -357,7 +363,8 @@ export function any(array: boolean[]): boolean {
 	return false;
 }
 
-export function none(array: boolean[]): boolean {
+// export function none(array: boolean[]): boolean {
+export function none(array: Iterable<boolean>): boolean {
 	for (const value of array) {
 		if (value) {
 			return false;
@@ -367,7 +374,8 @@ export function none(array: boolean[]): boolean {
 	return true;
 }
 
-export function notAll(array: boolean[]): boolean {
+// export function notAll(array: boolean[]): boolean {
+export function notAll(array: Iterable<boolean>): boolean {
 	for (const value of array) {
 		if (!value) {
 			return true;

@@ -2,7 +2,7 @@
 
 export function safeJsonParse<T>(str: string, dflt?: T): T {
 	let result: T | undefined;
-	let errorToThrow = new Error('safeJsonParse() : Typecast error');
+	let errorToThrow: unknown = new Error('safeJsonParse() : Typecast error');
 
 	try {
 		result = JSON.parse(str) as T;
