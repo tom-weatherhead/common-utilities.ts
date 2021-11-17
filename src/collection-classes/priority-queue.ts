@@ -2,7 +2,7 @@
 
 import { CollectionArrayBase } from './collection-array-base';
 
-import { /* IComparable, */ isIComparable } from '../interfaces/icomparable';
+import { IComparable, isIComparable } from '../interfaces/icomparable';
 
 import { IQueue } from './interfaces/iqueue';
 
@@ -11,69 +11,89 @@ export class PriorityQueue<T> extends CollectionArrayBase<T> implements IQueue<T
 	// fnComparator:
 	// Returns true if item1 has a higher priority than item2.
 	// Returns false if item2 has a higher priority than item1.
-	// private readonly fnComparator: (item1: T, item2: T) => boolean;
+	private readonly fnComparator: (item1: T, item2: T) => boolean;
 	private readonly requireIComparable: boolean = false;
 
-	// constructor(fnComparator?: (item1: T, item2: T) => boolean, iterable?: Iterable<T>) {
-	// 	super(iterable);
-	//
-	// 	// TODO? : If fnComparator is undefined, can we use
-	// 	// getEqualityComparisonFunction() to try to get a comparator
-	// 	// based on compareTo() from IComparable<T> ?
-	//
-	// 	if (typeof fnComparator !== 'undefined') {
-	// 		console.log(
-	// 			'PriorityQueue<T> constructor: typeof fnComparator is:',
-	// 			typeof fnComparator
-	// 		);
-	//
-	// 		this.fnComparator = fnComparator;
-	// 	} else {
-	// 		if (!this.items.every(isIComparable)) {
-	// 			// PriorityQueueException
-	// 			throw new Error(
-	// 				'PriorityQueue<T> constructor: fnComparator is undefined and not every item is isIComparable'
-	// 			);
-	// 		}
-	//
-	// 		console.log(
-	// 			'PriorityQueue<T> constructor: Creating fnComparator using IComparable<T>'
-	// 		);
-	//
-	// 		this.requireIComparable = true;
-	// 		this.fnComparator = (item1: T, item2: T) =>
-	// 			(item1 as unknown as IComparable<T>).compareTo(item2) > 0;
-	// 	}
-	//
-	// 	if (typeof this.fnComparator === 'undefined') {
-	// 		throw new Error('PriorityQueue<T> constructor: this.fnComparator is undefined.');
-	// 	} else if (typeof this.fnComparator !== 'function') {
-	// 		throw new Error(
-	// 			`PriorityQueue<T> constructor: this.fnComparator is not a function; it is a ${typeof this
-	// 				.fnComparator}.`
-	// 		);
-	// 	} else {
-	// 		console.log(
-	// 			'PriorityQueue<T> constructor: typeof this.fnComparator is:',
-	// 			typeof this.fnComparator
-	// 		);
-	// 	}
-	// }
+	constructor(fnComparator?: (item1: T, item2: T) => boolean, iterable?: Iterable<T>) {
+		// super(iterable);
 
-	constructor(
-		private readonly fnComparator: (item1: T, item2: T) => boolean,
-		iterable?: Iterable<T>
-	) {
-		super(iterable);
+		// Do not pass iterable; we cannot add items to the queue until
+		// we are certain that we have a this.fnComparator function.
+		super();
 
-		if (typeof fnComparator === 'undefined') {
-			throw new Error('PriorityQueue<T> constructor: fnComparator is undefined.');
+		// TODO? : If fnComparator is undefined, can we use
+		// getEqualityComparisonFunction() to try to get a comparator
+		// based on compareTo() from IComparable<T> ?
+
+		if (typeof fnComparator !== 'undefined') {
+			// console.log(
+			// 	'PriorityQueue<T> constructor: typeof fnComparator is:',
+			// 	typeof fnComparator
+			// );
+
+			this.fnComparator = fnComparator;
+		} else {
+			if (!this.items.every(isIComparable)) {
+				// PriorityQueueException
+				throw new Error(
+					'PriorityQueue<T> constructor: fnComparator is undefined and not every item is isIComparable'
+				);
+			}
+
+			// console.log(
+			// 	'PriorityQueue<T> constructor: Creating fnComparator using IComparable<T>'
+			// );
+
+			this.requireIComparable = true;
+			this.fnComparator = (item1: T, item2: T) =>
+				(item1 as unknown as IComparable<T>).compareTo(item2) > 0;
 		}
 
 		if (typeof this.fnComparator === 'undefined') {
 			throw new Error('PriorityQueue<T> constructor: this.fnComparator is undefined.');
+		} else if (typeof this.fnComparator !== 'function') {
+			throw new Error(
+				`PriorityQueue<T> constructor: this.fnComparator is not a function; it is a ${typeof this
+					.fnComparator}.`
+			);
+		} else {
+			// console.log(
+			// 	'PriorityQueue<T> constructor: typeof this.fnComparator is:',
+			// 	typeof this.fnComparator
+			// );
+		}
+
+		if (typeof iterable !== 'undefined') {
+			for (const item of iterable) {
+				this.protectedAdd(item);
+			}
 		}
 	}
+
+	// constructor(
+	// 	private readonly fnComparator: (item1: T, item2: T) => boolean,
+	// 	iterable?: Iterable<T>
+	// ) {
+	// 	// super(iterable);
+	//
+	// 	// Do not pass iterable; we cannot add items to the queue until
+	// 	// we are certain that we have a this.fnComparator function.
+	// 	super();
+	//
+	// 	if (typeof fnComparator === 'undefined') {
+	// 		throw new Error('PriorityQueue<T> constructor: fnComparator is undefined.');
+	// 	}
+	//
+	// 	if (typeof this.fnComparator === 'undefined') {
+	// 		throw new Error('PriorityQueue<T> constructor: this.fnComparator is undefined.');
+	// 	}
+	//
+	// 	if (typeof iterable !== 'undefined') {
+	// 		for (const item of iterable) {
+	// 			this.protectedAdd(item);
+	// 		}
+	// 	}
+	// }
 
 	private upHeap(index: number): void {
 		// Now: Restore the heap condition throughout the heap by propagating

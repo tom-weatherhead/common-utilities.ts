@@ -41,19 +41,20 @@ export function createHuffmanEncoding<T>(input: Iterable<[T, number]>): [T, stri
 		t1: IHuffmanEncodingTreeNode<T>,
 		t2: IHuffmanEncodingTreeNode<T>
 	): boolean => t1.count < t2.count;
-	// const iterable: Iterable<IHuffmanEncodingTreeNode<T>> = Array.from(input).map(
-	// 	([datum, count]: [T, number]): IHuffmanEncodingTreeNode<T> => {
-	// 		return { datum, count };
-	// 	}
-	// );
-	// const pq = new PriorityQueue<IHuffmanEncodingTreeNode<T>>(fnComparator, iterable);
-	const pq = new PriorityQueue<IHuffmanEncodingTreeNode<T>>(fnComparator);
+	const iterable: Iterable<IHuffmanEncodingTreeNode<T>> = Array.from(input).map(
+		([datum, count]: [T, number]): IHuffmanEncodingTreeNode<T> => {
+			return { datum, count };
+		}
+	);
+	const pq = new PriorityQueue<IHuffmanEncodingTreeNode<T>>(fnComparator, iterable);
 
-	for (const [datum, count] of input) {
-		const foo: IHuffmanEncodingTreeNode<T> = { datum, count };
-
-		pq.enqueue(foo);
-	}
+	// const pq = new PriorityQueue<IHuffmanEncodingTreeNode<T>>(fnComparator);
+	//
+	// for (const [datum, count] of input) {
+	// 	const foo: IHuffmanEncodingTreeNode<T> = { datum, count };
+	//
+	// 	pq.enqueue(foo);
+	// }
 
 	while (pq.size > 1) {
 		const t1 = pq.dequeue();

@@ -2,7 +2,8 @@
 
 'use strict';
 
-import * as engine from '..';
+// import * as engine from '..';
+import { createHuffmanEncoding } from '..';
 
 function findEncodingForKey(key: string, data: [string, string][]): string {
 	const result = data.find((datum: [string, string]) => datum[0] === key);
@@ -11,7 +12,7 @@ function findEncodingForKey(key: string, data: [string, string][]): string {
 		throw new Error(`HuffmanEncoding: findEncodingForKey('${key}') failed.`);
 	}
 
-	console.log(`The Huffman encoding for '${key}' is '${result[1]}'.`);
+	// console.log(`The Huffman encoding for '${key}' is '${result[1]}'.`);
 
 	return result[1];
 }
@@ -27,9 +28,19 @@ test('HuffmanEncoding', () => {
 	];
 
 	// Act
-	const actualResult = engine.createHuffmanEncoding(input);
+	// const actualResult: [string, string][] = engine.createHuffmanEncoding(input);
+	const actualResult: [string, string][] = createHuffmanEncoding(input);
 
 	// Assert
+
+	// E.g.:
+
+	// 'a' gets encoded as '000'.
+	// 'b' gets encoded as '1'.
+	// 'c' gets encoded as '011'.
+	// 'd' gets encoded as '001'.
+	// 'e' gets encoded as '010'.
+
 	expect(actualResult.length).toEqual(5);
 
 	expect(findEncodingForKey('a', actualResult).length).toEqual(3);
