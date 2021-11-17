@@ -14,6 +14,7 @@ export * from './dates';
 export * from './functions';
 export * from './functors';
 // export * from './http';
+export * from './huffman';
 export * from './json';
 export * from './lazy';
 export * from './numbers';

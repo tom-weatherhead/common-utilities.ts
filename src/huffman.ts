@@ -17,12 +17,12 @@ function treeTraversal<T>(
 	if (typeof treeNode.datum !== 'undefined') {
 		result.push([treeNode.datum, bitString]);
 
-		if (
-			typeof treeNode.leftChild === 'undefined' ||
-			typeof treeNode.rightChild === 'undefined'
-		) {
-			throw new Error('HuffmanEncoding treeTraversal: Children should be undefined.');
-		}
+		// if (
+		// 	typeof treeNode.leftChild === 'undefined' ||
+		// 	typeof treeNode.rightChild === 'undefined'
+		// ) {
+		// 	throw new Error('HuffmanEncoding treeTraversal: Children should be undefined.');
+		// }
 	} else if (
 		typeof treeNode.leftChild !== 'undefined' &&
 		typeof treeNode.rightChild !== 'undefined'
@@ -37,12 +37,23 @@ function treeTraversal<T>(
 }
 
 export function createHuffmanEncoding<T>(input: Iterable<[T, number]>): [T, string][] {
-	const fnComparator = (t1: IHuffmanEncodingTreeNode<T>, t2: IHuffmanEncodingTreeNode<T>) =>
-		t1.count < t2.count;
-	const iterable = Array.from(input).map(([datum, count]: [T, number]) => {
-		return { datum, count };
-	});
-	const pq = new PriorityQueue<IHuffmanEncodingTreeNode<T>>(fnComparator, iterable);
+	const fnComparator = (
+		t1: IHuffmanEncodingTreeNode<T>,
+		t2: IHuffmanEncodingTreeNode<T>
+	): boolean => t1.count < t2.count;
+	// const iterable: Iterable<IHuffmanEncodingTreeNode<T>> = Array.from(input).map(
+	// 	([datum, count]: [T, number]): IHuffmanEncodingTreeNode<T> => {
+	// 		return { datum, count };
+	// 	}
+	// );
+	// const pq = new PriorityQueue<IHuffmanEncodingTreeNode<T>>(fnComparator, iterable);
+	const pq = new PriorityQueue<IHuffmanEncodingTreeNode<T>>(fnComparator);
+
+	for (const [datum, count] of input) {
+		const foo: IHuffmanEncodingTreeNode<T> = { datum, count };
+
+		pq.enqueue(foo);
+	}
 
 	while (pq.size > 1) {
 		const t1 = pq.dequeue();
