@@ -62,3 +62,9 @@ export function delayAndResolveWithValue<T>(ms: number, t: T): Promise<T> {
 		}
 	);
 }
+
+export async function sleep(ms: number): Promise<void> {
+	// ms is the number of milliseconds for which to sleep.
+
+	await new Promise((r) => setTimeout(r, ms));
+}
