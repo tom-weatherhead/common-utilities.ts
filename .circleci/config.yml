@@ -1,10 +1,8 @@
-version: '2.1'
+version: 2
 orbs:
   node: circleci/node@4.5.1
 jobs:
   test:
-    environment:
-      CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
     executor:
       name: node/default
       tag: '16.4'
@@ -20,7 +18,11 @@ jobs:
       - run: npm run build
       - run: npm run rollup
       - run: npm test
-      - run: ./cc-test-reporter after-build -t lcov --debug --exit-code $?
+      - run: ./cc-test-reporter after-build -t lcov
+      # Upload results
+      - store_artifacts: # upload test coverage as artifact
+          path: ./coverage/lcov.info
+          prefix: tests
 workflows:
   test_my_app:
     jobs:
