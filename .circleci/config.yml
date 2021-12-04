@@ -4,7 +4,7 @@ orbs:
 jobs:
   test:
     environment:
-      CC_TEST_REPORTER_ID: YOUR_REPO_CC_TEST_REPORTER_ID
+      CC_TEST_REPORTER_ID: CC_TEST_REPORTER_ID
     executor:
       name: node/default
       tag: '16.4'
