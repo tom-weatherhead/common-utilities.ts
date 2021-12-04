@@ -3,17 +3,30 @@ orbs:
   node: circleci/node@4.5.1
 jobs:
   test:
+    environment:
+      CC_TEST_REPORTER_ID: YOUR_REPO_CC_TEST_REPORTER_ID
     executor:
       name: node/default
       tag: '16.4'
     steps:
       - checkout
       - node/install-packages
+      - run:
+          name: Set up Code Climate test reporter
+          command: |
+          # download test reporter as a static binary
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter before-build
       - run: npm run prettier-check
       - run: npm run lint
       - run: npm run build
       - run: npm run rollup
       - run: npm test
+      - run:
+          name: After running tests
+          command: |
+            ./cc-test-reporter after-build -t lcov --debug --exit-code $?
 workflows:
   test_my_app:
     jobs:

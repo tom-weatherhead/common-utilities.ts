@@ -1,6 +1,6 @@
 {
 	"name": "thaw-common-utilities.ts",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"description": "Common utility functions implemented in TypeScript.",
 	"keywords": [
 		"arrays",
