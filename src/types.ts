@@ -49,17 +49,20 @@ export const isFunction: (obj: unknown) => boolean = factory_fnIsType('Function'
 const isNumberType: (obj: unknown) => boolean = factory_fnIsType('Number');
 // export const isNumber = arg => isNumberType(arg) && arg === arg; // This works too, since NaN !== NaN.
 export const isNumber: (obj: unknown) => boolean = (arg) =>
-	isNumberType(arg) && !Number.isNaN(arg);
+	isNumberType(arg) && !Number.isNaN(arg as number);
 // && typeof arg === 'number'
 // && Number.isFinite(arg);
 
 // export function isSafeNumber(arg: unknown): boolean {
-// 	return (
-// 		typeof arg === 'number' && !Number.isNaN(arg) && Number.isFinite(arg)
-// 	);
+// 	return typeof arg === 'number' && !Number.isNaN(arg) && Number.isFinite(arg);
 // }
 export const isSafeNumber: (obj: unknown) => boolean = (arg) =>
-	isNumber(arg) && Number.isFinite(arg);
+	isNumber(arg) && Number.isFinite(arg as number);
+
+// isInteger() is in numbers.ts
+// export function isInteger(arg: unknown): boolean {
+// 	return typeof arg === 'number' && Number.isInteger(arg);
+// }
 
 export const isObject: (obj: unknown) => boolean = factory_fnIsType('Object');
 

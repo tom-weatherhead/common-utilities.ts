@@ -19,8 +19,7 @@ jobs:
       - run: npm run rollup
       - run: npm test
       - run: ./cc-test-reporter after-build -t lcov
-      # Upload results
-      - store_artifacts: # upload test coverage as artifact
+      - store_artifacts: # Upload the test coverage results as an artifact
           path: ./coverage/lcov.info
 workflows:
   test_my_app:

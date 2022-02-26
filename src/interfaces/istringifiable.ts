@@ -5,7 +5,10 @@ export interface IStringifiable {
 }
 
 export function isIStringifiable(obj: unknown): obj is IStringifiable {
-	const iec = obj as IStringifiable;
+	const isf = obj as IStringifiable;
 
-	return typeof iec !== 'undefined' && typeof iec.toString === 'function';
+	return typeof isf !== 'undefined' && typeof isf.toString === 'function';
+	// ... and ensure that isf.toString() takes exactly zero parameters:
+	// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
+	// && isf.toString.length === 0;
 }
