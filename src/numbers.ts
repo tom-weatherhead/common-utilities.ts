@@ -137,6 +137,11 @@ export function zeroPadNumber(n: number, minLength: number): string {
 
 export function zeroExtendNumber(n: number, minNumberOfDecimalPlaces: number): string {
 	let str = n.toString();
+
+	if (Number.isNaN(n)) {
+		return str;
+	}
+
 	let indexOfDecimalPoint = str.indexOf('.');
 
 	if (indexOfDecimalPoint < 0) {

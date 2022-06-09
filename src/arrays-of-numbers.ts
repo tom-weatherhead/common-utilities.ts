@@ -184,7 +184,7 @@ export function standardDeviation(arg: number[]): number {
 
 	// See https://www.mathsisfun.com/data/standard-deviation-formulas.html :
 
-	// 1) Celcualte the mean
+	// 1) Calcualte the mean
 	// 2) Array of (pointwise) differences
 	// 3) Array of squares of differences
 	// 4) Sum of array of squares of differences

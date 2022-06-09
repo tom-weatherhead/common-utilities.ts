@@ -23,9 +23,7 @@ export function copySpecifiedObjectProperties<T>(
 	dst: ObjectType<T> = {}
 ): ObjectType<T> {
 	for (const property of propertyList.filter((p: string) => typeof src[p] !== 'undefined')) {
-		// .for Each((property) => {
 		dst[property] = src[property];
-		// });
 	}
 
 	return dst;
@@ -34,14 +32,11 @@ export function copySpecifiedObjectProperties<T>(
 export function combineObjects<T>(...objects: ObjectType<T>[]): ObjectType<T> {
 	const combinedObject: ObjectType<T> = {};
 
-	// objects.for Each((object) => {
 	for (const object of objects) {
-		// Object.keys(object).for Each((key) => {
 		for (const key of Object.keys(object)) {
 			combinedObject[key] = object[key];
 		}
-		// });
-	} // );
+	}
 
 	return combinedObject;
 }
