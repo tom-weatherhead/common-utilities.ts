@@ -4,6 +4,50 @@
 
 import * as engine from '..';
 
+test('NaN', () => {
+	// Arrange
+	const n = NaN;
+
+	// Act
+	// Assert
+	expect(Number.isNaN(n)).toBe(true);
+	expect(Number.isFinite(n)).toBe(false);
+	expect(Number.isSafeInteger(n)).toBe(false);
+	expect(n > 0).toBe(false);
+	expect(n < 0).toBe(false);
+	expect(n == 0).toBe(false);
+	expect(n === 0).toBe(false);
+	expect(n != 0).toBe(true);
+	expect(n !== 0).toBe(true);
+});
+
+// test('isInteger', () => { ... });
+
+test('isPositiveNumber', () => {
+	// Arrange
+	// Act
+	// Assert
+	expect(engine.isPositiveNumber(NaN)).toBe(false);
+	expect(engine.isPositiveNumber(Infinity)).toBe(false);
+	expect(engine.isPositiveNumber(-Infinity)).toBe(false);
+	// expect(engine.isPositiveNumber(Epsilon)).toBe(false);
+	// expect(engine.isPositiveNumber(-Epsilon)).toBe(false);
+	expect(engine.isPositiveNumber(0)).toBe(false);
+	expect(engine.isPositiveNumber(-1)).toBe(false);
+	expect(engine.isPositiveNumber(-2.5)).toBe(false);
+
+	expect(engine.isPositiveNumber(1)).toBe(true);
+	expect(engine.isPositiveNumber(2.5)).toBe(true);
+	expect(engine.isPositiveNumber(3.14159)).toBe(true);
+});
+
+// test('isPositiveInteger', () => { ... });
+// test('isNegativeNumber', () => { ... });
+// test('isNegativeInteger', () => { ... });
+// test('isNonNegativeNumber', () => { ... });
+// test('isNonNegativeInteger', () => { ... });
+// test('', () => { ... });
+
 test('fnAddition', () => {
 	// Arrange
 	const expectedValue = 5;

@@ -4,7 +4,7 @@ import { createArrayFromElement, getLastElementOfArray, max, min } from './array
 
 import { pointwise } from './functions';
 
-import { product, sum } from './numbers';
+import { clamp, product, sum } from './numbers';
 
 import { clone } from './objects';
 
@@ -271,15 +271,15 @@ export function coefficientOfDetermination(x: number[], y: number[]): number {
 	return (numerator * numerator) / denominatorSquared;
 }
 
-export function clamp(value: number, minimum: number, maximum: number): number {
-	if (value < minimum) {
-		return minimum;
-	} else if (value > maximum) {
-		return maximum;
-	} else {
-		return value;
-	}
-}
+// export function clamp(value: number, minimum: number, maximum: number): number {
+// 	if (value < minimum) {
+// 		return minimum;
+// 	} else if (value > maximum) {
+// 		return maximum;
+// 	} else {
+// 		return value;
+// 	}
+// }
 
 // Correlation Coefficient: See https://www.investopedia.com/terms/c/correlationcoefficient.asp
 

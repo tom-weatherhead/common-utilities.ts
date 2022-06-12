@@ -1,16 +1,79 @@
 // github:tom-weatherhead/common-utilities.ts/src/numbers.ts
 
-// import { createArrayFromElement } from './arrays';
-
 import { replicateString } from './strings';
 
 import { isNumber, isSafeNumber } from './types';
 
-// export function isSafeNumber(arg: unknown): boolean {
-// 	return (
-// 		typeof arg === 'number' && !Number.isNaN(arg) && Number.isFinite(arg)
-// 	);
-// }
+export function ifDefinedAndNotNaNThenElse(
+	valueIn: number | undefined,
+	defaultOut: number
+): number {
+	if (typeof valueIn === 'undefined' || Number.isNaN(valueIn)) {
+		return defaultOut;
+	}
+
+	return valueIn;
+}
+
+export function isInteger(n: unknown): boolean {
+	// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger
+
+	return typeof n === 'number' && Number.isSafeInteger(n);
+}
+
+// **** Positive ****
+// TODO: Eliiminate redundancy in these functions
+
+// export const isPositive = (n: number): boolean => isNumber(n) && n > 0;
+export function isPositive(n?: number): boolean {
+	return typeof n !== 'undefined' && !Number.isNaN(n) && n > 0;
+}
+
+export function isPositiveNumber(n: unknown): boolean {
+	// return isNumber(n) && (n as number) > 0;
+
+	// n > 0 is false if n is NaN
+	return typeof n === 'number' && !Number.isNaN(n) && Number.isFinite(n) && n > 0;
+}
+
+export function isPositiveInteger(n: unknown): boolean {
+	// return isInteger(n) && (n as number) > 0;
+	return typeof n === 'number' && Number.isSafeInteger(n) && n > 0;
+}
+
+export function ifPositiveThenElse(n: number | undefined, defaultValue: number): number {
+	return typeof n !== 'undefined' && isPositive(n) ? n : defaultValue;
+}
+
+export function ifPositiveIntegerThenElse(n: number | undefined, defaultValue: number): number {
+	// return typeof n !== 'undefined' &&
+	// 	isPositive(n) &&
+	// 	Number.isSafeInteger(n) // &&
+	// 	? n : defaultValue;
+	return typeof n === 'number' && Number.isSafeInteger(n) && n > 0 ? n : defaultValue;
+}
+
+export const isNonPositive = (n: number): boolean => isNumber(n) && n <= 0;
+
+// **** Negative ****
+
+// export const isNegative = (n: number): boolean => isNumber(n) && n < 0;
+export function isNegative(n?: number): boolean {
+	return typeof n !== 'undefined' && !Number.isNaN(n) && n < 0;
+}
+export const isNonNegative = (n: number): boolean => isNumber(n) && n >= 0;
+
+export function isNonNegativeNumber(n: unknown): boolean {
+	// return isNumber(n) && (n as number) >= 0;
+	return typeof n === 'number' && !Number.isNaN(n) && Number.isFinite(n) && n >= 0;
+}
+
+export function isNonNegativeInteger(n: unknown): boolean {
+	// return isInteger(n) && (n as number) >= 0;
+	return typeof n === 'number' && Number.isSafeInteger(n) && n >= 0;
+}
+
+// **** Numeric Comparisons : < <= > >= === !== ****
 
 export const isGreaterThan = (x: number, y: number): boolean =>
 	isNumber(x) && isNumber(y) && x > y;
@@ -19,12 +82,6 @@ export const isLessThan = (x: number, y: number): boolean =>
 
 export const fnIsGreaterThan = isGreaterThan;
 export const fnIsLessThan = isLessThan;
-
-export const isNegative = (n: number): boolean => isNumber(n) && n < 0;
-export const isNonNegative = (n: number): boolean => isNumber(n) && n >= 0;
-
-export const isPositive = (n: number): boolean => isNumber(n) && n > 0;
-export const isNonPositive = (n: number): boolean => isNumber(n) && n <= 0;
 
 // **** negate ****
 export const negate = (n: number): number => -n;
@@ -89,16 +146,18 @@ export function getSign(n: number): number {
 	}
 }
 
+export function clamp(value: number, minimum: number, maximum: number): number {
+	if (value < minimum) {
+		return minimum;
+	} else if (value > maximum) {
+		return maximum;
+	} else {
+		return value;
+	}
+}
+
 // range() : Stolen from https://stackoverflow.com/questions/36947847/how-to-generate-range-of-numbers-from-0-to-n-in-es2015-only#comment68007528_36953272
 
-/**
- * range
- *
- * @method range
- * @param  {Int}   start				The smallest integer in the array to be generated
- * @param  {Int}   end					The largest integer in the array to be generated
- * @return {Array<Int>}					The integers from start to end, inclusive, in increasing order
- */
 // function range (start, end) {
 // 	// return [...Array(end - start + 1).keys()].map(n => start + n);
 
@@ -109,6 +168,12 @@ export function generateNonNegativeIntegersLessThan(n: number): number[] {
 	return [...Array(n).keys()];
 }
 
+/**
+ * @method generateRange
+ * @param  {number}   start		The smallest integer in the array to be generated
+ * @param  {number}   end		The largest integer in the array to be generated
+ * @return {number[]}			The integers from start to end, inclusive, in increasing order
+ */
 export function generateRange(start: number, end: number): number[] {
 	return generateNonNegativeIntegersLessThan(end - start + 1).map((n) => start + n);
 }
@@ -235,32 +300,6 @@ export function toCurrencyString(m: number, digits = 2): string {
 	return zeroExtendNumber(roundMToNDigits(m, digits), digits);
 }
 
-// export function isInteger(n: number): boolean {
-// 	// return Number.isInteger(n);
-
-// 	return Number.isSafeInteger(n); // ThAW 2020-01-06 : Q: Which integers are not 'safe'?
-// }
-
-export function isInteger(n: unknown): boolean {
-	return typeof n === 'number' && Number.isSafeInteger(n);
-}
-
-export function isNonNegativeInteger(n: unknown): boolean {
-	return isInteger(n) && (n as number) >= 0;
-}
-
-export function isPositiveInteger(n: unknown): boolean {
-	return isInteger(n) && (n as number) > 0;
-}
-
-export function isNonNegativeNumber(n: unknown): boolean {
-	return isNumber(n) && (n as number) >= 0;
-}
-
-export function isPositiveNumber(n: unknown): boolean {
-	return isNumber(n) && (n as number) > 0;
-}
-
 export function integerDivision(n1: number, n2: number): number {
 	return parseInt(`${n1 / n2}`, 10);
 
@@ -301,15 +340,4 @@ export function randomNumberNormalDistribution(): number {
 	} while (v === 0);
 
 	return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-}
-
-export function ifDefinedAndNotNaNThenElse(
-	valueIn: number | undefined,
-	defaultOut: number
-): number {
-	if (typeof valueIn === 'undefined' || Number.isNaN(valueIn)) {
-		return defaultOut;
-	}
-
-	return valueIn;
 }
