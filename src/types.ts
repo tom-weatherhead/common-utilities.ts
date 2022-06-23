@@ -2,6 +2,11 @@
 
 // import { booleanInvertFunction, compositeFunctions } from './functions';
 
+/**
+ * @method getTypeString
+ * @param  {unknown}   obj			The data to be tested for type
+ * @return {string}					The name of the data's type
+ */
 export function getTypeString(obj: unknown): string {
 	return Object.prototype.toString.call(obj);
 
@@ -53,11 +58,9 @@ export const isNumber: (obj: unknown) => boolean = (arg) =>
 // && typeof arg === 'number'
 // && Number.isFinite(arg);
 
-// export function isSafeNumber(arg: unknown): boolean {
-// 	return typeof arg === 'number' && !Number.isNaN(arg) && Number.isFinite(arg);
-// }
-export const isSafeNumber: (obj: unknown) => boolean = (arg) =>
-	isNumber(arg) && Number.isFinite(arg as number);
+export function isSafeNumber(n: unknown): boolean {
+	return typeof n === 'number' && !Number.isNaN(n) && Number.isFinite(n);
+}
 
 // isInteger() is in numbers.ts
 // export function isInteger(arg: unknown): boolean {

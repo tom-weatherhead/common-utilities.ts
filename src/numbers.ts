@@ -4,15 +4,26 @@ import { replicateString } from './strings';
 
 import { isNumber, isSafeNumber } from './types';
 
-export function ifDefinedAndNotNaNThenElse(
-	valueIn: number | undefined,
-	defaultOut: number
-): number {
-	if (typeof valueIn === 'undefined' || Number.isNaN(valueIn)) {
-		return defaultOut;
-	}
+/**
+ * @method ifDefinedAndNotNaNThenElse
+ * @param  {unknown}   n			The data to be tested
+ * @param  {number}   defaultValue	The number to be returned if n fails the tests
+ * @return {number}					n if n passes the tests; defaultValue otherwise
+ */
+export function ifDefinedAndNotNaNThenElse(n: unknown, defaultValue: number): number {
+	// Ensure that valueIn is not any of:
+	// - undefined
+	// - NaN
+	// - Infinity
+	// - -Infinity
 
-	return valueIn;
+	// if (typeof valueIn === 'undefined' || Number.isNaN(valueIn) || !Number.isFinite(valueIn)) {
+	// 	return defaultOut;
+	// }
+	//
+	// return valueIn;
+
+	return typeof n === 'number' && !Number.isNaN(n) && Number.isFinite(n) ? n : defaultValue;
 }
 
 export function isInteger(n: unknown): boolean {
@@ -22,12 +33,12 @@ export function isInteger(n: unknown): boolean {
 }
 
 // **** Positive ****
-// TODO: Eliiminate redundancy in these functions
+// TODO: Eliminate redundancy in these functions
 
 // export const isPositive = (n: number): boolean => isNumber(n) && n > 0;
-export function isPositive(n?: number): boolean {
-	return typeof n !== 'undefined' && !Number.isNaN(n) && n > 0;
-}
+// export function isPositive(n?: number): boolean {
+// 	return typeof n !== 'undefined' && !Number.isNaN(n) && n > 0;
+// }
 
 export function isPositiveNumber(n: unknown): boolean {
 	// return isNumber(n) && (n as number) > 0;
@@ -41,19 +52,30 @@ export function isPositiveInteger(n: unknown): boolean {
 	return typeof n === 'number' && Number.isSafeInteger(n) && n > 0;
 }
 
-export function ifPositiveThenElse(n: number | undefined, defaultValue: number): number {
-	return typeof n !== 'undefined' && isPositive(n) ? n : defaultValue;
+// export function ifPositiveThenElse(n: number | undefined, defaultValue: number): number {
+// 	return typeof n !== 'undefined' && isPositive(n) ? n : defaultValue;
+// }
+export function ifPositiveNumberThenElse(n: unknown, defaultValue: number): number {
+	return typeof n === 'number' && !Number.isNaN(n) && Number.isFinite(n) && n > 0
+		? n
+		: defaultValue;
 }
 
-export function ifPositiveIntegerThenElse(n: number | undefined, defaultValue: number): number {
-	// return typeof n !== 'undefined' &&
-	// 	isPositive(n) &&
-	// 	Number.isSafeInteger(n) // &&
-	// 	? n : defaultValue;
+// export function ifPositiveIntegerThenElse(n: number | undefined, defaultValue: number): number {
+// 	// return typeof n !== 'undefined' &&
+// 	// 	isPositive(n) &&
+// 	// 	Number.isSafeInteger(n) // &&
+// 	// 	? n : defaultValue;
+// 	return typeof n === 'number' && Number.isSafeInteger(n) && n > 0 ? n : defaultValue;
+// }
+export function ifPositiveIntegerThenElse(n: unknown, defaultValue: number): number {
 	return typeof n === 'number' && Number.isSafeInteger(n) && n > 0 ? n : defaultValue;
 }
 
-export const isNonPositive = (n: number): boolean => isNumber(n) && n <= 0;
+// export const isNonPositive = (n: number): boolean => isNumber(n) && n <= 0;
+export function isNonPositiveNumber(n: unknown): boolean {
+	return typeof n === 'number' && !Number.isNaN(n) && Number.isFinite(n) && n <= 0;
+}
 
 // **** Negative ****
 
@@ -135,6 +157,8 @@ export function safeDivide(a: number, b: number, dflt = 0): number {
 export const fnSafeDivision = safeDivide;
 
 export function getSign(n: number): number {
+	// TODO: Compare this to Math.sign()
+
 	if (!isNumber(n)) {
 		return NaN;
 	} else if (n > 0) {

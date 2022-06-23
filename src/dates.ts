@@ -2,6 +2,11 @@
 
 import { zeroPadNumber } from './numbers';
 
+/**
+ * @method getDateString
+ * @param  {Date}   	date		A date
+ * @return {string}					A string representation of the date (local, not UT)
+ */
 export function getDateString(date: Date): string {
 	// if (!date || !isDate(date)) {
 	// 	date = new Date();

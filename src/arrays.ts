@@ -5,6 +5,11 @@
 
 import { getRandomNonNegativeInteger, sum } from './numbers';
 
+/**
+ * @method cloneArray
+ * @param  {T[]}   array			An array
+ * @return {T[]}					A shallow copy of the array that was passed in
+ */
 export function cloneArray<T>(array: T[]): T[] {
 	return array.slice(0); // See https://davidwalsh.name/javascript-clone-array
 	// TODO: Try: return array.slice();
